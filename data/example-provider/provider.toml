@@ -1,0 +1,18 @@
+schema = "provider_v1"
+time_created = "2024-01-01T00:00:00Z"
+name = "example-provider"
+contact_email = "support@example.com"
+homepage = "https://example.com"
+terms_of_service = "https://example.com/terms"
+
+[[documents]]
+title = "Company Logo"
+mime_type = "svg"
+category = "logo"
+external_url = "https://example.com/logo.svg"
+is_active = true
+is_public = true
+
+[provider_access_info]
+api_endpoint = "https://api.example.com/v1"
+api_key = "your-upstream-api-key-here"

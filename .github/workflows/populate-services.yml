@@ -1,0 +1,126 @@
+name: Populate Services
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: "0 2 * * *"
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  populate-services:
+    name: Populate Services Data
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install unitysvc-services
+
+      - name: Execute populate services command
+        run: |
+          echo "Running populate services command..."
+          # Use the unitysvc_services populate command
+          unitysvc_services populate
+
+      - name: Format generated files
+        run: |
+          echo "Formatting generated files using pre-commit hooks..."
+          # Install pre-commit if not already installed
+          pip install pre-commit
+          # Run pre-commit hooks to format JSON files with proper indentation
+          pre-commit run pretty-format-json --all-files || true
+          # Run all formatting hooks to ensure consistency
+          pre-commit run --all-files || true
+
+      - name: Check for changes in data directory
+        id: check_changes
+        run: |
+          echo "Checking for changes in data directory..."
+          git add data/
+          if git diff --cached --exit-code data/; then
+            echo "No changes detected in data directory"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected in data directory"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            🤖 Auto-populate services data
+
+            Automated update of services data via populate_services.py
+
+            🤖 Generated with GitHub Actions
+          title: "🤖 Auto-populate services data"
+          body: |
+            ## Summary
+
+            This PR contains automatically generated changes from running `scripts/populate_services.py`.
+
+            ## Changes Made
+
+            - Executed services population commands from provider configurations
+            - Updated data files in the `data/` directory
+
+            ## Review Checklist
+
+            - [ ] Verify all generated data is accurate and properly formatted
+            - [ ] Check that no sensitive information was accidentally included
+            - [ ] Ensure all new files follow the repository's data structure conventions
+            - [ ] Validate that the changes align with business requirements
+
+            ---
+
+            🤖 This PR was automatically created by the populate-services workflow.
+
+            **Workflow run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          branch: auto-populate-services-${{ github.run_number }}
+          delete-branch: true
+          labels: |
+            Ready for Review
+            automated
+            data-update
+          assignees: |
+            ${{ github.actor }}
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Populate Services Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check_changes.outputs.has_changes }}" == "true" ]; then
+            echo "### ✅ Changes Detected" >> $GITHUB_STEP_SUMMARY
+            echo "- Services population script executed successfully" >> $GITHUB_STEP_SUMMARY
+            echo "- Changes found in data directory" >> $GITHUB_STEP_SUMMARY
+            echo "- Pull request created automatically" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ℹ️ No Changes" >> $GITHUB_STEP_SUMMARY
+            echo "- Services population script executed successfully" >> $GITHUB_STEP_SUMMARY
+            echo "- No changes detected in data directory" >> $GITHUB_STEP_SUMMARY
+            echo "- No pull request needed" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Script Execution" >> $GITHUB_STEP_SUMMARY
+          echo "- Scanned all directories under \`data/\` folder" >> $GITHUB_STEP_SUMMARY
+          echo "- Processed provider configuration files (JSON, TOML)" >> $GITHUB_STEP_SUMMARY
+          echo "- Executed commands from \`services_populator\` fields using \`unitysvc_services populate\`" >> $GITHUB_STEP_SUMMARY

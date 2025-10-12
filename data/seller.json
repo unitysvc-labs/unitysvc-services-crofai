@@ -1,0 +1,11 @@
+{
+  "schema": "seller_v1",
+  "time_created": "2025-01-15T10:00:00Z",
+  "name": "svcreseller",
+  "display_name": "Digital Service Reseller",
+  "seller_type": "organization",
+  "contact_email": "support@unitysvc.com",
+  "account_manager": "admin",
+  "description": "A seller that is dedicated to bringing existing digital services to the unitysvc platform",
+  "is_verified": false
+}

@@ -1,0 +1,68 @@
+{
+  "schema": "listing_v1",
+  "time_created": "2024-01-01T00:00:00Z",
+  "seller_name": "example-seller",
+  "listing_status": "ready",
+  "user_access_interfaces": [
+    {
+      "access_method": "http",
+      "api_endpoint": "${GATEWAY_BASE_URL}/p/example-provider",
+      "name": "Provider API",
+      "documents": [
+        {
+          "title": "Python Code Example",
+          "category": "code_examples",
+          "description": "Example Python code to use the service",
+          "file_path": "../../docs/code-example.py",
+          "mime_type": "python",
+          "is_active": true,
+          "is_public": true
+        },
+        {
+          "title": "JavaScript Code Example",
+          "category": "code_examples",
+          "description": "Example JavaScript code to use the service",
+          "file_path": "../../docs/code-example.js",
+          "mime_type": "javascript",
+          "is_active": true,
+          "is_public": true
+        },
+        {
+          "title": "cURL Example",
+          "category": "code_examples",
+          "description": "Example cURL request",
+          "file_path": "../../docs/code-example.sh",
+          "mime_type": "bash",
+          "is_active": true,
+          "is_public": true
+        },
+        {
+          "title": "Getting Started Guide",
+          "category": "getting_started",
+          "description": "How to use this service",
+          "file_path": "../../docs/description.md",
+          "mime_type": "markdown",
+          "is_active": true,
+          "is_public": true
+        },
+        {
+          "title": "API Documentation",
+          "category": "api_reference",
+          "external_url": "https://example.com/docs",
+          "mime_type": "url",
+          "is_active": true,
+          "is_public": true
+        }
+      ]
+    }
+  ],
+  "user_price": {
+    "currency": "USD",
+    "description": "Pricing Per 1M Tokens",
+    "unit": "one_million_tokens",
+    "price_data": {
+      "input": 1.5,
+      "output": 3.0
+    }
+  }
+}
