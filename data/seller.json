@@ -7,5 +7,5 @@
   "contact_email": "support@unitysvc.com",
   "account_manager": "admin",
   "description": "A seller that is dedicated to bringing existing digital services to the unitysvc platform",
-  "is_verified": false
+  "status": "pending"
 }
