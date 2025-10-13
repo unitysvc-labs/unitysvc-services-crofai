@@ -1,18 +1,17 @@
 {
-  "schema": "service_v1",
-  "time_created": "2024-01-01T00:00:00Z",
-  "name": "example-service",
-  "service_type": "llm",
-  "display_name": "Example Service",
   "description": "An example service demonstrating the service offering data structure. Replace this with your actual service description.",
-  "version": "1.0.0",
   "details": {
-    "context_window": "8192",
     "coding": "Supports code completion and debugging",
-    "reasoning": "Enhanced reasoning capabilities",
+    "context_window": "8192",
+    "function_calling": "Supports function calling",
     "multimodal": "Text-only",
-    "function_calling": "Supports function calling"
+    "reasoning": "Enhanced reasoning capabilities"
   },
+  "display_name": "Example Service",
+  "name": "example-service",
+  "schema": "service_v1",
+  "service_type": "llm",
+  "time_created": "2024-01-01T00:00:00Z",
   "upstream_access_interface": {
     "access_method": "http",
     "api_endpoint": "https://api.example.com/v1",
@@ -30,11 +29,12 @@
   "upstream_price": {
     "currency": "USD",
     "description": "Pricing Per 1M Tokens",
-    "unit": "one_million_tokens",
     "price_data": {
       "input": 1.0,
       "output": 2.0
     },
-    "reference": "https://example.com/pricing"
-  }
+    "reference": "https://example.com/pricing",
+    "unit": "one_million_tokens"
+  },
+  "version": "1.0.0"
 }
