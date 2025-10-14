@@ -1,0 +1,17 @@
+schema = "provider_v1"
+time_created = "2025-09-10T00:00:00Z"
+name = "crofai"
+terms_of_service = "https://ai.nahcrof.com/privacy"
+contact_email = "nahcrof@gmail.com"
+homepage = "https://ai.nahcrof.com/home"
+
+[provider_access_info]
+api_key = 'NeQsfKXlqumRYSJjFmjw'
+api_endpoint = "https://ai.nahcrof.com/v2"
+
+# These will be provided to services_populator as environment variables
+CROFAI_API_KEY = 'NeQsfKXlqumRYSJjFmjw'
+CROFAI_API_BASE_URL = "https://ai.nahcrof.com/v2"
+
+[services_populator]
+command = ['python', 'scripts/update_crofai_services.py', '--force']
