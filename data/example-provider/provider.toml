@@ -1,8 +1,8 @@
 schema = "provider_v1"
 time_created = "2024-01-01T00:00:00Z"
-name = "example-provider"
-contact_email = "support@example.com"
-homepage = "https://example.com"
+name = "crofai"
+contact_email = "nahcrof@gmail.com"
+homepage = "https://ai.nahcrof.com/home"
 terms_of_service = "https://example.com/terms"
 
 [[documents]]
