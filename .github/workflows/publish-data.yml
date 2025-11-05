@@ -24,7 +24,7 @@ jobs:
 
       - name: Publish providers
         env:
-          UNITYSVC_BACKEND_URL: ${{ secrets.UNITYSVC_BACKEND_URL }}
+          UNITYSVC_BASE_URL: ${{ secrets.UNITYSVC_BASE_URL }}
           UNITYSVC_API_KEY: ${{ secrets.UNITYSVC_API_KEY }}
         run: |
           echo "Publishing providers..."
@@ -32,7 +32,7 @@ jobs:
 
       - name: Publish sellers
         env:
-          UNITYSVC_BACKEND_URL: ${{ secrets.UNITYSVC_BACKEND_URL }}
+          UNITYSVC_BASE_URL: ${{ secrets.UNITYSVC_BASE_URL }}
           UNITYSVC_API_KEY: ${{ secrets.UNITYSVC_API_KEY }}
         run: |
           echo "Publishing sellers..."
@@ -40,7 +40,7 @@ jobs:
 
       - name: Publish service offerings
         env:
-          UNITYSVC_BACKEND_URL: ${{ secrets.UNITYSVC_BACKEND_URL }}
+          UNITYSVC_BASE_URL: ${{ secrets.UNITYSVC_BASE_URL }}
           UNITYSVC_API_KEY: ${{ secrets.UNITYSVC_API_KEY }}
         run: |
           echo "Publishing service offerings..."
@@ -48,7 +48,7 @@ jobs:
 
       - name: Publish service listings
         env:
-          UNITYSVC_BACKEND_URL: ${{ secrets.UNITYSVC_BACKEND_URL }}
+          UNITYSVC_BASE_URL: ${{ secrets.UNITYSVC_BASE_URL }}
           UNITYSVC_API_KEY: ${{ secrets.UNITYSVC_API_KEY }}
         run: |
           echo "Publishing service listings..."
@@ -60,7 +60,7 @@ jobs:
           echo "## Publishing Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Published to Backend" >> $GITHUB_STEP_SUMMARY
-          echo "- Backend URL: \`${{ secrets.UNITYSVC_BACKEND_URL }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Backend URL: \`${{ secrets.UNITYSVC_BASE_URL }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Published Items (in order)" >> $GITHUB_STEP_SUMMARY
           echo "1. ✅ Providers" >> $GITHUB_STEP_SUMMARY
