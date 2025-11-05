@@ -14,4 +14,4 @@ CROFAI_API_KEY = 'NeQsfKXlqumRYSJjFmjw'
 CROFAI_API_BASE_URL = "https://ai.nahcrof.com/v2"
 
 [services_populator]
-command = ['python', 'scripts/update_crofai_services.py', '--force']
+command = ['scripts/update_crofai_services.py', '--force']

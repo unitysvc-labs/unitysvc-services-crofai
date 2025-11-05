@@ -1,0 +1,33 @@
+{
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-11-05T00:38:59.986Z",
+  "name": "qwen3-next-80b-a3b-instruct",
+  "service_type": "llm",
+  "display_name": "Qwen: Qwen3 Next 80B A3B Instruct",
+  "description": "",
+  "upstream_status": "ready",
+  "details": {
+    "context_length": 262144,
+    "max_completion_tokens": 262144,
+    "quantization": "fp8",
+    "speed": 322,
+    "created": 1757651484.888002
+  },
+  "upstream_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "currency": "USD",
+    "price_data": {
+      "input": "0.08000000",
+      "output": "0.38000000"
+    },
+    "unit": "one_million_tokens"
+  },
+  "upstream_access_interface": {
+    "name": "CROFAI API",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "access_method": "http",
+    "model_id": "qwen3-next-80b-a3b-instruct"
+  }
+}

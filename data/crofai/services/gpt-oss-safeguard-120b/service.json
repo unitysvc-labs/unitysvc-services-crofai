@@ -1,0 +1,33 @@
+{
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-11-05T00:38:59.970Z",
+  "name": "gpt-oss-safeguard-120b",
+  "service_type": "llm",
+  "display_name": "OpenAI: gpt-oss-safeguard-120b",
+  "description": "",
+  "upstream_status": "ready",
+  "details": {
+    "context_length": 131072,
+    "max_completion_tokens": 131072,
+    "quantization": "fp8",
+    "speed": 30,
+    "created": "1754447935.370325"
+  },
+  "upstream_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "currency": "USD",
+    "price_data": {
+      "input": "0.07000000",
+      "output": "0.27000000"
+    },
+    "unit": "one_million_tokens"
+  },
+  "upstream_access_interface": {
+    "name": "CROFAI API",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "access_method": "http",
+    "model_id": "gpt-oss-safeguard-120b"
+  }
+}

@@ -8,20 +8,24 @@ import os
 import sys
 import json
 import requests
+from decimal import Decimal
 import argparse
 from pathlib import Path
 from typing import Dict, List, Optional
 from datetime import datetime
+
 
 class CrofAIModelExtractor:
     def __init__(self, api_key: str, api_base_url: str):
         self.api_key = api_key
         self.api_base_url = api_base_url
         self.session = requests.Session()
-        self.session.headers.update({
-            "Authorization": f"Bearer {api_key}",
-            "User-Agent": "Mozilla/5.0 (compatible; CrofAI-Service-Puller/1.0)"
-        })
+        self.session.headers.update(
+            {
+                "Authorization": f"Bearer {api_key}",
+                "User-Agent": "Mozilla/5.0 (compatible; CrofAI-Service-Puller/1.0)",
+            }
+        )
         self.summary = {
             "total_models": 0,
             "successful_extractions": 0,
@@ -32,8 +36,6 @@ class CrofAIModelExtractor:
 
     def get_all_models(self, models_file: Optional[str] = None) -> List[Dict]:
         """Fetch all models from CROFAI API or load from file."""
-        
-        
         url = f"{self.api_base_url}/models"
         try:
             print(f"📡 Fetching from: {url}")
@@ -41,11 +43,11 @@ class CrofAIModelExtractor:
             resp.raise_for_status()
             data = resp.json()
             models = data.get("data", [])
-            
+
             if not models:
                 print(f"⚠️  No models found in response. Response keys: {data.keys()}")
                 return []
-            
+
             self.summary["total_models"] = len(models)
             models.sort(key=lambda x: x.get("id", ""))
             print(f"✅ Retrieved {len(models)} models from API")
@@ -61,52 +63,31 @@ class CrofAIModelExtractor:
 
     def create_pricing_info_structure(self, pricing_data: Dict) -> List[Dict]:
         """Create pricing structure from API pricing data."""
-        pricing_list = []
-        
-        if "prompt" in pricing_data:
-            pricing_list.append({
-                "description": "Input tokens",
-                "currency": "USD",
-                "price_data": {"price": float(pricing_data["prompt"])},
-                "unit": "per_token",
-            })
-        
-        if "completion" in pricing_data:
-            pricing_list.append({
-                "description": "Output tokens",
-                "currency": "USD",
-                "price_data": {"price": float(pricing_data["completion"])},
-                "unit": "per_token",
-            })
-        
-        return pricing_list
-
-    def determine_service_type(self, model_name: str, model_id: str) -> str:
-        """Determine service type based on model name/id."""
-        combined = (model_name + " " + model_id).lower()
-        
-        if any(k in combined for k in ["embed", "embedding"]):
-            return "embedding"
-        if any(k in combined for k in ["dalle", "stable", "midjourney", "image"]):
-            return "image_generation"
-        return "llm"
+        return {
+            "description": "Pricing Per 1M Tokens Input/Output",
+            "currency": "USD",
+            "price_data": {
+                "input": str(Decimal(pricing_data["prompt"]) * 1000000),
+                "output": str(Decimal(pricing_data["completion"]) * 1000000),
+            },
+            "unit": "one_million_tokens",
+        }
 
     def create_service_data_structure(self, model_data: Dict) -> Dict:
         """Create service.json structure."""
         timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-        
+
         # Extract model details
-        model_id = model_data.get("id", "")
-        model_name = model_data.get("name", model_id)
-        
+        model_name = model_data.get("id", "")
         service_config = {
+            "version": "",
             "schema": "service_v1",
             "time_created": timestamp,
-            "name": model_id,
-            "service_type": self.determine_service_type(model_name, model_id),
-            "display_name": model_name,
-            "description": f"{model_name} - Context: {model_data.get('context_length', 'N/A')}, Max tokens: {model_data.get('max_completion_tokens', 'N/A')}, Speed: {model_data.get('speed', 'N/A')} tokens/s",
-            "upstream_status": "active",
+            "name": model_name,
+            "service_type": "llm",
+            "display_name": model_data.get("name", ""),
+            "description": "",
+            "upstream_status": "ready",
             "details": {
                 "context_length": model_data.get("context_length"),
                 "max_completion_tokens": model_data.get("max_completion_tokens"),
@@ -114,21 +95,23 @@ class CrofAIModelExtractor:
                 "speed": model_data.get("speed"),
                 "created": model_data.get("created"),
             },
-            "upstream_prices": self.create_pricing_info_structure(model_data.get("pricing", {})),
+            "upstream_price": self.create_pricing_info_structure(
+                model_data.get("pricing", {})
+            ),
             "upstream_access_interface": {
                 "name": "CROFAI API",
                 "api_key": self.api_key,
                 "api_endpoint": self.api_base_url,
                 "access_method": "http",
-                "model_id": model_id,
-            }
+                "model_id": model_name,
+            },
         }
         return service_config
 
     def create_listing_data_structure(self, pricing_data: Dict) -> Dict:
         """Create listing-svcreseller.json structure."""
         timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-        
+
         listing_config = {
             "schema": "listing_v1",
             "seller_name": "svcreseller",
@@ -137,35 +120,92 @@ class CrofAIModelExtractor:
             "user_access_interfaces": [
                 {
                     "name": "CROFAI API",
-                    "api_endpoint": self.api_base_url,
-                    "access_method": "http"
+                    "api_endpoint": "%{}",
+                    "access_method": "http",
+                    "documents": [
+                        {
+                            "category": "code_example",
+                            "description": "Example code to use the model",
+                            "file_path": "../../docs/code_example.py.j2",
+                            "is_active": True,
+                            "is_public": True,
+                            "mime_type": "python",
+                            "title": "Python code example",
+                        },
+                        {
+                            "category": "code_example",
+                            "description": "Example code to use the model",
+                            "file_path": "../../docs/code_example_1.py.j2",
+                            "is_active": True,
+                            "is_public": True,
+                            "mime_type": "python",
+                            "title": "Python function calling code example",
+                        },
+                        {
+                            "category": "code_example",
+                            "description": "Example code to use the model",
+                            "file_path": "../../docs/code_example.js.j2",
+                            "is_active": True,
+                            "is_public": True,
+                            "mime_type": "javascript",
+                            "title": "JavaScript code example",
+                        },
+                        {
+                            "category": "code_example",
+                            "description": "Example code to use the model",
+                            "file_path": "../../docs/code_example.sh.j2",
+                            "is_active": True,
+                            "is_public": True,
+                            "mime_type": "bash",
+                            "title": "cURL code example",
+                        },
+                        {
+                            "category": "getting_started",
+                            "description": "",
+                            "file_path": "../../docs/description.md",
+                            "is_active": True,
+                            "is_public": True,
+                            "mime_type": "markdown",
+                            "title": "How to use this model",
+                        },
+                    ],
+                    "name": "Provider API",
                 }
             ],
-            "user_prices": self.create_pricing_info_structure(pricing_data),
+            "user_price": self.create_pricing_info_structure(pricing_data),
         }
         return listing_config
 
-    def write_service_files(self, service_data: Dict, output_dir: Path, raw_pricing: Dict):
+    def write_service_files(
+        self, service_data: Dict, output_dir: Path, raw_pricing: Dict
+    ):
         """Write service.json and listing-svcreseller.json files."""
         output_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Write service.json
         service_file = output_dir / "service.json"
         with open(service_file, "w", encoding="utf-8") as f:
             json.dump(service_data, f, indent=2)
-        
+
         # Write listing-svcreseller.json with raw pricing data
         listing_data = self.create_listing_data_structure(raw_pricing)
         listing_file = output_dir / "listing-svcreseller.json"
         with open(listing_file, "w", encoding="utf-8") as f:
             json.dump(listing_data, f, indent=2)
-        
+
         print(f"  ✅ Written files to {output_dir}")
 
-    def process_all_models(self, output_dir: str = "crofai/services", specific_models: Optional[List[str]] = None, force: bool = False, dry_run: bool = False, models_file: Optional[str] = None):
+    def process_all_models(
+        self,
+        output_dir: str = "services",
+        specific_models: Optional[List[str]] = None,
+        force: bool = False,
+        dry_run: bool = False,
+        models_file: Optional[str] = None,
+    ):
         """Process all models and create service folders."""
         base_path = Path(output_dir)
-        
+
         if specific_models:
             # Fetch full data for specific models
             all_models = self.get_all_models(models_file)
@@ -174,75 +214,91 @@ class CrofAIModelExtractor:
             models = self.get_all_models(models_file)
 
         for i, model_data in enumerate(models, 1):
-            model_id = model_data.get("id")
-            if not model_id:
+            model_name = model_data.get("id")
+            if not model_name:
                 print(f"  ⚠️  Skipping model without ID")
                 continue
-            
-            model_name = model_data.get("name", model_id)
-            print(f"\n[{i}/{len(models)}] Processing: {model_name} ({model_id})")
-            
+
+            print(f"\n[{i}/{len(models)}] Processing: {model_name}")
+
             # Create directory name from model ID (sanitize for filesystem)
-            dir_name = model_id.replace("/", "-").replace(":", "-").replace(" ", "-")
-            model_dir = base_path / dir_name
-            
+            model_dir = base_path / model_name
+
             # Check if already exists
             if not force and (model_dir / "service.json").exists():
-                print(f"  ⏭️  Skipping {model_id} (already exists, use --force to overwrite)")
+                print(
+                    f"  ⏭️  Skipping {model_name} (already exists, use --force to overwrite)"
+                )
                 self.summary["skipped_models"] += 1
                 continue
-            
+
             # Create service structure
             try:
                 service_config = self.create_service_data_structure(model_data)
                 raw_pricing = model_data.get("pricing", {})
-                
+
                 if dry_run:
                     print(f"  📝 [DRY-RUN] Would create directory: {model_dir}")
-                    print(f"  📝 [DRY-RUN] Would write service.json and listing-svcreseller.json")
+                    print(
+                        f"  📝 [DRY-RUN] Would write service.json and listing-svcreseller.json"
+                    )
                     if raw_pricing:
-                        print(f"  📝 [DRY-RUN] Pricing: prompt={raw_pricing.get('prompt')}, completion={raw_pricing.get('completion')}")
+                        print(
+                            f"  📝 [DRY-RUN] Pricing: prompt={raw_pricing.get('prompt')}, completion={raw_pricing.get('completion')}"
+                        )
                 else:
                     self.write_service_files(service_config, model_dir, raw_pricing)
                     self.summary["successful_extractions"] += 1
                     if raw_pricing:
-                        print(f"  💰 Pricing included: prompt=${raw_pricing.get('prompt')}, completion=${raw_pricing.get('completion')}")
+                        print(
+                            f"  💰 Pricing included: prompt=${raw_pricing.get('prompt')}, completion=${raw_pricing.get('completion')}"
+                        )
             except Exception as e:
                 print(f"  ❌ Error processing {model_id}: {e}")
                 import traceback
+
                 traceback.print_exc()
                 self.summary["failed_extractions"] += 1
 
         # Print summary
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("📊 EXTRACTION SUMMARY")
-        print("="*60)
+        print("=" * 60)
         print(f"Total models: {self.summary['total_models']}")
         print(f"Successfully processed: {self.summary['successful_extractions']}")
         print(f"Failed: {self.summary['failed_extractions']}")
         print(f"Skipped: {self.summary['skipped_models']}")
         if dry_run:
             print("\n⚠️  DRY-RUN mode - no files were written")
-        print("="*60)
+        print("=" * 60)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract CROFAI services and pricing")
-    parser.add_argument("output_dir", nargs="?", default="crofai/services", 
-                       help="Output directory for service files")
-    parser.add_argument("--models", nargs="+", 
-                       help="Specific model IDs to process")
-    parser.add_argument("--models-file", type=str,
-                       help="JSON file containing models data (skips API call)")
-    parser.add_argument("--force", action="store_true", 
-                       help="Overwrite existing service files")
-    parser.add_argument("--dry-run", action="store_true", 
-                       help="Run without writing files")
+    parser.add_argument(
+        "output_dir",
+        nargs="?",
+        default="services",
+        help="Output directory for service files",
+    )
+    parser.add_argument("--models", nargs="+", help="Specific model IDs to process")
+    parser.add_argument(
+        "--models-file",
+        type=str,
+        help="JSON file containing models data (skips API call)",
+    )
+    parser.add_argument(
+        "--force", action="store_true", help="Overwrite existing service files"
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Run without writing files"
+    )
     args = parser.parse_args()
 
     # Get credentials from environment
     api_key = os.environ.get("CROFAI_API_KEY", "")
     api_base_url = os.environ.get("CROFAI_API_BASE_URL", "https://ai.nahcrof.com/v2")
-    
+
     # API key not required if using models file
     if not args.models_file and not api_key:
         print("❌ Error: CROFAI_API_KEY environment variable not set")
@@ -263,9 +319,9 @@ if __name__ == "__main__":
 
     extractor = CrofAIModelExtractor(api_key, api_base_url)
     extractor.process_all_models(
-        args.output_dir, 
-        specific_models=args.models, 
-        force=args.force, 
+        args.output_dir,
+        specific_models=args.models,
+        force=args.force,
         dry_run=args.dry_run,
-        models_file=args.models_file
+        models_file=args.models_file,
     )

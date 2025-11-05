@@ -1,0 +1,33 @@
+{
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-11-05T00:38:59.979Z",
+  "name": "llama3.3-70b",
+  "service_type": "llm",
+  "display_name": "Meta: Llama 3.3 70B Instruct",
+  "description": "",
+  "upstream_status": "ready",
+  "details": {
+    "context_length": 131072,
+    "max_completion_tokens": 8192,
+    "quantization": "fp8",
+    "speed": 40,
+    "created": 1712028000000
+  },
+  "upstream_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "currency": "USD",
+    "price_data": {
+      "input": "0.12000000",
+      "output": "0.2000000"
+    },
+    "unit": "one_million_tokens"
+  },
+  "upstream_access_interface": {
+    "name": "CROFAI API",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "access_method": "http",
+    "model_id": "llama3.3-70b"
+  }
+}
