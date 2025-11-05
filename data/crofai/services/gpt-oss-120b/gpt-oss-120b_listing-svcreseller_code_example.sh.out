@@ -1,0 +1,1 @@
+{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"this is a test","role":"assistant"}}],"created":1762306165,"id":"chatcmpl-1762306165.101261","model":"gpt-oss-120b","object":"chat.completion","usage":{"completion_tokens":4,"prompt_tokens":15,"total_tokens":19}}

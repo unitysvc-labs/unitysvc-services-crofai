@@ -1,0 +1,1 @@
+{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"This is a test. I'm ready to assist you with any questions or tasks you might have.","role":"assistant"}}],"created":1762306538,"id":"chatcmpl-1762306538.138835","model":"ring-1t","object":"chat.completion","usage":{"completion_tokens":21,"prompt_tokens":15,"total_tokens":36}}

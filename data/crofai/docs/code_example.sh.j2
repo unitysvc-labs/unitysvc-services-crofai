@@ -1,12 +1,10 @@
-curl {{ endpoint }}/chat/completions \
+curl -X POST "$API_ENDPOINT/chat/completions" \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer {{ api_key }}" \
+  -H "Authorization: Bearer $API_KEY" \
   -d '{
-    "model": "{{ model_name }}",
+    "model": "{{offering.name}}",
     "messages": [
-      {
-        "role": "user",
-        "content": "Say this is a test"
-      }
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Say this is a test"}
     ]
   }'
