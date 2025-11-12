@@ -11,7 +11,7 @@
   "name": "qwen3-next-80b-a3b-instruct",
   "schema": "service_v1",
   "service_type": "llm",
-  "time_created": "2025-11-12T03:54:28.746Z",
+  "time_created": "2025-11-12T04:08:09.159Z",
   "upstream_access_interface": {
     "access_method": "http",
     "api_endpoint": "https://ai.nahcrof.com/v2",
