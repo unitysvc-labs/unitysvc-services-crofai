@@ -1,13 +1,12 @@
 {
+  "listing_status": "upstream_ready",
   "schema": "listing_v1",
   "seller_name": "svcreseller",
   "time_created": "2025-11-05T00:38:59.966Z",
-  "listing_status": "upstream_ready",
   "user_access_interfaces": [
     {
-      "name": "Provider API",
-      "api_endpoint": "%{}",
       "access_method": "http",
+      "api_endpoint": "%{}",
       "documents": [
         {
           "category": "code_example",
@@ -54,12 +53,13 @@
           "mime_type": "markdown",
           "title": "How to use this model"
         }
-      ]
+      ],
+      "name": "Provider API"
     }
   ],
   "user_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
     "currency": "USD",
+    "description": "Pricing Per 1M Tokens Input/Output",
     "price_data": {
       "input": "0.3000000",
       "output": "0.6000000"

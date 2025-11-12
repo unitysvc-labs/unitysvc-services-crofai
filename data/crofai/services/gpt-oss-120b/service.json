@@ -1,33 +1,33 @@
 {
-  "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-11-05T00:38:59.968Z",
-  "name": "gpt-oss-120b",
-  "service_type": "llm",
-  "display_name": "OpenAI: GPT OSS 120B",
   "description": "",
-  "upstream_status": "ready",
   "details": {
     "context_length": 131072,
+    "created": "1754447935.370325",
     "max_completion_tokens": 131072,
     "quantization": "fp4",
-    "speed": 150,
-    "created": "1754447935.370325"
+    "speed": 150
+  },
+  "display_name": "OpenAI: GPT OSS 120B",
+  "name": "gpt-oss-120b",
+  "schema": "service_v1",
+  "service_type": "llm",
+  "time_created": "2025-11-12T03:54:28.734Z",
+  "upstream_access_interface": {
+    "access_method": "http",
+    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "model_id": "gpt-oss-120b",
+    "name": "CROFAI API"
   },
   "upstream_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
     "currency": "USD",
+    "description": "Pricing Per 1M Tokens Input/Output",
     "price_data": {
       "input": "0.07000000",
       "output": "0.27000000"
     },
     "unit": "one_million_tokens"
   },
-  "upstream_access_interface": {
-    "name": "CROFAI API",
-    "api_key": "NeQsfKXlqumRYSJjFmjw",
-    "api_endpoint": "https://ai.nahcrof.com/v2",
-    "access_method": "http",
-    "model_id": "gpt-oss-120b"
-  }
+  "upstream_status": "ready",
+  "version": ""
 }

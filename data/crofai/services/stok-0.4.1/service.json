@@ -1,33 +1,33 @@
 {
-  "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-11-05T00:38:59.988Z",
-  "name": "stok-0.4.1",
-  "service_type": "llm",
-  "display_name": "CrofAI: Stok 0.4.1",
   "description": "",
-  "upstream_status": "ready",
   "details": {
     "context_length": 2048,
+    "created": 1712028000000,
     "max_completion_tokens": 2048,
     "quantization": "stok",
-    "speed": 3500,
-    "created": 1712028000000
+    "speed": 3500
+  },
+  "display_name": "CrofAI: Stok 0.4.1",
+  "name": "stok-0.4.1",
+  "schema": "service_v1",
+  "service_type": "llm",
+  "time_created": "2025-11-12T03:54:28.748Z",
+  "upstream_access_interface": {
+    "access_method": "http",
+    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "model_id": "stok-0.4.1",
+    "name": "CROFAI API"
   },
   "upstream_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
     "currency": "USD",
+    "description": "Pricing Per 1M Tokens Input/Output",
     "price_data": {
       "input": "0.0",
       "output": "0.0"
     },
     "unit": "one_million_tokens"
   },
-  "upstream_access_interface": {
-    "name": "CROFAI API",
-    "api_key": "NeQsfKXlqumRYSJjFmjw",
-    "api_endpoint": "https://ai.nahcrof.com/v2",
-    "access_method": "http",
-    "model_id": "stok-0.4.1"
-  }
+  "upstream_status": "ready",
+  "version": ""
 }

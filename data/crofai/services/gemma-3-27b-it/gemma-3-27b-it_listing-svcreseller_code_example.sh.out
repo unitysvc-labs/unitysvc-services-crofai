@@ -1,1 +1,1 @@
-{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"Okay, this is a test. \ud83d\ude0a \n\nHow can I help you with it?","role":"assistant"}}],"created":1762306545,"id":"chatcmpl-1762306545.711121","model":"gemma-3-27b-it","object":"chat.completion","usage":{"completion_tokens":16,"prompt_tokens":15,"total_tokens":31}}
+{"error":{"code":500,"message":"CODE: 500 - Failed to generate response","type":"internal_error"}}
