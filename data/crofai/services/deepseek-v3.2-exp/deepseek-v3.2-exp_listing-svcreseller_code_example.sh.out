@@ -1,1 +1,0 @@
-{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"This is a test.","role":"assistant"}}],"created":1762919402,"id":"chatcmpl-1762919402.101989","model":"deepseek-v3.2-exp","object":"chat.completion","usage":{"completion_tokens":8,"prompt_tokens":24,"total_tokens":32}}

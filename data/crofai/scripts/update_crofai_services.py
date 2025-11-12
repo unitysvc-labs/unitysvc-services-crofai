@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 CROFAI Service Extractor
-Pulls models from CROFAI API, fetches pricing, writes service.json and Truelisting.json
+Pulls models from CROFAI API, fetches pricing, writes service.json and listing.json
 """
 
 import os
@@ -109,7 +109,7 @@ class CrofAIModelExtractor:
         return service_config
 
     def create_listing_data_structure(self, pricing_data: Dict) -> Dict:
-        """Create Truelisting.json structure."""
+        """Create listing.json structure."""
         timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
         listing_config = {
@@ -179,7 +179,7 @@ class CrofAIModelExtractor:
     def write_service_files(
         self, service_data: Dict, output_dir: Path, raw_pricing: Dict
     ):
-        """Write service.json and Truelisting.json files."""
+        """Write service.json and listing.json files."""
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Write service.json
@@ -187,9 +187,9 @@ class CrofAIModelExtractor:
         with open(service_file, "w", encoding="utf-8") as f:
             json.dump(service_data, f, indent=2)
 
-        # Write Truelisting.json with raw pricing data
+        # Write listing.json with raw pricing data
         listing_data = self.create_listing_data_structure(raw_pricing)
-        listing_file = output_dir / "Truelisting.json"
+        listing_file = output_dir / "listing.json"
         with open(listing_file, "w", encoding="utf-8") as f:
             json.dump(listing_data, f, indent=2)
 
@@ -239,9 +239,7 @@ class CrofAIModelExtractor:
 
                 if dry_run:
                     print(f"  📝 [DRY-RUN] Would create directory: {model_dir}")
-                    print(
-                        f"  📝 [DRY-RUN] Would write service.json and Truelisting.json"
-                    )
+                    print(f"  📝 [DRY-RUN] Would write service.json and listing.json")
                     if raw_pricing:
                         print(
                             f"  📝 [DRY-RUN] Pricing: prompt={raw_pricing.get('prompt')}, completion={raw_pricing.get('completion')}"

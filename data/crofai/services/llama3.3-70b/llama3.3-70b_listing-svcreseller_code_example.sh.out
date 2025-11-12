@@ -1,1 +1,0 @@
-{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"THIS IS A TEST","role":"assistant"}}],"created":1762919409,"id":"chatcmpl-1762919409.174948","model":"llama3.3-70b","object":"chat.completion","usage":{"completion_tokens":8,"prompt_tokens":24,"total_tokens":32}}

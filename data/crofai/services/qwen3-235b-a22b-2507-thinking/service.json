@@ -1,33 +1,33 @@
 {
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-11-12T21:54:13.126Z",
+  "name": "qwen3-235b-a22b-2507-thinking",
+  "service_type": "llm",
+  "display_name": "Qwen: Qwen3 235B A22B Thinking 2507",
   "description": "",
+  "upstream_status": "ready",
   "details": {
     "context_length": 131072,
-    "created": 1753493357.191588,
     "max_completion_tokens": 131072,
     "quantization": "fp8",
-    "speed": 27
-  },
-  "display_name": "Qwen: Qwen3 235B A22B Thinking 2507",
-  "name": "qwen3-235b-a22b-2507-thinking",
-  "schema": "service_v1",
-  "service_type": "llm",
-  "time_created": "2025-11-12T04:08:09.157Z",
-  "upstream_access_interface": {
-    "access_method": "http",
-    "api_endpoint": "https://ai.nahcrof.com/v2",
-    "api_key": "NeQsfKXlqumRYSJjFmjw",
-    "model_id": "qwen3-235b-a22b-2507-thinking",
-    "name": "CROFAI API"
+    "speed": 27,
+    "created": 1753493357.191588
   },
   "upstream_price": {
-    "currency": "USD",
     "description": "Pricing Per 1M Tokens Input/Output",
+    "currency": "USD",
     "price_data": {
       "input": "0.1000000",
       "output": "0.3000000"
     },
     "unit": "one_million_tokens"
   },
-  "upstream_status": "ready",
-  "version": ""
+  "upstream_access_interface": {
+    "name": "CROFAI API",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "access_method": "http",
+    "model_id": "qwen3-235b-a22b-2507-thinking"
+  }
 }

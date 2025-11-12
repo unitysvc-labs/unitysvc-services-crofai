@@ -1,0 +1,1 @@
+{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"\n\nthis is a test\n","role":"assistant"}}],"created":1762983427,"id":"chatcmpl-1762983427.012799","model":"kimi-k2-eco","object":"chat.completion","usage":{"completion_tokens":8,"prompt_tokens":24,"total_tokens":32}}

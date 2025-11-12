@@ -1,1 +1,0 @@
-{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"It is. I'm responding to confirm. How can I assist you further?","role":"assistant"}}],"created":1762919067,"id":"chatcmpl-1762919067.820872","model":"kimi-k2-0905-turbo","object":"chat.completion","usage":{"completion_tokens":24,"prompt_tokens":24,"total_tokens":48}}

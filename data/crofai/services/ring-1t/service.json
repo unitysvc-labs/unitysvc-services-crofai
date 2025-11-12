@@ -1,33 +1,33 @@
 {
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-11-12T21:54:13.127Z",
+  "name": "ring-1t",
+  "service_type": "llm",
+  "display_name": "inclusionAI: Ring-1T",
   "description": "",
+  "upstream_status": "ready",
   "details": {
     "context_length": 131072,
-    "created": 1757083316,
     "max_completion_tokens": 131072,
     "quantization": "fp4",
-    "speed": 30
-  },
-  "display_name": "inclusionAI: Ring-1T",
-  "name": "ring-1t",
-  "schema": "service_v1",
-  "service_type": "llm",
-  "time_created": "2025-11-12T04:08:09.159Z",
-  "upstream_access_interface": {
-    "access_method": "http",
-    "api_endpoint": "https://ai.nahcrof.com/v2",
-    "api_key": "NeQsfKXlqumRYSJjFmjw",
-    "model_id": "ring-1t",
-    "name": "CROFAI API"
+    "speed": 30,
+    "created": 1757083316
   },
   "upstream_price": {
-    "currency": "USD",
     "description": "Pricing Per 1M Tokens Input/Output",
+    "currency": "USD",
     "price_data": {
       "input": "0.4000000",
       "output": "1.000000"
     },
     "unit": "one_million_tokens"
   },
-  "upstream_status": "ready",
-  "version": ""
+  "upstream_access_interface": {
+    "name": "CROFAI API",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "access_method": "http",
+    "model_id": "ring-1t"
+  }
 }

@@ -1,33 +1,33 @@
 {
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-11-12T21:54:13.102Z",
+  "name": "deepseek-r1-distill-llama-70b",
+  "service_type": "llm",
+  "display_name": "DeepSeek: R1 Distill Llama 70B",
   "description": "",
+  "upstream_status": "ready",
   "details": {
     "context_length": 65536,
-    "created": 1712028000000,
     "max_completion_tokens": 65536,
     "quantization": "fp4",
-    "speed": 50
-  },
-  "display_name": "DeepSeek: R1 Distill Llama 70B",
-  "name": "deepseek-r1-distill-llama-70b",
-  "schema": "service_v1",
-  "service_type": "llm",
-  "time_created": "2025-11-12T04:08:09.135Z",
-  "upstream_access_interface": {
-    "access_method": "http",
-    "api_endpoint": "https://ai.nahcrof.com/v2",
-    "api_key": "NeQsfKXlqumRYSJjFmjw",
-    "model_id": "deepseek-r1-distill-llama-70b",
-    "name": "CROFAI API"
+    "speed": 50,
+    "created": 1712028000000
   },
   "upstream_price": {
-    "currency": "USD",
     "description": "Pricing Per 1M Tokens Input/Output",
+    "currency": "USD",
     "price_data": {
       "input": "0.1000000",
       "output": "0.1000000"
     },
     "unit": "one_million_tokens"
   },
-  "upstream_status": "ready",
-  "version": ""
+  "upstream_access_interface": {
+    "name": "CROFAI API",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "access_method": "http",
+    "model_id": "deepseek-r1-distill-llama-70b"
+  }
 }
