@@ -1,1 +1,1 @@
-{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"this is a test","role":"assistant"}}],"created":1763000477,"id":"chatcmpl-1763000477.009824","model":"minimax-m2:free","object":"chat.completion","usage":{"completion_tokens":8,"prompt_tokens":24,"total_tokens":32}}
+{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"This is a test.","role":"assistant"}}],"created":1763087944,"id":"chatcmpl-1763087944.277151","model":"minimax-m2:free","object":"chat.completion","usage":{"completion_tokens":8,"prompt_tokens":24,"total_tokens":32}}

@@ -1,1 +1,1 @@
-{"error":{"code":500,"message":"CODE: 500 - Failed to generate response","type":"internal_error"}}
+{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"This is a test.","role":"assistant"}}],"created":1763088045,"id":"chatcmpl-1763088045.348007","model":"deepseek-v3.2-exp","object":"chat.completion","usage":{"completion_tokens":8,"prompt_tokens":24,"total_tokens":32}}

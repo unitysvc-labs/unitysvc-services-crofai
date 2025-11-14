@@ -1,1 +1,1 @@
-{"error":{"code":500,"message":"CODE: 500 - Failed to generate response","type":"internal_error"}}
+{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"This is a test. I'm ready to assist you with any questions or tasks you may have. How can I help you today?","role":"assistant"}}],"created":1763088026,"id":"chatcmpl-1763088026.718169","model":"qwen3-235b-a22b-2507-thinking","object":"chat.completion","usage":{"completion_tokens":46,"prompt_tokens":24,"total_tokens":70}}

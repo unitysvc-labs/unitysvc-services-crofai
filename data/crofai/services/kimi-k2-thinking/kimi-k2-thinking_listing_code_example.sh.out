@@ -1,1 +1,1 @@
-{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"this is a test","role":"assistant"}}],"created":1763000180,"id":"chatcmpl-1763000180.806655","model":"kimi-k2-thinking","object":"chat.completion","usage":{"completion_tokens":8,"prompt_tokens":24,"total_tokens":32}}
+{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"This is a test","role":"assistant"}}],"created":1763087695,"id":"chatcmpl-1763087695.358356","model":"kimi-k2-thinking","object":"chat.completion","usage":{"completion_tokens":8,"prompt_tokens":24,"total_tokens":32}}
