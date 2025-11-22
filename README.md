@@ -74,6 +74,7 @@ data/
 ```
 
 **Important**:
+
 - Directory names must match the `name` fields in their respective files
 - Only ONE seller file per repository
 - Both service offerings and listings go under the same `services/${service_name}/` directory
@@ -90,6 +91,7 @@ This template includes three automated workflows to streamline your development 
 **Triggers**: Every pull request and push to main
 
 Automatically validates all data files to ensure:
+
 - Schema compliance
 - File references exist
 - Directory name consistency
@@ -104,6 +106,7 @@ This prevents invalid data from being merged.
 **Triggers**: Every pull request and push to main
 
 Checks that all JSON and TOML files are properly formatted:
+
 - JSON files have 2-space indentation
 - Keys are sorted alphabetically
 - Files end with newlines
@@ -129,6 +132,7 @@ Automatically publishes your data to the UnitySVC backend in the correct order:
 
 **File**: `.github/workflows/populate-services.yml`
 **Triggers**:
+
 - Daily at 2 AM UTC (scheduled)
 - Manual trigger via GitHub Actions UI
 
@@ -149,10 +153,11 @@ command = "populate_services.py"
 
 [provider_access_info]
 API_KEY = "your-provider-api-key"
-API_ENDPOINT = "https://api.provider.com/v1"
+BASE_URL = "https://api.provider.com/v1"
 ```
 
 The `populate` command will:
+
 - Find all providers with `services_populator` configured
 - Execute the specified command (e.g., `populate_services.py`)
 - Pass environment variables from `provider_access_info`
@@ -178,10 +183,10 @@ from pathlib import Path
 
 # Get credentials from environment (injected from provider_access_info)
 api_key = os.environ.get("API_KEY")
-api_endpoint = os.environ.get("API_ENDPOINT")
+base_url = os.environ.get("BASE_URL")
 
 # Fetch services from provider API
-services = fetch_services(api_endpoint, api_key)
+services = fetch_services(base_url, api_key)
 
 # Generate service files
 for service in services:

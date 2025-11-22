@@ -1,5 +1,5 @@
 const API_KEY = process.env.API_KEY;
-const ENDPOINT = process.env.API_ENDPOINT;
+const ENDPOINT = process.env.BASE_URL;
 
 async function main() {
   const response = await fetch(`${ENDPOINT}/chat/completions`, {

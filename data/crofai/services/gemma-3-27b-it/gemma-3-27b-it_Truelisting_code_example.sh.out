@@ -1,1 +1,0 @@
-{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"Okay, this is a test. \ud83d\ude0a \n\nLet me know what you need!","role":"assistant"}}],"created":1762983505,"id":"chatcmpl-1762983505.859129","model":"gemma-3-27b-it","object":"chat.completion","usage":{"completion_tokens":24,"prompt_tokens":24,"total_tokens":48}}

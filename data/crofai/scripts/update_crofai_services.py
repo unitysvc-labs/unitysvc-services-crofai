@@ -78,7 +78,7 @@ class CrofAIModelExtractor:
         timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
         # Extract model details
-        model_name = model_data.get("id", "")
+        model_name = model_data.get("id", "").replace(":", "-")
         service_config = {
             "version": "",
             "schema": "service_v1",
@@ -101,7 +101,7 @@ class CrofAIModelExtractor:
             "upstream_access_interface": {
                 "name": "CROFAI API",
                 "api_key": self.api_key,
-                "api_endpoint": self.api_base_url,
+                "base_url": self.api_base_url,
                 "access_method": "http",
                 "model_id": model_name,
             },
@@ -116,11 +116,11 @@ class CrofAIModelExtractor:
             "schema": "listing_v1",
             "seller_name": "svcreseller",
             "time_created": timestamp,
-            "listing_status": "upstream_ready",
+            "listing_status": "ready",
             "user_access_interfaces": [
                 {
                     "name": "CROFAI API",
-                    "api_endpoint": "${GATEWAY_BASE_URL}/p/crofai",
+                    "base_url": "${GATEWAY_BASE_URL}/p/crofai",
                     "access_method": "http",
                     "documents": [
                         {
@@ -214,7 +214,7 @@ class CrofAIModelExtractor:
             models = self.get_all_models(models_file)
 
         for i, model_data in enumerate(models, 1):
-            model_name = model_data.get("id")
+            model_name = model_data.get("id").replace(":", "-")
             if not model_name:
                 print(f"  ⚠️  Skipping model without ID")
                 continue

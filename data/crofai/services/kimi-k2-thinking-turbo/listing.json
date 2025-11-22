@@ -1,12 +1,12 @@
 {
   "schema": "listing_v1",
   "seller_name": "svcreseller",
-  "time_created": "2025-11-12T21:54:13.124Z",
-  "listing_status": "upstream_ready",
+  "time_created": "2025-11-22T05:08:51.205Z",
+  "listing_status": "ready",
   "user_access_interfaces": [
     {
       "name": "Provider API",
-      "api_endpoint": "${GATEWAY_BASE_URL}/p/crofai",
+      "base_url": "${GATEWAY_BASE_URL}/p/crofai",
       "access_method": "http",
       "documents": [
         {
@@ -62,7 +62,7 @@
     "currency": "USD",
     "price_data": {
       "input": "1.000000",
-      "output": "2.25000000"
+      "output": "3.000000"
     },
     "unit": "one_million_tokens"
   }

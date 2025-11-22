@@ -1,7 +1,7 @@
 {
   "version": "",
   "schema": "service_v1",
-  "time_created": "2025-11-12T21:54:13.123Z",
+  "time_created": "2025-11-22T05:08:51.204Z",
   "name": "kimi-k2-thinking",
   "service_type": "llm",
   "display_name": "MoonshotAI: Kimi K2 Thinking",
@@ -18,15 +18,15 @@
     "description": "Pricing Per 1M Tokens Input/Output",
     "currency": "USD",
     "price_data": {
-      "input": "0.0",
-      "output": "0.0"
+      "input": "0.4000000",
+      "output": "1.5000000"
     },
     "unit": "one_million_tokens"
   },
   "upstream_access_interface": {
     "name": "CROFAI API",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
-    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "base_url": "https://ai.nahcrof.com/v2",
     "access_method": "http",
     "model_id": "kimi-k2-thinking"
   }

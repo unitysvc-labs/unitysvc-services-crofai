@@ -1,7 +1,7 @@
 {
   "version": "",
   "schema": "service_v1",
-  "time_created": "2025-11-12T21:54:13.126Z",
+  "time_created": "2025-11-22T05:08:51.210Z",
   "name": "qwen3-235b-a22b-2507-thinking",
   "service_type": "llm",
   "display_name": "Qwen: Qwen3 235B A22B Thinking 2507",
@@ -26,7 +26,7 @@
   "upstream_access_interface": {
     "name": "CROFAI API",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
-    "api_endpoint": "https://ai.nahcrof.com/v2",
+    "base_url": "https://ai.nahcrof.com/v2",
     "access_method": "http",
     "model_id": "qwen3-235b-a22b-2507-thinking"
   }

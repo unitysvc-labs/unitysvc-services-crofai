@@ -7,7 +7,7 @@ homepage = "https://ai.nahcrof.com/home"
 
 [provider_access_info]
 api_key = 'NeQsfKXlqumRYSJjFmjw'
-api_endpoint = "https://ai.nahcrof.com/v2"
+base_url = "https://ai.nahcrof.com/v2"
 
 # These will be provided to services_populator as environment variables
 CROFAI_API_KEY = 'NeQsfKXlqumRYSJjFmjw'

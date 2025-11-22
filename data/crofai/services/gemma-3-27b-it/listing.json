@@ -1,12 +1,12 @@
 {
   "schema": "listing_v1",
   "seller_name": "svcreseller",
-  "time_created": "2025-11-12T21:54:13.107Z",
-  "listing_status": "upstream_ready",
+  "time_created": "2025-11-22T05:08:51.194Z",
+  "listing_status": "ready",
   "user_access_interfaces": [
     {
       "name": "Provider API",
-      "api_endpoint": "${GATEWAY_BASE_URL}/p/crofai",
+      "base_url": "${GATEWAY_BASE_URL}/p/crofai",
       "access_method": "http",
       "documents": [
         {
