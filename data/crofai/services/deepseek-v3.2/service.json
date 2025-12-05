@@ -1,0 +1,30 @@
+{
+  "currency": "USD",
+  "description": "",
+  "details": {
+    "context_length": 163840,
+    "created": 1755799640,
+    "max_completion_tokens": 163840,
+    "quantization": "Q4_0",
+    "speed": 50
+  },
+  "display_name": "DeepSeek: DeepSeek V3.2",
+  "name": "deepseek-v3.2",
+  "schema": "service_v1",
+  "seller_price": {
+    "description": "Pricing Per 1M Tokens",
+    "percentage": "100.00",
+    "type": "revenue_share"
+  },
+  "service_type": "llm",
+  "time_created": "2025-12-05T20:17:05.603Z",
+  "upstream_access_interface": {
+    "access_method": "http",
+    "api_key": "NeQsfKXlqumRYSJjFmjw",
+    "base_url": "https://ai.nahcrof.com/v2",
+    "model_id": "deepseek-v3.2",
+    "name": "CROFAI API"
+  },
+  "upstream_status": "ready",
+  "version": ""
+}
