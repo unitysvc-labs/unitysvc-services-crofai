@@ -1,33 +1,30 @@
 {
-  "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-11-22T05:08:51.212Z",
-  "name": "qwen3-coder-turbo",
-  "service_type": "llm",
-  "display_name": "Qwen: Qwen3 Coder",
+  "currency": "USD",
   "description": "",
-  "upstream_status": "ready",
   "details": {
     "context_length": 131072,
+    "created": 1753292189.809791,
     "max_completion_tokens": 131072,
     "quantization": "fp8",
-    "speed": 250,
-    "created": 1753292189.809791
+    "speed": 250
   },
-  "upstream_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "currency": "USD",
-    "price_data": {
-      "input": "0.2000000",
-      "output": "0.5000000"
-    },
-    "unit": "one_million_tokens"
+  "display_name": "Qwen: Qwen3 Coder",
+  "name": "qwen3-coder-turbo",
+  "schema": "service_v1",
+  "seller_price": {
+    "description": "Pricing Per 1M Tokens",
+    "percentage": "100.00",
+    "type": "revenue_share"
   },
+  "service_type": "llm",
+  "time_created": "2025-12-05T20:17:05.609Z",
   "upstream_access_interface": {
-    "name": "CROFAI API",
+    "access_method": "http",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "access_method": "http",
-    "model_id": "qwen3-coder-turbo"
-  }
+    "model_id": "qwen3-coder-turbo",
+    "name": "CROFAI API"
+  },
+  "upstream_status": "ready",
+  "version": ""
 }

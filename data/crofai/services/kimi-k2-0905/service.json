@@ -1,33 +1,30 @@
 {
-  "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-11-22T05:08:51.200Z",
-  "name": "kimi-k2-0905",
-  "service_type": "llm",
-  "display_name": "MoonshotAI: Kimi K2 0905",
+  "currency": "USD",
   "description": "",
-  "upstream_status": "ready",
   "details": {
     "context_length": 131072,
+    "created": 1757083316,
     "max_completion_tokens": 131072,
-    "quantization": "fp8",
-    "speed": 70,
-    "created": 1757083316
+    "quantization": "Q8_0",
+    "speed": 70
   },
-  "upstream_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "currency": "USD",
-    "price_data": {
-      "input": "0.15000000",
-      "output": "0.55000000"
-    },
-    "unit": "one_million_tokens"
+  "display_name": "MoonshotAI: Kimi K2 0905",
+  "name": "kimi-k2-0905",
+  "schema": "service_v1",
+  "seller_price": {
+    "description": "Pricing Per 1M Tokens",
+    "percentage": "100.00",
+    "type": "revenue_share"
   },
+  "service_type": "llm",
+  "time_created": "2025-12-05T20:17:05.606Z",
   "upstream_access_interface": {
-    "name": "CROFAI API",
+    "access_method": "http",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "access_method": "http",
-    "model_id": "kimi-k2-0905"
-  }
+    "model_id": "kimi-k2-0905",
+    "name": "CROFAI API"
+  },
+  "upstream_status": "ready",
+  "version": ""
 }

@@ -1,33 +1,30 @@
 {
-  "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-11-22T05:08:51.193Z",
-  "name": "gemma-3-27b-it",
-  "service_type": "llm",
-  "display_name": "Google: Gemma 3 27B",
+  "currency": "USD",
   "description": "",
-  "upstream_status": "ready",
   "details": {
     "context_length": 131072,
+    "created": 1712028000000,
     "max_completion_tokens": 131072,
-    "quantization": "fp8",
-    "speed": 80,
-    "created": 1712028000000
+    "quantization": "Q8_0",
+    "speed": 80
   },
-  "upstream_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "currency": "USD",
-    "price_data": {
-      "input": "0.04000000",
-      "output": "0.10000000"
-    },
-    "unit": "one_million_tokens"
+  "display_name": "Google: Gemma 3 27B",
+  "name": "gemma-3-27b-it",
+  "schema": "service_v1",
+  "seller_price": {
+    "description": "Pricing Per 1M Tokens",
+    "percentage": "100.00",
+    "type": "revenue_share"
   },
+  "service_type": "llm",
+  "time_created": "2025-12-05T20:17:05.604Z",
   "upstream_access_interface": {
-    "name": "CROFAI API",
+    "access_method": "http",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "access_method": "http",
-    "model_id": "gemma-3-27b-it"
-  }
+    "model_id": "gemma-3-27b-it",
+    "name": "CROFAI API"
+  },
+  "upstream_status": "ready",
+  "version": ""
 }

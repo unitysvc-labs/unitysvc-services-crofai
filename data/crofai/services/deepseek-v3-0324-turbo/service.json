@@ -1,33 +1,30 @@
 {
-  "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-11-22T05:08:51.185Z",
-  "name": "deepseek-v3-0324-turbo",
-  "service_type": "llm",
-  "display_name": "DeepSeek: DeepSeek V3 0324",
+  "currency": "USD",
   "description": "",
-  "upstream_status": "ready",
   "details": {
     "context_length": 131072,
+    "created": 1712028000000,
     "max_completion_tokens": 8192,
-    "quantization": "fp4",
-    "speed": 500,
-    "created": 1712028000000
+    "quantization": "Q4_0",
+    "speed": 500
   },
-  "upstream_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "currency": "USD",
-    "price_data": {
-      "input": "0.5000000",
-      "output": "1.000000"
-    },
-    "unit": "one_million_tokens"
+  "display_name": "DeepSeek: DeepSeek V3 0324",
+  "name": "deepseek-v3-0324-turbo",
+  "schema": "service_v1",
+  "seller_price": {
+    "description": "Pricing Per 1M Tokens",
+    "percentage": "100.00",
+    "type": "revenue_share"
   },
+  "service_type": "llm",
+  "time_created": "2025-12-05T20:17:05.601Z",
   "upstream_access_interface": {
-    "name": "CROFAI API",
+    "access_method": "http",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "access_method": "http",
-    "model_id": "deepseek-v3-0324-turbo"
-  }
+    "model_id": "deepseek-v3-0324-turbo",
+    "name": "CROFAI API"
+  },
+  "upstream_status": "ready",
+  "version": ""
 }

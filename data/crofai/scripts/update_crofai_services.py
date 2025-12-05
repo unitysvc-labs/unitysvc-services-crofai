@@ -65,12 +65,9 @@ class CrofAIModelExtractor:
         """Create pricing structure from API pricing data."""
         return {
             "description": "Pricing Per 1M Tokens Input/Output",
-            "currency": "USD",
-            "price_data": {
-                "input": str(Decimal(pricing_data["prompt"]) * 1000000),
-                "output": str(Decimal(pricing_data["completion"]) * 1000000),
-            },
-            "unit": "one_million_tokens",
+            "input": str(Decimal(pricing_data["prompt"]) * 1000000),
+            "output": str(Decimal(pricing_data["completion"]) * 1000000),
+            "type": "one_million_tokens",
         }
 
     def create_service_data_structure(self, model_data: Dict) -> Dict:
@@ -84,6 +81,7 @@ class CrofAIModelExtractor:
             "schema": "service_v1",
             "time_created": timestamp,
             "name": model_name,
+            "currency": "USD",
             "service_type": "llm",
             "display_name": model_data.get("name", ""),
             "description": "",
@@ -95,9 +93,11 @@ class CrofAIModelExtractor:
                 "speed": model_data.get("speed"),
                 "created": model_data.get("created"),
             },
-            "upstream_price": self.create_pricing_info_structure(
-                model_data.get("pricing", {})
-            ),
+            "seller_price": {
+                "type": "revenue_share",
+                "percentage": "100.00",
+                "description": "Pricing Per 1M Tokens",
+            },
             "upstream_access_interface": {
                 "name": "CROFAI API",
                 "api_key": self.api_key,
@@ -117,6 +117,7 @@ class CrofAIModelExtractor:
             "seller_name": "svcreseller",
             "time_created": timestamp,
             "listing_status": "ready",
+            "currency": "USD",
             "user_access_interfaces": [
                 {
                     "name": "CROFAI API",
@@ -172,7 +173,7 @@ class CrofAIModelExtractor:
                     "name": "Provider API",
                 }
             ],
-            "user_price": self.create_pricing_info_structure(pricing_data),
+            "customer_price": self.create_pricing_info_structure(pricing_data),
         }
         return listing_config
 

@@ -1,33 +1,30 @@
 {
-  "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-11-22T05:08:51.183Z",
-  "name": "deepseek-r1-distill-qwen-32b",
-  "service_type": "llm",
-  "display_name": "DeepSeek: R1 Distill Qwen 32B",
+  "currency": "USD",
   "description": "",
-  "upstream_status": "ready",
   "details": {
     "context_length": 65536,
+    "created": 1712028000000,
     "max_completion_tokens": 65536,
-    "quantization": "fp4",
-    "speed": 50,
-    "created": 1712028000000
+    "quantization": "fp8",
+    "speed": 50
   },
-  "upstream_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "currency": "USD",
-    "price_data": {
-      "input": "0.1000000",
-      "output": "0.1000000"
-    },
-    "unit": "one_million_tokens"
+  "display_name": "DeepSeek: R1 Distill Qwen 32B",
+  "name": "deepseek-r1-distill-qwen-32b",
+  "schema": "service_v1",
+  "seller_price": {
+    "description": "Pricing Per 1M Tokens",
+    "percentage": "100.00",
+    "type": "revenue_share"
   },
+  "service_type": "llm",
+  "time_created": "2025-12-05T20:17:05.600Z",
   "upstream_access_interface": {
-    "name": "CROFAI API",
+    "access_method": "http",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "access_method": "http",
-    "model_id": "deepseek-r1-distill-qwen-32b"
-  }
+    "model_id": "deepseek-r1-distill-qwen-32b",
+    "name": "CROFAI API"
+  },
+  "upstream_status": "ready",
+  "version": ""
 }

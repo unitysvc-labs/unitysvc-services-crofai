@@ -1,13 +1,19 @@
 {
+  "currency": "USD",
+  "customer_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "0.15000000",
+    "output": "0.35000000",
+    "type": "one_million_tokens"
+  },
+  "listing_status": "ready",
   "schema": "listing_v1",
   "seller_name": "svcreseller",
-  "time_created": "2025-11-22T05:08:51.212Z",
-  "listing_status": "ready",
+  "time_created": "2025-12-05T20:17:05.609Z",
   "user_access_interfaces": [
     {
-      "name": "Provider API",
-      "base_url": "${GATEWAY_BASE_URL}/p/crofai",
       "access_method": "http",
+      "base_url": "${GATEWAY_BASE_URL}/p/crofai",
       "documents": [
         {
           "category": "code_example",
@@ -54,16 +60,8 @@
           "mime_type": "markdown",
           "title": "How to use this model"
         }
-      ]
+      ],
+      "name": "Provider API"
     }
-  ],
-  "user_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "currency": "USD",
-    "price_data": {
-      "input": "0.15000000",
-      "output": "0.35000000"
-    },
-    "unit": "one_million_tokens"
-  }
+  ]
 }

@@ -1,33 +1,30 @@
 {
-  "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-11-22T05:08:51.196Z",
-  "name": "glm-4.6-turbo",
-  "service_type": "llm",
-  "display_name": "Z.AI: GLM 4.6",
+  "currency": "USD",
   "description": "",
-  "upstream_status": "ready",
   "details": {
     "context_length": 202752,
+    "created": 1762575030,
     "max_completion_tokens": 202752,
     "quantization": "fp8",
-    "speed": 100,
-    "created": 1762575030
+    "speed": 100
   },
-  "upstream_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "currency": "USD",
-    "price_data": {
-      "input": "0.5000000",
-      "output": "2.25000000"
-    },
-    "unit": "one_million_tokens"
+  "display_name": "Z.AI: GLM 4.6",
+  "name": "glm-4.6-turbo",
+  "schema": "service_v1",
+  "seller_price": {
+    "description": "Pricing Per 1M Tokens",
+    "percentage": "100.00",
+    "type": "revenue_share"
   },
+  "service_type": "llm",
+  "time_created": "2025-12-05T20:17:05.605Z",
   "upstream_access_interface": {
-    "name": "CROFAI API",
+    "access_method": "http",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "access_method": "http",
-    "model_id": "glm-4.6-turbo"
-  }
+    "model_id": "glm-4.6-turbo",
+    "name": "CROFAI API"
+  },
+  "upstream_status": "ready",
+  "version": ""
 }
