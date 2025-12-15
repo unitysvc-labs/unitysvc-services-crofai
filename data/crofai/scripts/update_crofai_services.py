@@ -114,7 +114,6 @@ class CrofAIModelExtractor:
 
         listing_config = {
             "schema": "listing_v1",
-            "seller_name": "svcreseller",
             "time_created": timestamp,
             "listing_status": "ready",
             "currency": "USD",

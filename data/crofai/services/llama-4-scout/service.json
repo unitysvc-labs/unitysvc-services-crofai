@@ -1,30 +1,30 @@
 {
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-12-15T22:07:12.129Z",
+  "name": "llama-4-scout",
   "currency": "USD",
+  "service_type": "llm",
+  "display_name": "Meta: Llama 4 Scout",
   "description": "",
+  "upstream_status": "ready",
   "details": {
     "context_length": 262144,
-    "created": 1712028000000,
     "max_completion_tokens": 16384,
     "quantization": "fp8",
-    "speed": 65
+    "speed": 65,
+    "created": 1712028000000
   },
-  "display_name": "Meta: Llama 4 Scout",
-  "name": "llama-4-scout",
-  "schema": "service_v1",
   "seller_price": {
-    "description": "Pricing Per 1M Tokens",
+    "type": "revenue_share",
     "percentage": "100.00",
-    "type": "revenue_share"
+    "description": "Pricing Per 1M Tokens"
   },
-  "service_type": "llm",
-  "time_created": "2025-12-05T20:17:05.607Z",
   "upstream_access_interface": {
-    "access_method": "http",
+    "name": "CROFAI API",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "model_id": "llama-4-scout",
-    "name": "CROFAI API"
-  },
-  "upstream_status": "ready",
-  "version": ""
+    "access_method": "http",
+    "model_id": "llama-4-scout"
+  }
 }

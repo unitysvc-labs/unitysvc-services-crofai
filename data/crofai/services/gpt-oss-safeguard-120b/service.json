@@ -1,30 +1,30 @@
 {
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-12-15T22:07:12.126Z",
+  "name": "gpt-oss-safeguard-120b",
   "currency": "USD",
+  "service_type": "llm",
+  "display_name": "OpenAI: gpt-oss-safeguard-120b",
   "description": "",
+  "upstream_status": "ready",
   "details": {
     "context_length": 131072,
-    "created": "1754447935.370325",
     "max_completion_tokens": 131072,
     "quantization": "Q8_0",
-    "speed": 30
+    "speed": 30,
+    "created": "1754447935.370325"
   },
-  "display_name": "OpenAI: gpt-oss-safeguard-120b",
-  "name": "gpt-oss-safeguard-120b",
-  "schema": "service_v1",
   "seller_price": {
-    "description": "Pricing Per 1M Tokens",
+    "type": "revenue_share",
     "percentage": "100.00",
-    "type": "revenue_share"
+    "description": "Pricing Per 1M Tokens"
   },
-  "service_type": "llm",
-  "time_created": "2025-12-05T20:17:05.605Z",
   "upstream_access_interface": {
-    "access_method": "http",
+    "name": "CROFAI API",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "model_id": "gpt-oss-safeguard-120b",
-    "name": "CROFAI API"
-  },
-  "upstream_status": "ready",
-  "version": ""
+    "access_method": "http",
+    "model_id": "gpt-oss-safeguard-120b"
+  }
 }

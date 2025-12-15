@@ -1,30 +1,30 @@
 {
+  "version": "",
+  "schema": "service_v1",
+  "time_created": "2025-12-15T22:07:12.130Z",
+  "name": "minimax-m2",
   "currency": "USD",
+  "service_type": "llm",
+  "display_name": "MiniMax: MiniMax M2",
   "description": "",
+  "upstream_status": "ready",
   "details": {
     "context_length": 196608,
-    "created": 1755799640,
     "max_completion_tokens": 196608,
     "quantization": "fp8",
-    "speed": 1150
+    "speed": 1150,
+    "created": 1755799640
   },
-  "display_name": "MiniMax: MiniMax M2",
-  "name": "minimax-m2",
-  "schema": "service_v1",
   "seller_price": {
-    "description": "Pricing Per 1M Tokens",
+    "type": "revenue_share",
     "percentage": "100.00",
-    "type": "revenue_share"
+    "description": "Pricing Per 1M Tokens"
   },
-  "service_type": "llm",
-  "time_created": "2025-12-05T20:17:05.608Z",
   "upstream_access_interface": {
-    "access_method": "http",
+    "name": "CROFAI API",
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
-    "model_id": "minimax-m2",
-    "name": "CROFAI API"
-  },
-  "upstream_status": "ready",
-  "version": ""
+    "access_method": "http",
+    "model_id": "minimax-m2"
+  }
 }
