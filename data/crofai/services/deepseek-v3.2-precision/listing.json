@@ -1,9 +1,9 @@
 {
   "schema": "listing_v1",
-  "time_created": "2025-12-16T03:13:55.047Z",
+  "time_created": "2025-12-16T03:13:55.067Z",
   "listing_status": "ready",
   "currency": "USD",
-  "display_name": "deepseek-v3-0324-turbo",
+  "display_name": "deepseek-v3.2-precision",
   "user_access_interfaces": [
     {
       "name": "Provider API",
@@ -60,8 +60,8 @@
   ],
   "customer_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "0.5000000",
-    "output": "1.000000",
+    "input": "0.35000000",
+    "output": "0.45000000",
     "type": "one_million_tokens"
   }
 }

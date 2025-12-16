@@ -1,8 +1,9 @@
 {
   "schema": "listing_v1",
-  "time_created": "2025-12-15T22:07:12.115Z",
+  "time_created": "2025-12-16T03:13:55.040Z",
   "listing_status": "ready",
   "currency": "USD",
+  "display_name": "deepseek-r1-distill-qwen-32b",
   "user_access_interfaces": [
     {
       "name": "Provider API",

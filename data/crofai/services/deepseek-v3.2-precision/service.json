@@ -1,18 +1,18 @@
 {
   "version": "",
   "schema": "offering_v1",
-  "time_created": "2025-12-16T03:13:55.095Z",
-  "name": "qwen3-235b-a22b-2507-thinking",
+  "time_created": "2025-12-16T03:13:55.066Z",
+  "name": "deepseek-v3.2-precision",
   "currency": "USD",
   "service_type": "llm",
   "description": "",
   "upstream_status": "ready",
   "details": {
-    "context_length": 131072,
-    "max_completion_tokens": 131072,
-    "quantization": "Q8_0",
-    "speed": 27,
-    "created": 1753493357.191588
+    "context_length": 163840,
+    "max_completion_tokens": 163840,
+    "quantization": "fp8",
+    "speed": 50,
+    "created": 1755799640
   },
   "seller_price": {
     "type": "revenue_share",
@@ -24,6 +24,6 @@
     "api_key": "NeQsfKXlqumRYSJjFmjw",
     "base_url": "https://ai.nahcrof.com/v2",
     "access_method": "http",
-    "model_id": "qwen3-235b-a22b-2507-thinking"
+    "model_id": "deepseek-v3.2-precision"
   }
 }

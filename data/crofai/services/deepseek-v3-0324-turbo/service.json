@@ -1,11 +1,10 @@
 {
   "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-12-15T22:07:12.116Z",
+  "schema": "offering_v1",
+  "time_created": "2025-12-16T03:13:55.044Z",
   "name": "deepseek-v3-0324-turbo",
   "currency": "USD",
   "service_type": "llm",
-  "display_name": "DeepSeek: DeepSeek V3 0324",
   "description": "",
   "upstream_status": "ready",
   "details": {

@@ -1,8 +1,9 @@
 {
   "schema": "listing_v1",
-  "time_created": "2025-12-15T22:07:12.133Z",
+  "time_created": "2025-12-16T03:13:55.106Z",
   "listing_status": "ready",
   "currency": "USD",
+  "display_name": "qwen3-next-80b-a3b-instruct",
   "user_access_interfaces": [
     {
       "name": "Provider API",

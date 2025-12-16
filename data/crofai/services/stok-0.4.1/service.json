@@ -1,11 +1,10 @@
 {
   "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-12-15T22:07:12.133Z",
+  "schema": "offering_v1",
+  "time_created": "2025-12-16T03:13:55.111Z",
   "name": "stok-0.4.1",
   "currency": "USD",
   "service_type": "llm",
-  "display_name": "CrofAI: Stok 0.4.1",
   "description": "",
   "upstream_status": "ready",
   "details": {

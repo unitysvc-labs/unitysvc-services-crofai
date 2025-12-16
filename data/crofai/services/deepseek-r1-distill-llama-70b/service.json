@@ -1,11 +1,10 @@
 {
   "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-12-15T22:07:12.114Z",
+  "schema": "offering_v1",
+  "time_created": "2025-12-16T03:13:55.037Z",
   "name": "deepseek-r1-distill-llama-70b",
   "currency": "USD",
   "service_type": "llm",
-  "display_name": "DeepSeek: R1 Distill Llama 70B",
   "description": "",
   "upstream_status": "ready",
   "details": {

@@ -78,12 +78,11 @@ class CrofAIModelExtractor:
         model_name = model_data.get("id", "").replace(":", "-")
         service_config = {
             "version": "",
-            "schema": "service_v1",
+            "schema": "offering_v1",
             "time_created": timestamp,
             "name": model_name,
             "currency": "USD",
             "service_type": "llm",
-            "display_name": model_data.get("name", ""),
             "description": "",
             "upstream_status": "ready",
             "details": {
@@ -108,7 +107,7 @@ class CrofAIModelExtractor:
         }
         return service_config
 
-    def create_listing_data_structure(self, pricing_data: Dict) -> Dict:
+    def create_listing_data_structure(self, service_data, pricing_data: Dict) -> Dict:
         """Create listing.json structure."""
         timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
@@ -117,6 +116,7 @@ class CrofAIModelExtractor:
             "time_created": timestamp,
             "listing_status": "ready",
             "currency": "USD",
+            "display_name": service_data.get("name", ""),
             "user_access_interfaces": [
                 {
                     "name": "CROFAI API",
@@ -188,7 +188,7 @@ class CrofAIModelExtractor:
             json.dump(service_data, f, indent=2)
 
         # Write listing.json with raw pricing data
-        listing_data = self.create_listing_data_structure(raw_pricing)
+        listing_data = self.create_listing_data_structure(service_data, raw_pricing)
         listing_file = output_dir / "listing.json"
         with open(listing_file, "w", encoding="utf-8") as f:
             json.dump(listing_data, f, indent=2)

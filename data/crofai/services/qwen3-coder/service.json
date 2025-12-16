@@ -1,11 +1,10 @@
 {
   "version": "",
-  "schema": "service_v1",
-  "time_created": "2025-12-15T22:07:12.131Z",
+  "schema": "offering_v1",
+  "time_created": "2025-12-16T03:13:55.100Z",
   "name": "qwen3-coder",
   "currency": "USD",
   "service_type": "llm",
-  "display_name": "Qwen: Qwen3 Coder",
   "description": "",
   "upstream_status": "ready",
   "details": {
