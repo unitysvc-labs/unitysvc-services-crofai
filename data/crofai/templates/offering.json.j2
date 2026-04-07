@@ -1,0 +1,26 @@
+{
+  "schema": "offering_v1",
+  "time_created": "{{ time_created }}",
+  "name": "{{ offering_name }}",
+  "display_name": "{{ display_name }}",
+  "description": {{ description | tojson }},
+  "service_type": "{{ service_type }}",
+  "status": "{{ status | default('ready') }}",
+  "currency": "USD",
+  "tags": ["ai", "gateway"],
+  "details": {{ details | tojson }},
+{%- if payout_price %}
+  "payout_price": {{ payout_price | tojson }},
+{%- endif %}
+  "upstream_access_config": {
+    "{{ provider_display_name }} API": {
+      "access_method": "http",
+      "api_key": "${ secrets.{{ env_api_key_name }} }",
+      "base_url": "{{ api_base_url }}",
+      "rate_limits": [],
+      "routing_key": {
+        "model": "{{ offering_name }}"
+      }
+    }
+  }
+}

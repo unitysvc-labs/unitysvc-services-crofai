@@ -1,28 +1,25 @@
 {
+  "schema": "listing_v1",
+  "time_created": "{{ time_created }}",
+  "status": "{{ status | default('ready') }}",
   "currency": "USD",
+{%- if list_price %}
+  "list_price": {{ list_price | tojson }},
+{%- endif %}
+  "user_access_interfaces": {
+    "Provider API": {
+      "access_method": "http",
+      "base_url": "${API_GATEWAY_BASE_URL}/p/{{ provider_name }}",
+      "routing_key": {"model": "{{ offering_name }}"}
+    }
+  },
   "documents": {
-    "Connectivity test": {
-      "category": "connectivity_test",
-      "description": "Connectivity test",
-      "file_path": "../../docs/connectivity.sh.j2",
-      "is_active": true,
-      "is_public": false,
-      "mime_type": "bash"
-    },
     "How to use this model": {
       "category": "getting_started",
       "file_path": "../../docs/description.md",
       "is_active": true,
       "is_public": true,
       "mime_type": "markdown"
-    },
-    "JavaScript code example": {
-      "category": "code_example",
-      "description": "Example code to use the model",
-      "file_path": "../../docs/code-example.js.j2",
-      "is_active": true,
-      "is_public": true,
-      "mime_type": "javascript"
     },
     "Python code example": {
       "category": "code_example",
@@ -40,6 +37,14 @@
       "is_public": true,
       "mime_type": "python"
     },
+    "JavaScript code example": {
+      "category": "code_example",
+      "description": "Example code to use the model",
+      "file_path": "../../docs/code-example.js.j2",
+      "is_active": true,
+      "is_public": true,
+      "mime_type": "javascript"
+    },
     "cURL code example": {
       "category": "code_example",
       "description": "Example code to use the model",
@@ -47,24 +52,14 @@
       "is_active": true,
       "is_public": true,
       "mime_type": "bash"
-    }
-  },
-  "list_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "0.28000000",
-    "output": "0.38000000",
-    "type": "one_million_tokens"
-  },
-  "schema": "listing_v1",
-  "status": "ready",
-  "time_created": "2026-04-07T02:37:45.679Z",
-  "user_access_interfaces": {
-    "Provider API": {
-      "access_method": "http",
-      "base_url": "${API_GATEWAY_BASE_URL}/p/crofai",
-      "routing_key": {
-        "model": "deepseek-v3.2"
-      }
+    },
+    "Connectivity test": {
+      "category": "connectivity_test",
+      "description": "Connectivity test",
+      "file_path": "../../docs/connectivity.sh.j2",
+      "is_active": true,
+      "is_public": false,
+      "mime_type": "bash"
     }
   }
 }

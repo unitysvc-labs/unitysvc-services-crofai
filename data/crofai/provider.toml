@@ -1,17 +1,16 @@
 schema = "provider_v1"
-time_created = "2025-09-10T00:00:00Z"
+time_created = "2025-08-17T10:55:04.976433Z"
 name = "crofai"
-terms_of_service = "https://ai.nahcrof.com/privacy"
-contact_email = "nahcrof@gmail.com"
-homepage = "https://ai.nahcrof.com/home"
-
-[provider_access_info]
-api_key = 'NeQsfKXlqumRYSJjFmjw'
-base_url = "https://ai.nahcrof.com/v2"
+display_name = "CrofAI"
+status = "ready"
+terms_of_service = "https://nahcrof.com/terms"
+contact_email = "support@nahcrof.com"
+homepage = "https://nahcrof.com/"
+logo = "https://nahcrof.com/favicon.ico"
 
 # These will be provided to services_populator as environment variables
-CROFAI_API_KEY = 'NeQsfKXlqumRYSJjFmjw'
+CROFAI_API_KEY = "..."
 CROFAI_API_BASE_URL = "https://ai.nahcrof.com/v2"
 
 [services_populator]
-command = ['scripts/update_crofai_services.py', '--force']
+command = ["scripts/update_services.py", "--force"]

@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": 401,
+    "message": "Not Enough Credits",
+    "type": "unauthorized"
+  }
+}

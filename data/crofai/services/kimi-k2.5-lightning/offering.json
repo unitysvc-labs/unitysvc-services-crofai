@@ -1,0 +1,37 @@
+{
+  "currency": "USD",
+  "description": "",
+  "details": {
+    "context_length": 131072,
+    "max_completion_tokens": 32768,
+    "model_name": "kimi-k2.5-lightning",
+    "quantization": "530b-int4"
+  },
+  "display_name": "kimi-k2.5-lightning",
+  "name": "kimi-k2.5-lightning",
+  "payout_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "2.5000000",
+    "output": "4.000000",
+    "type": "one_million_tokens"
+  },
+  "schema": "offering_v1",
+  "service_type": "llm",
+  "status": "ready",
+  "tags": [
+    "ai",
+    "gateway"
+  ],
+  "time_created": "2026-04-07T02:37:45.683Z",
+  "upstream_access_config": {
+    "CrofAI API": {
+      "access_method": "http",
+      "api_key": "${ secrets.CROFAI_API_KEY }",
+      "base_url": "https://ai.nahcrof.com/v2",
+      "rate_limits": [],
+      "routing_key": {
+        "model": "kimi-k2.5-lightning"
+      }
+    }
+  }
+}
