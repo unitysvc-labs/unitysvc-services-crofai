@@ -151,8 +151,10 @@ class CrofAIModelExtractor:
             "max_completion_tokens": model_data.get("max_completion_tokens"),
             "quantization": model_data.get("quantization"),
         }
-        # Remove None values
+        # Remove None values (but keep parameter_count even as None — required by validator)
         details = {k: v for k, v in details.items() if v is not None}
+        if "parameter_count" not in details:
+            details["parameter_count"] = None
 
         return {
             "provider_name": PROVIDER_NAME,
