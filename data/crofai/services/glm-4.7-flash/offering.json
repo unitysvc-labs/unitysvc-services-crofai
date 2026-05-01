@@ -5,7 +5,8 @@
     "context_length": 202752,
     "max_completion_tokens": 131072,
     "model_name": "glm-4.7-flash",
-    "quantization": "fp8"
+    "quantization": "fp8",
+    "parameter_count": null
   },
   "display_name": "glm-4.7-flash",
   "name": "glm-4.7-flash",
