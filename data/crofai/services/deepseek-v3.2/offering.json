@@ -5,7 +5,8 @@
     "context_length": 163840,
     "max_completion_tokens": 163840,
     "model_name": "deepseek-v3.2",
-    "quantization": "Q4_0"
+    "quantization": "Q4_0",
+    "parameter_count": null
   },
   "display_name": "deepseek-v3.2",
   "name": "deepseek-v3.2",
