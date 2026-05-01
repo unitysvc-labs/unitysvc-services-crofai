@@ -8,9 +8,9 @@ contact_email = "support@nahcrof.com"
 homepage = "https://nahcrof.com/"
 logo = "https://nahcrof.com/favicon.ico"
 
-# These will be provided to services_populator as environment variables
-CROFAI_API_KEY = "..."
-CROFAI_API_BASE_URL = "https://ai.nahcrof.com/v2"
-
 [services_populator]
 command = ["scripts/update_services.py", "--force"]
+
+[services_populator.envs]
+CROFAI_API_KEY = ""
+CROFAI_API_BASE_URL = ""
