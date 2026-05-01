@@ -7,11 +7,6 @@ on:
     paths:
       - "data/**"
       - ".github/workflows/validate-data.yml"
-  pull_request_target:
-    types: [opened, synchronize, reopened]
-    paths:
-      - "data/**"
-      - ".github/workflows/validate-data.yml"
   push:
     branches: [main]
     paths:
@@ -32,15 +27,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install unitysvc-services
+      - name: Install unitysvc-sellers
         run: |
           python -m pip install --upgrade pip
-          pip install unitysvc-services
+          pip install unitysvc-sellers
 
       - name: Validate data directory
         run: |
           echo "Validating data directory..."
-          unitysvc_services validate
+          usvc_seller data validate
 
       - name: Data validation summary
         if: always()
@@ -48,14 +43,9 @@ jobs:
           echo "## Data Validation Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Validation Results" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ Data directory validation completed" >> $GITHUB_STEP_SUMMARY
+          echo "- Data directory validation completed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Files Validated" >> $GITHUB_STEP_SUMMARY
-          echo "All JSON and TOML files in the data directory have been validated against their schemas." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Schema Validation" >> $GITHUB_STEP_SUMMARY
-          echo "- File references checked for existence" >> $GITHUB_STEP_SUMMARY
-          echo "- JSON schema compliance verified" >> $GITHUB_STEP_SUMMARY
-          echo "- Directory name consistency checked" >> $GITHUB_STEP_SUMMARY
-          echo "- Service name uniqueness verified" >> $GITHUB_STEP_SUMMARY
-          echo "- Valid seller references confirmed" >> $GITHUB_STEP_SUMMARY
+          echo "### Checks Performed" >> $GITHUB_STEP_SUMMARY
+          echo "- Schema compliance" >> $GITHUB_STEP_SUMMARY
+          echo "- File references" >> $GITHUB_STEP_SUMMARY
+          echo "- Directory name consistency" >> $GITHUB_STEP_SUMMARY
