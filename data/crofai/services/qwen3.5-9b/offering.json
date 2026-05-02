@@ -1,14 +1,14 @@
 {
   "schema": "offering_v1",
-  "time_created": "2026-05-02T21:27:42.284Z",
-  "name": "glm-4.7-flash",
-  "display_name": "glm-4.7-flash",
+  "time_created": "2026-05-02T21:27:44.404Z",
+  "name": "qwen3.5-9b",
+  "display_name": "qwen3.5-9b",
   "description": "",
   "service_type": "llm",
   "status": "ready",
   "currency": "USD",
   "tags": ["ai", "gateway"],
-  "details": {"model_name": "glm-4.7-flash", "max_completion_tokens": 131072, "quantization": "fp8", "context_length": 202752, "parameter_count": 31221485568, "metadata_sources": {"parameter_count": "huggingface_safetensors"}},
+  "details": {"model_name": "qwen3.5-9b", "max_completion_tokens": 262144, "quantization": "fp8", "context_length": 262144, "parameter_count": 9653100528, "metadata_sources": {"parameter_count": "huggingface_safetensors"}},
   "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "0.000", "output": "0.000", "type": "one_million_tokens"},
   "upstream_access_config": {
     "CrofAI API": {
@@ -17,7 +17,7 @@
       "base_url": "https://ai.nahcrof.com/v2",
       "rate_limits": [],
       "routing_key": {
-        "model": "glm-4.7-flash"
+        "model": "qwen3.5-9b"
       }
     }
   }

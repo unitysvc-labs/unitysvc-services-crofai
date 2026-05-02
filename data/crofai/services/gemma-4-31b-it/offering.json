@@ -1,29 +1,15 @@
 {
-  "currency": "USD",
-  "description": "",
-  "details": {
-    "context_length": 262144,
-    "max_completion_tokens": 262144,
-    "model_name": "gemma-4-31b-it",
-    "parameter_count": null,
-    "quantization": "Q4_0"
-  },
-  "display_name": "gemma-4-31b-it",
-  "name": "gemma-4-31b-it",
-  "payout_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "100000.00",
-    "output": "300000.00",
-    "type": "one_million_tokens"
-  },
   "schema": "offering_v1",
+  "time_created": "2026-05-02T21:27:41.841Z",
+  "name": "gemma-4-31b-it",
+  "display_name": "gemma-4-31b-it",
+  "description": "",
   "service_type": "llm",
   "status": "ready",
-  "tags": [
-    "ai",
-    "gateway"
-  ],
-  "time_created": "2026-05-02T21:24:49.457Z",
+  "currency": "USD",
+  "tags": ["ai", "gateway"],
+  "details": {"model_name": "gemma-4-31b-it", "max_completion_tokens": 262144, "quantization": "Q4_0", "context_length": 262144, "parameter_count": null},
+  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "100000.00", "output": "300000.00", "type": "one_million_tokens"},
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
