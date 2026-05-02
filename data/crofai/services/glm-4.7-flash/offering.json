@@ -4,16 +4,19 @@
   "details": {
     "context_length": 202752,
     "max_completion_tokens": 131072,
+    "metadata_sources": {
+      "parameter_count": "huggingface_safetensors"
+    },
     "model_name": "glm-4.7-flash",
-    "quantization": "fp8",
-    "parameter_count": null
+    "parameter_count": 31221485568,
+    "quantization": "fp8"
   },
   "display_name": "glm-4.7-flash",
   "name": "glm-4.7-flash",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "0.0",
-    "output": "0.0",
+    "input": "0.000",
+    "output": "0.000",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -23,7 +26,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-04-07T02:37:45.681Z",
+  "time_created": "2026-05-02T21:24:49.894Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

@@ -4,16 +4,19 @@
   "details": {
     "context_length": 262144,
     "max_completion_tokens": 262144,
+    "metadata_sources": {
+      "parameter_count": "huggingface_safetensors"
+    },
     "model_name": "kimi-k2.5",
-    "quantization": "Q4_0",
-    "parameter_count": null
+    "parameter_count": 1014687129600,
+    "quantization": "Q4_K_M"
   },
   "display_name": "kimi-k2.5",
   "name": "kimi-k2.5",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "0.35000000",
-    "output": "1.80000000",
+    "input": "350000.00",
+    "output": "1700000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -23,7 +26,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-04-07T02:37:45.682Z",
+  "time_created": "2026-05-02T21:24:50.926Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

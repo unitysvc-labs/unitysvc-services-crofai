@@ -5,15 +5,15 @@
     "context_length": 131072,
     "max_completion_tokens": 32768,
     "model_name": "kimi-k2.5-lightning",
-    "quantization": "530b-int4",
-    "parameter_count": null
+    "parameter_count": null,
+    "quantization": "530b-int4"
   },
   "display_name": "kimi-k2.5-lightning",
   "name": "kimi-k2.5-lightning",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "2.5000000",
-    "output": "4.000000",
+    "input": "1000000.00",
+    "output": "3000000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -23,7 +23,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-04-07T02:37:45.683Z",
+  "time_created": "2026-05-02T21:24:50.985Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

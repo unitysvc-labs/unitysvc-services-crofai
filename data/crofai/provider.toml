@@ -1,16 +1,20 @@
-schema = "provider_v1"
-time_created = "2025-08-17T10:55:04.976433Z"
-name = "crofai"
-display_name = "CrofAI"
-status = "ready"
-terms_of_service = "https://nahcrof.com/terms"
 contact_email = "support@nahcrof.com"
+display_name = "CrofAI"
 homepage = "https://nahcrof.com/"
 logo = "https://nahcrof.com/favicon.ico"
+name = "crofai"
+schema = "provider_v1"
+status = "ready"
+terms_of_service = "https://nahcrof.com/terms"
+time_created = "2025-08-17T10:55:04.976433Z"
 
 [services_populator]
-command = ["scripts/update_services.py", "--force"]
+# ``--force`` is required for the script to overwrite existing files —
+# without it, daily runs only generate new services and never reflect
+# script-side improvements (e.g. canonical-metadata fill-ins).
+command = ['scripts/update_services.py', '--force']
+requirements = ['requests', 'jinja2', 'unitysvc-sellers']
 
 [services_populator.envs]
-CROFAI_API_KEY = ""
-CROFAI_API_BASE_URL = ""
+# API key should be provided via CROFAI_API_KEY environment variable.
+# CROFAI_API_BASE_URL has a sensible default in the script; override only if needed.
