@@ -5,8 +5,8 @@
     "context_length": 262144,
     "max_completion_tokens": 262144,
     "model_name": "qwen3.5-397b-a17b",
-    "quantization": "Q4_0",
-    "parameter_count": null
+    "parameter_count": null,
+    "quantization": "Q4_0"
   },
   "display_name": "qwen3.5-397b-a17b",
   "name": "qwen3.5-397b-a17b",

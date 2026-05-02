@@ -5,8 +5,8 @@
     "context_length": 131072,
     "max_completion_tokens": 32768,
     "model_name": "kimi-k2.5-lightning",
-    "quantization": "530b-int4",
-    "parameter_count": null
+    "parameter_count": null,
+    "quantization": "530b-int4"
   },
   "display_name": "kimi-k2.5-lightning",
   "name": "kimi-k2.5-lightning",

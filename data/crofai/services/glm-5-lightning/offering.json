@@ -5,8 +5,8 @@
     "context_length": 202752,
     "max_completion_tokens": 202752,
     "model_name": "glm-5-lightning",
-    "quantization": "Q4_0",
-    "parameter_count": null
+    "parameter_count": null,
+    "quantization": "Q4_0"
   },
   "display_name": "glm-5-lightning",
   "name": "glm-5-lightning",

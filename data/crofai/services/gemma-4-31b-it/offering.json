@@ -5,8 +5,8 @@
     "context_length": 262144,
     "max_completion_tokens": 262144,
     "model_name": "gemma-4-31b-it",
-    "quantization": "Q4_0",
-    "parameter_count": null
+    "parameter_count": null,
+    "quantization": "Q4_0"
   },
   "display_name": "gemma-4-31b-it",
   "name": "gemma-4-31b-it",

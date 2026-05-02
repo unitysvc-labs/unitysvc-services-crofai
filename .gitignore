@@ -1,3 +1,12 @@
-*.err
+# test-artifact siblings produced by ``usvc_seller data run-tests``
+listing_*.out
+listing_*.err
+listing_*.status
+listing_*.env
+
+# legacy "failed_*" artifacts (older test runner)
 failed*
 
+# editor / OS junk
+.DS_Store
+*.swp
