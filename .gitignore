@@ -10,3 +10,4 @@ failed*
 # editor / OS junk
 .DS_Store
 *.swp
+__pycache__/

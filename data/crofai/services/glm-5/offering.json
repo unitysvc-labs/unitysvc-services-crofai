@@ -4,16 +4,19 @@
   "details": {
     "context_length": 202752,
     "max_completion_tokens": 202752,
+    "metadata_sources": {
+      "parameter_count": "huggingface_safetensors"
+    },
     "model_name": "glm-5",
-    "parameter_count": null,
+    "parameter_count": 753864119552,
     "quantization": "Q4_0"
   },
   "display_name": "glm-5",
   "name": "glm-5",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "0.48000000",
-    "output": "1.90000000",
+    "input": "480000.00",
+    "output": "1900000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -23,7 +26,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-04-07T02:37:45.682Z",
+  "time_created": "2026-05-02T21:24:49.965Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

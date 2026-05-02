@@ -20,10 +20,77 @@ from datetime import datetime, timezone
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
+# Canonical metadata helpers shared with deepseek / fireworks / etc. Resolves
+# context_length and parameter_count from the OpenRouter -> LiteLLM -> HuggingFace
+# fallback chain when CrofAI's API doesn't supply them (it never returns
+# parameter_count; context_length is sometimes missing).
+from unitysvc_sellers.model_data import ModelDataFetcher, ModelDataLookup
+
 
 PROVIDER_NAME = "crofai"
 PROVIDER_DISPLAY_NAME = "CrofAI"
 ENV_API_KEY_NAME = "CROFAI_API_KEY"
+
+
+def _as_positive_int(value) -> Optional[int]:
+    """Coerce ``value`` to a positive ``int`` or ``None``.
+
+    The platform validator (unitysvc#863) rejects strings, zero, negative
+    values, and bool. CrofAI usually returns ``context_length`` as an int
+    already, but be defensive — same shape fireworks uses.
+    """
+    if value is None or isinstance(value, bool):
+        return None
+    try:
+        n = int(value)
+    except (TypeError, ValueError):
+        return None
+    return n if n > 0 else None
+
+
+# CrofAI uses bare lowercased ids like ``deepseek-v3.2`` / ``glm-5`` /
+# ``kimi-k2.5`` / ``qwen3.5-397b-a17b``. The canonical resolver
+# (``ModelDataLookup.get_canonical_metadata``) keys ``parameter_count`` by
+# the HuggingFace repo path (``org/Repo-Name``) via the safetensors
+# metadata fetcher, so a bare CrofAI id never matches and we get
+# ``parameter_count=None`` for every model.
+#
+# This table maps known CrofAI prefixes to a function that produces the
+# canonical HF id. ``apply_hf_id`` returns ``None`` when nothing matches —
+# in that case we just pass the bare id through (which still resolves
+# ``context_length`` from OpenRouter / LiteLLM, just not parameter_count).
+def _to_hf_id(model_id: str) -> Optional[str]:
+    mid = model_id
+    # deepseek-v3.2  -> deepseek-ai/DeepSeek-V3.2
+    # deepseek-v4-pro -> deepseek-ai/DeepSeek-V4-Pro
+    if mid.startswith("deepseek-"):
+        rest = mid[len("deepseek-"):]
+        return "deepseek-ai/DeepSeek-" + "-".join(p.capitalize() for p in rest.split("-"))
+    # glm-5 -> zai-org/GLM-5;  glm-4.7-flash -> zai-org/GLM-4.7-Flash
+    if mid.startswith("glm-"):
+        rest = mid[len("glm-"):]
+        return "zai-org/GLM-" + "-".join(p.capitalize() for p in rest.split("-"))
+    # kimi-k2.5 -> moonshotai/Kimi-K2.5;  kimi-k2.6-precision -> moonshotai/Kimi-K2.6-Precision
+    if mid.startswith("kimi-"):
+        rest = mid[len("kimi-"):]
+        return "moonshotai/Kimi-" + "-".join(p.capitalize() for p in rest.split("-"))
+    # qwen3.5-397b-a17b -> Qwen/Qwen3.5-397B-A17B;  qwen3.6-27b -> Qwen/Qwen3.6-27B
+    # The leading ``qwen<ver>`` segment becomes title-cased ``Qwen<ver>``
+    # (HF convention); subsequent segments containing digits become
+    # all-uppercase (``397B``, ``A17B``).
+    if mid.startswith("qwen"):
+        parts = mid.split("-")
+        head = "Qwen" + parts[0][len("qwen"):]  # e.g. "Qwen3.5" / "Qwen3.6"
+        tail = [p.upper() if any(c.isdigit() for c in p) else p.capitalize() for p in parts[1:]]
+        return "Qwen/" + "-".join([head, *tail])
+    # gemma-4-31b-it -> google/gemma-4-31b-it (HF preserves case here)
+    if mid.startswith("gemma-"):
+        return "google/" + mid
+    # minimax-m2.5 -> MiniMaxAI/MiniMax-M2.5
+    if mid.startswith("minimax-"):
+        rest = mid[len("minimax-"):]
+        return "MiniMaxAI/MiniMax-" + "-".join(p.upper() if p[0].isalpha() and any(c.isdigit() for c in p) else p.capitalize() for p in rest.split("-"))
+    return None
 
 
 def _sanitize_header_value(value: str) -> str:
@@ -73,6 +140,15 @@ class CrofAIModelExtractor:
             keep_trailing_newline=True,
         )
         self.jinja_env.filters["tojson"] = lambda v: json.dumps(v)
+
+        # Lazy-init: only fetch canonical model data on first lookup so dry
+        # runs / --models filter passes don't pay the network cost upfront.
+        self._fetcher: Optional[ModelDataFetcher] = None
+
+    def _canonical_metadata(self) -> ModelDataFetcher:
+        if self._fetcher is None:
+            self._fetcher = ModelDataFetcher()
+        return self._fetcher
 
     # ------------------------------------------------------------------
     # Model listing
@@ -147,14 +223,41 @@ class CrofAIModelExtractor:
 
         details: Dict[str, Any] = {
             "model_name": model_id,
-            "context_length": model_data.get("context_length"),
             "max_completion_tokens": model_data.get("max_completion_tokens"),
             "quantization": model_data.get("quantization"),
         }
-        # Remove None values (but keep parameter_count even as None — required by validator)
+        # Drop None-valued upstream fields so the rendered offering is clean.
         details = {k: v for k, v in details.items() if v is not None}
-        if "parameter_count" not in details:
-            details["parameter_count"] = None
+
+        # Canonical (snake_case) metadata required by the platform validator
+        # for LLM offerings. Both keys must be present; null asserts "unknown".
+        # CrofAI's API gives us context_length but never parameter_count, so
+        # ask the canonical helper (OpenRouter -> LiteLLM -> HuggingFace) to
+        # fill in whatever it can. metadata_sources records provenance.
+        #
+        # The HuggingFace safetensors fetcher (which is the only source for
+        # parameter_count) keys by HF repo path — so for known model
+        # families we lift the bare CrofAI id to its HF form before looking
+        # up. Bare lookup still resolves context_length via OpenRouter.
+        hf_id = _to_hf_id(model_id)
+        canonical = ModelDataLookup.get_canonical_metadata(
+            hf_id or model_id, fetcher=self._canonical_metadata()
+        )
+        # Prefer CrofAI's context_length when present; otherwise use the
+        # canonical resolver's answer. parameter_count comes solely from the
+        # canonical resolver — CrofAI doesn't surface it.
+        upstream_ctx = _as_positive_int(model_data.get("context_length"))
+        details["context_length"] = upstream_ctx if upstream_ctx is not None else canonical["context_length"]
+        details["parameter_count"] = canonical["parameter_count"]
+        sources = {k: v for k, v in (canonical.get("sources") or {}).items() if v}
+        # Provenance: only record sources we actually used.
+        used_sources: Dict[str, str] = {}
+        if upstream_ctx is None and canonical["context_length"] is not None and "context_length" in sources:
+            used_sources["context_length"] = sources["context_length"]
+        if canonical["parameter_count"] is not None and "parameter_count" in sources:
+            used_sources["parameter_count"] = sources["parameter_count"]
+        if used_sources:
+            details["metadata_sources"] = used_sources
 
         return {
             "provider_name": PROVIDER_NAME,
@@ -227,8 +330,10 @@ class CrofAIModelExtractor:
                     if schema == "offering_v1" and data.get("status") != "deprecated":
                         data["status"] = "deprecated"
                         updated = True
-                    elif schema == "listing_v1" and data.get("status") != "upstream_deprecated":
-                        data["status"] = "upstream_deprecated"
+                    elif schema == "listing_v1" and data.get("status") != "deprecated":
+                        # ListingV1.status enum is {draft, ready, deprecated} —
+                        # 'upstream_deprecated' was never a valid value.
+                        data["status"] = "deprecated"
                         updated = True
                     if updated:
                         if dry_run:

@@ -9,7 +9,10 @@ terms_of_service = "https://nahcrof.com/terms"
 time_created = "2025-08-17T10:55:04.976433Z"
 
 [services_populator]
-command = 'scripts/update_services.py'
+# ``--force`` is required for the script to overwrite existing files —
+# without it, daily runs only generate new services and never reflect
+# script-side improvements (e.g. canonical-metadata fill-ins).
+command = ['scripts/update_services.py', '--force']
 requirements = ['requests', 'jinja2', 'unitysvc-sellers']
 
 [services_populator.envs]

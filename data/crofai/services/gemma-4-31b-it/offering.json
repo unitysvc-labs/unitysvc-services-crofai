@@ -12,8 +12,8 @@
   "name": "gemma-4-31b-it",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "0.10000000",
-    "output": "0.30000000",
+    "input": "100000.00",
+    "output": "300000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -23,7 +23,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-04-07T02:37:45.681Z",
+  "time_created": "2026-05-02T21:24:49.457Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
