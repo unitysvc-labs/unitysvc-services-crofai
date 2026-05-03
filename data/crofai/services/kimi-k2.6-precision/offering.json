@@ -1,15 +1,29 @@
 {
-  "schema": "offering_v1",
-  "time_created": "2026-05-02T21:27:43.839Z",
-  "name": "kimi-k2.6-precision",
-  "display_name": "kimi-k2.6-precision",
+  "currency": "USD",
   "description": "",
+  "details": {
+    "context_length": 262144,
+    "max_completion_tokens": 262144,
+    "model_name": "kimi-k2.6-precision",
+    "parameter_count": null,
+    "quantization": "int4"
+  },
+  "display_name": "kimi-k2.6-precision",
+  "name": "kimi-k2.6-precision",
+  "payout_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "550000.00",
+    "output": "2700000.00",
+    "type": "one_million_tokens"
+  },
+  "schema": "offering_v1",
   "service_type": "llm",
   "status": "ready",
-  "currency": "USD",
-  "tags": ["ai", "gateway"],
-  "details": {"model_name": "kimi-k2.6-precision", "max_completion_tokens": 262144, "quantization": "int4", "context_length": 262144, "parameter_count": null},
-  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "550000.00", "output": "2700000.00", "type": "one_million_tokens"},
+  "tags": [
+    "ai",
+    "gateway"
+  ],
+  "time_created": "2026-05-02T21:27:43.839Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

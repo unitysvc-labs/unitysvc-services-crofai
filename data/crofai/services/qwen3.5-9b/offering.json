@@ -1,15 +1,32 @@
 {
-  "schema": "offering_v1",
-  "time_created": "2026-05-02T21:27:44.404Z",
-  "name": "qwen3.5-9b",
-  "display_name": "qwen3.5-9b",
+  "currency": "USD",
   "description": "",
+  "details": {
+    "context_length": 262144,
+    "max_completion_tokens": 262144,
+    "metadata_sources": {
+      "parameter_count": "huggingface_safetensors"
+    },
+    "model_name": "qwen3.5-9b",
+    "parameter_count": 9653100528,
+    "quantization": "fp8"
+  },
+  "display_name": "qwen3.5-9b",
+  "name": "qwen3.5-9b",
+  "payout_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "0.000",
+    "output": "0.000",
+    "type": "one_million_tokens"
+  },
+  "schema": "offering_v1",
   "service_type": "llm",
   "status": "ready",
-  "currency": "USD",
-  "tags": ["ai", "gateway"],
-  "details": {"model_name": "qwen3.5-9b", "max_completion_tokens": 262144, "quantization": "fp8", "context_length": 262144, "parameter_count": 9653100528, "metadata_sources": {"parameter_count": "huggingface_safetensors"}},
-  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "0.000", "output": "0.000", "type": "one_million_tokens"},
+  "tags": [
+    "ai",
+    "gateway"
+  ],
+  "time_created": "2026-05-02T21:27:44.404Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

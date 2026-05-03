@@ -1,15 +1,29 @@
 {
-  "schema": "offering_v1",
-  "time_created": "2026-05-02T21:27:44.458Z",
-  "name": "qwen3.5-9b-chat",
-  "display_name": "qwen3.5-9b-chat",
+  "currency": "USD",
   "description": "",
+  "details": {
+    "context_length": 262144,
+    "max_completion_tokens": 262144,
+    "model_name": "qwen3.5-9b-chat",
+    "parameter_count": null,
+    "quantization": "fp8"
+  },
+  "display_name": "qwen3.5-9b-chat",
+  "name": "qwen3.5-9b-chat",
+  "payout_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "40000.00",
+    "output": "150000.00",
+    "type": "one_million_tokens"
+  },
+  "schema": "offering_v1",
   "service_type": "llm",
   "status": "ready",
-  "currency": "USD",
-  "tags": ["ai", "gateway"],
-  "details": {"model_name": "qwen3.5-9b-chat", "max_completion_tokens": 262144, "quantization": "fp8", "context_length": 262144, "parameter_count": null},
-  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "40000.00", "output": "150000.00", "type": "one_million_tokens"},
+  "tags": [
+    "ai",
+    "gateway"
+  ],
+  "time_created": "2026-05-02T21:27:44.458Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

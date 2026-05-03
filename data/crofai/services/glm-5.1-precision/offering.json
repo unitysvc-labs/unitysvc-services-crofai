@@ -1,15 +1,29 @@
 {
-  "schema": "offering_v1",
-  "time_created": "2026-05-02T21:27:42.485Z",
-  "name": "glm-5.1-precision",
-  "display_name": "glm-5.1-precision",
+  "currency": "USD",
   "description": "",
+  "details": {
+    "context_length": 202752,
+    "max_completion_tokens": 202752,
+    "model_name": "glm-5.1-precision",
+    "parameter_count": null,
+    "quantization": "Q8_0"
+  },
+  "display_name": "glm-5.1-precision",
+  "name": "glm-5.1-precision",
+  "payout_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "750000.00",
+    "output": "2900000.00",
+    "type": "one_million_tokens"
+  },
+  "schema": "offering_v1",
   "service_type": "llm",
   "status": "ready",
-  "currency": "USD",
-  "tags": ["ai", "gateway"],
-  "details": {"model_name": "glm-5.1-precision", "max_completion_tokens": 202752, "quantization": "Q8_0", "context_length": 202752, "parameter_count": null},
-  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "750000.00", "output": "2900000.00", "type": "one_million_tokens"},
+  "tags": [
+    "ai",
+    "gateway"
+  ],
+  "time_created": "2026-05-02T21:27:42.485Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
