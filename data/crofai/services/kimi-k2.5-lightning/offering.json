@@ -1,15 +1,29 @@
 {
-  "schema": "offering_v1",
-  "time_created": "2026-05-04T06:27:24.850Z",
-  "name": "kimi-k2.5-lightning",
-  "display_name": "kimi-k2.5-lightning",
+  "currency": "USD",
   "description": "",
+  "details": {
+    "context_length": 131072,
+    "max_completion_tokens": 32768,
+    "model_name": "kimi-k2.5-lightning",
+    "parameter_count": null,
+    "quantization": "530b-int4"
+  },
+  "display_name": "kimi-k2.5-lightning",
+  "name": "kimi-k2.5-lightning",
+  "payout_price": {
+    "description": "Pricing Per 1M Tokens Input/Output",
+    "input": "1000000.00",
+    "output": "3000000.00",
+    "type": "one_million_tokens"
+  },
+  "schema": "offering_v1",
   "service_type": "llm",
   "status": "ready",
-  "currency": "USD",
-  "tags": ["ai", "gateway"],
-  "details": {"model_name": "kimi-k2.5-lightning", "max_completion_tokens": 32768, "quantization": "530b-int4", "context_length": 131072, "parameter_count": null},
-  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "1000000.00", "output": "3000000.00", "type": "one_million_tokens"},
+  "tags": [
+    "ai",
+    "gateway"
+  ],
+  "time_created": "2026-05-04T16:52:33.206Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
