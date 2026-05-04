@@ -1,32 +1,15 @@
 {
-  "currency": "USD",
-  "description": "",
-  "details": {
-    "context_length": 1000000,
-    "max_completion_tokens": 131072,
-    "metadata_sources": {
-      "parameter_count": "huggingface_safetensors"
-    },
-    "model_name": "deepseek-v4-flash",
-    "parameter_count": 141733920768,
-    "quantization": "Q4_0"
-  },
-  "display_name": "deepseek-v4-flash",
-  "name": "deepseek-v4-flash",
-  "payout_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "120000.00",
-    "output": "210000.00",
-    "type": "one_million_tokens"
-  },
   "schema": "offering_v1",
+  "time_created": "2026-05-04T06:27:21.244Z",
+  "name": "deepseek-v4-flash",
+  "display_name": "deepseek-v4-flash",
+  "description": "",
   "service_type": "llm",
   "status": "ready",
-  "tags": [
-    "ai",
-    "gateway"
-  ],
-  "time_created": "2026-05-02T21:27:41.293Z",
+  "currency": "USD",
+  "tags": ["ai", "gateway"],
+  "details": {"model_name": "deepseek-v4-flash", "max_completion_tokens": 131072, "quantization": "Q4_0", "context_length": 1000000, "parameter_count": 141733920768, "metadata_sources": {"parameter_count": "huggingface_safetensors"}},
+  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "120000.00", "output": "210000.00", "type": "one_million_tokens"},
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

@@ -1,32 +1,15 @@
 {
-  "currency": "USD",
-  "description": "",
-  "details": {
-    "context_length": 262144,
-    "max_completion_tokens": 262144,
-    "metadata_sources": {
-      "parameter_count": "huggingface_safetensors"
-    },
-    "model_name": "qwen3.6-27b",
-    "parameter_count": 27781427952,
-    "quantization": "Q4_0"
-  },
-  "display_name": "qwen3.6-27b",
-  "name": "qwen3.6-27b",
-  "payout_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "200000.00",
-    "output": "1500000.00",
-    "type": "one_million_tokens"
-  },
   "schema": "offering_v1",
+  "time_created": "2026-05-04T06:27:27.352Z",
+  "name": "qwen3.6-27b",
+  "display_name": "qwen3.6-27b",
+  "description": "",
   "service_type": "llm",
   "status": "ready",
-  "tags": [
-    "ai",
-    "gateway"
-  ],
-  "time_created": "2026-05-02T21:27:44.852Z",
+  "currency": "USD",
+  "tags": ["ai", "gateway"],
+  "details": {"model_name": "qwen3.6-27b", "max_completion_tokens": 262144, "quantization": "Q4_0", "context_length": 262144, "parameter_count": 27781427952, "metadata_sources": {"parameter_count": "huggingface_safetensors"}},
+  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "200000.00", "output": "1500000.00", "type": "one_million_tokens"},
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
