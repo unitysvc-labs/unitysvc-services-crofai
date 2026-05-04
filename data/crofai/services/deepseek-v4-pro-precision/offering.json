@@ -1,29 +1,15 @@
 {
-  "currency": "USD",
-  "description": "",
-  "details": {
-    "context_length": 1000000,
-    "max_completion_tokens": 131072,
-    "model_name": "deepseek-v4-pro-precision",
-    "parameter_count": null,
-    "quantization": "Q8_0"
-  },
-  "display_name": "deepseek-v4-pro-precision",
-  "name": "deepseek-v4-pro-precision",
-  "payout_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "1250000.00",
-    "output": "2500000.00",
-    "type": "one_million_tokens"
-  },
   "schema": "offering_v1",
+  "time_created": "2026-05-04T06:27:21.435Z",
+  "name": "deepseek-v4-pro-precision",
+  "display_name": "deepseek-v4-pro-precision",
+  "description": "",
   "service_type": "llm",
   "status": "ready",
-  "tags": [
-    "ai",
-    "gateway"
-  ],
-  "time_created": "2026-05-02T21:27:41.423Z",
+  "currency": "USD",
+  "tags": ["ai", "gateway"],
+  "details": {"model_name": "deepseek-v4-pro-precision", "max_completion_tokens": 131072, "quantization": "Q8_0", "context_length": 1000000, "parameter_count": null},
+  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "1250000.00", "output": "2500000.00", "type": "one_million_tokens"},
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

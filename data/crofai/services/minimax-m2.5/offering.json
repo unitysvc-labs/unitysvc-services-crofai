@@ -1,32 +1,15 @@
 {
-  "currency": "USD",
-  "description": "",
-  "details": {
-    "context_length": 204800,
-    "max_completion_tokens": 131072,
-    "metadata_sources": {
-      "parameter_count": "huggingface_safetensors"
-    },
-    "model_name": "minimax-m2.5",
-    "parameter_count": 227410968576,
-    "quantization": "awq"
-  },
-  "display_name": "minimax-m2.5",
-  "name": "minimax-m2.5",
-  "payout_price": {
-    "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "110000.00",
-    "output": "950000.00",
-    "type": "one_million_tokens"
-  },
   "schema": "offering_v1",
+  "time_created": "2026-05-04T06:27:26.392Z",
+  "name": "minimax-m2.5",
+  "display_name": "minimax-m2.5",
+  "description": "",
   "service_type": "llm",
   "status": "ready",
-  "tags": [
-    "ai",
-    "gateway"
-  ],
-  "time_created": "2026-05-02T21:27:44.247Z",
+  "currency": "USD",
+  "tags": ["ai", "gateway"],
+  "details": {"model_name": "minimax-m2.5", "max_completion_tokens": 131072, "quantization": "awq", "context_length": 204800, "parameter_count": 227410968576, "metadata_sources": {"parameter_count": "huggingface_safetensors"}},
+  "payout_price": {"description": "Pricing Per 1M Tokens Input/Output", "input": "110000.00", "output": "950000.00", "type": "one_million_tokens"},
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
