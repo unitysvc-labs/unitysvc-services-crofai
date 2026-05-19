@@ -2,8 +2,8 @@
   "currency": "USD",
   "description": "",
   "details": {
-    "context_length": 200000,
-    "max_completion_tokens": 200000,
+    "context_length": 229376,
+    "max_completion_tokens": 229376,
     "model_name": "greg",
     "parameter_count": null,
     "quantization": "greg"
@@ -12,8 +12,8 @@
   "name": "greg",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "300000.00",
-    "output": "300000.00",
+    "input": "100000.00",
+    "output": "200000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -23,7 +23,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-05-04T16:52:32.705Z",
+  "time_created": "2026-05-19T05:59:06.379Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

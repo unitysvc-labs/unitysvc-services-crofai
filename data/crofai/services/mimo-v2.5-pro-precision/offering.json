@@ -2,21 +2,18 @@
   "currency": "USD",
   "description": "",
   "details": {
-    "context_length": 202752,
-    "max_completion_tokens": 202752,
-    "metadata_sources": {
-      "parameter_count": "huggingface_safetensors"
-    },
-    "model_name": "glm-4.7",
-    "parameter_count": 358337776896,
+    "context_length": 1000000,
+    "max_completion_tokens": 131072,
+    "model_name": "mimo-v2.5-pro-precision",
+    "parameter_count": null,
     "quantization": "Q8_0"
   },
-  "display_name": "glm-4.7",
-  "name": "glm-4.7",
+  "display_name": "mimo-v2.5-pro-precision",
+  "name": "mimo-v2.5-pro-precision",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "250000.00",
-    "output": "1100000.00",
+    "input": "800000.00",
+    "output": "2500000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -26,7 +23,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-05-19T05:59:06.192Z",
+  "time_created": "2026-05-19T05:59:06.886Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
@@ -34,7 +31,7 @@
       "base_url": "https://ai.nahcrof.com/v2",
       "rate_limits": [],
       "routing_key": {
-        "model": "glm-4.7"
+        "model": "mimo-v2.5-pro-precision"
       }
     }
   }
