@@ -15,8 +15,8 @@
   "name": "qwen3.5-9b",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "0.000",
-    "output": "0.000",
+    "input": "40000.00",
+    "output": "150000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -26,7 +26,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-05-04T16:52:34.150Z",
+  "time_created": "2026-05-19T05:59:07.052Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
