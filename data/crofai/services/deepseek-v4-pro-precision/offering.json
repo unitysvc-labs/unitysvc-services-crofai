@@ -12,8 +12,8 @@
   "name": "deepseek-v4-pro-precision",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "1250000.00",
-    "output": "2500000.00",
+    "input": "700000.00",
+    "output": "1400000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -23,7 +23,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-05-04T16:52:31.314Z",
+  "time_created": "2026-05-25T06:18:13.538Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
