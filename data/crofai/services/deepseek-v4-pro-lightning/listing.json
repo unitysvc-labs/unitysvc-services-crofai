@@ -22,19 +22,19 @@
   },
   "list_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "750000.00",
-    "output": "2900000.00",
+    "input": "800000.00",
+    "output": "1600000.00",
     "type": "one_million_tokens"
   },
   "schema": "listing_v1",
-  "status": "deprecated",
-  "time_created": "2026-05-25T06:18:13.941Z",
+  "status": "ready",
+  "time_created": "2026-06-02T06:28:00.465Z",
   "user_access_interfaces": {
     "provider_api": {
       "access_method": "http",
       "base_url": "${API_GATEWAY_BASE_URL}/crofai",
       "routing_key": {
-        "model": "glm-5.1-precision"
+        "model": "deepseek-v4-pro-lightning"
       }
     }
   }

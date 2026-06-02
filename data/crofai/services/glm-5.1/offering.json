@@ -9,14 +9,14 @@
     },
     "model_name": "glm-5.1",
     "parameter_count": 753864119552,
-    "quantization": "Q6_K"
+    "quantization": "Q8_0"
   },
   "display_name": "glm-5.1",
   "name": "glm-5.1",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
     "input": "450000.00",
-    "output": "2100000.00",
+    "output": "2150000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -26,7 +26,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-05-25T06:18:13.820Z",
+  "time_created": "2026-06-02T06:28:00.652Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

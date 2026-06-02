@@ -9,14 +9,14 @@
     },
     "model_name": "deepseek-v3.2",
     "parameter_count": 681408069632,
-    "quantization": "Q4_0"
+    "quantization": "Q6_K"
   },
   "display_name": "deepseek-v3.2",
   "name": "deepseek-v3.2",
   "payout_price": {
     "description": "Pricing Per 1M Tokens Input/Output",
-    "input": "280000.00",
-    "output": "380000.00",
+    "input": "180000.00",
+    "output": "350000.00",
     "type": "one_million_tokens"
   },
   "schema": "offering_v1",
@@ -26,7 +26,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-05-25T06:18:13.193Z",
+  "time_created": "2026-06-02T06:28:00.036Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",

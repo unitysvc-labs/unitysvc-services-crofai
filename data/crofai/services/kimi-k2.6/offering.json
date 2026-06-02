@@ -9,7 +9,7 @@
     },
     "model_name": "kimi-k2.6",
     "parameter_count": 1014687129600,
-    "quantization": "Q3_K_L"
+    "quantization": "int4"
   },
   "display_name": "kimi-k2.6",
   "name": "kimi-k2.6",
@@ -26,7 +26,7 @@
     "ai",
     "gateway"
   ],
-  "time_created": "2026-05-25T06:18:14.192Z",
+  "time_created": "2026-06-02T06:28:01.331Z",
   "upstream_access_config": {
     "CrofAI API": {
       "access_method": "http",
