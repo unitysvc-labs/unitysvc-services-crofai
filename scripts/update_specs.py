@@ -32,6 +32,11 @@ PROVIDER_DISPLAY_NAME = "CrofAI"
 ENV_API_KEY_NAME = "CROFAI_API_KEY"
 
 
+def _now_iso() -> str:
+    """UTC timestamp matching the platform's millisecond-Z format."""
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+
+
 def _as_positive_int(value) -> Optional[int]:
     """Coerce ``value`` to a positive ``int`` or ``None``.
 
@@ -128,9 +133,7 @@ class CrofAIModelExtractor:
             "total_models": 0,
             "successful_extractions": 0,
             "failed_extractions": 0,
-            "skipped_models": 0,
             "extraction_date": datetime.now().isoformat(),
-            "force_mode": False,
             "processing_limit": None,
         }
 
@@ -204,21 +207,20 @@ class CrofAIModelExtractor:
         template = self.jinja_env.get_template(template_name)
         return template.render(**context)
 
-    def build_listing_context(self, model_id: str, price: Optional[Dict]) -> Dict:
-        now = datetime.now(timezone.utc)
-        timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+    def build_listing_context(self, model_id: str, price: Optional[Dict], time_created: Optional[str] = None) -> Dict:
         return {
             "provider_name": PROVIDER_NAME,
             "offering_name": model_id,
             "env_api_key_name": ENV_API_KEY_NAME,
-            "time_created": timestamp,
+            "time_created": time_created or _now_iso(),
             "status": "ready",
             "list_price": price,
         }
 
-    def build_offering_context(self, model_id: str, model_data: Dict, price: Optional[Dict]) -> Dict:
-        now = datetime.now(timezone.utc)
-        timestamp = now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+    def build_offering_context(
+        self, model_id: str, model_data: Dict, price: Optional[Dict], time_created: Optional[str] = None
+    ) -> Dict:
+        timestamp = time_created or _now_iso()
         service_type = derive_service_type(model_id)
 
         details: Dict[str, Any] = {
@@ -287,23 +289,40 @@ class CrofAIModelExtractor:
         except Exception as e:
             print(f"  ❌ Error writing {output_file}: {e}")
 
+    @staticmethod
+    def _existing_time_created(path: Path) -> Optional[str]:
+        """Return the time_created already recorded in a spec file, if any, so
+        regenerating an unchanged service is idempotent (no daily churn)."""
+        if path.exists():
+            try:
+                return json.loads(path.read_text()).get("time_created")
+            except (json.JSONDecodeError, OSError):
+                return None
+        return None
+
     def write_listing(self, model_id: str, price: Optional[Dict], output_dir: Path):
-        context = self.build_listing_context(model_id, price)
+        created = self._existing_time_created(output_dir / "listing.json")
+        context = self.build_listing_context(model_id, price, time_created=created)
         content = self._render_template("listing.json.j2", context)
         self._write_file(content, output_dir / "listing.json")
 
     def write_offering(self, model_id: str, model_data: Dict, price: Optional[Dict], output_dir: Path):
-        context = self.build_offering_context(model_id, model_data, price)
+        created = self._existing_time_created(output_dir / "offering.json")
+        context = self.build_offering_context(model_id, model_data, price, time_created=created)
         content = self._render_template("offering.json.j2", context)
         self._write_file(content, output_dir / "offering.json")
+
+    def write_provider(self, output_dir: Path):
+        """Copy the static templates/provider.json into the service folder so
+        each folder is self-contained."""
+        prov = json.loads((self.templates_dir / "provider.json").read_text())
+        content = json.dumps(prov, sort_keys=True, indent=2) + "\n"
+        self._write_file(content, output_dir / "provider.json")
 
     def write_summary(self):
         print(f"   Total models: {self.summary['total_models']}")
         print(f"   Successful extractions: {self.summary['successful_extractions']}")
-        print(f"   Skipped models: {self.summary['skipped_models']}")
         print(f"   Failed: {self.summary['failed_extractions']}")
-        if self.summary["force_mode"]:
-            print("   Force mode: Enabled")
 
     # ------------------------------------------------------------------
     # Deprecation
@@ -311,38 +330,36 @@ class CrofAIModelExtractor:
 
     def mark_deprecated_services(self, output_dir: str, active_models: List[str], dry_run: bool = False):
         print("🔍 Checking for deprecated services...")
-        base_path = Path(output_dir)
+        # Flat layout: services live under <output_dir>/<provider>/<model_id>.
+        base_path = Path(output_dir) / PROVIDER_NAME
         if not base_path.exists():
             return
-        active_dirs = {m.replace(":", "-") for m in active_models}
+        active = {m.replace(":", "-") for m in active_models}
         deprecated_count = 0
-        for item in base_path.iterdir():
-            if not item.is_dir() or item.name in active_dirs:
+        for listing_file in base_path.rglob("listing.json"):
+            svc_dir = listing_file.parent
+            model_id = svc_dir.relative_to(base_path).as_posix()
+            if model_id in active:
                 continue
             deprecated_count += 1
-            print(f"  🗑️  Processing deprecated: {item.name}")
-            for json_file in item.glob("*.json"):
+            print(f"  🗑️  Processing deprecated: {model_id}")
+            # Route by filename (the schema field was dropped, #1263), set
+            # status=deprecated on both offering.json and listing.json.
+            for json_file in (svc_dir / "offering.json", svc_dir / "listing.json"):
+                if not json_file.exists():
+                    continue
                 try:
-                    with open(json_file, "r") as f:
-                        data = json.load(f)
-                    schema = data.get("schema", "")
-                    updated = False
-                    if schema == "offering_v1" and data.get("status") != "deprecated":
-                        data["status"] = "deprecated"
-                        updated = True
-                    elif schema == "listing_v1" and data.get("status") != "deprecated":
-                        # ListingV1.status enum is {draft, ready, deprecated} —
-                        # 'upstream_deprecated' was never a valid value.
-                        data["status"] = "deprecated"
-                        updated = True
-                    if updated:
-                        if dry_run:
-                            print(f"    📝 [DRY-RUN] Would update {json_file.name}")
-                        else:
-                            with open(json_file, "w") as f:
-                                json.dump(data, f, sort_keys=True, indent=2, separators=(",", ": "))
-                                f.write("\n")
-                            print(f"    ✅ Updated {json_file.name}")
+                    data = json.loads(json_file.read_text())
+                    if data.get("status") == "deprecated":
+                        continue
+                    data["status"] = "deprecated"
+                    if dry_run:
+                        print(f"    📝 [DRY-RUN] Would update {json_file.name}")
+                    else:
+                        with open(json_file, "w") as f:
+                            json.dump(data, f, sort_keys=True, indent=2, separators=(",", ": "))
+                            f.write("\n")
+                        print(f"    ✅ Updated {json_file.name}")
                 except Exception as e:
                     print(f"    ❌ Error: {e}")
         if deprecated_count == 0:
@@ -356,20 +373,16 @@ class CrofAIModelExtractor:
 
     def process_all_models(
         self,
-        output_dir: str = "services",
+        output_dir: str = "specs",
         specific_models: Optional[List[str]] = None,
-        force: bool = False,
         limit: Optional[int] = None,
         dry_run: bool = False,
     ):
         print("🚀 Starting CrofAI model extraction...\n")
-        self.summary["force_mode"] = force
         self.summary["processing_limit"] = limit
 
         if dry_run:
             print("🔍 Dry-run mode — no files will be written")
-        if force:
-            print("💪 Force mode — existing files will be overwritten")
 
         if specific_models:
             print(f"🎯 Processing specific models: {', '.join(specific_models)}")
@@ -380,11 +393,12 @@ class CrofAIModelExtractor:
             if not models:
                 print("❌ No models retrieved. Exiting.")
                 return
-            if force and limit is None:
+            # Full sync: deprecate local services no longer offered upstream.
+            # (Skipped when --limit truncates the model list.)
+            if limit is None:
                 active_ids = [m.get("id", "").replace(":", "-") for m in models if m.get("id")]
                 self.mark_deprecated_services(output_dir, active_ids, dry_run)
 
-        skipped_count = 0
         processed_count = 0
 
         for i, model_data in enumerate(models, start=1):
@@ -398,15 +412,8 @@ class CrofAIModelExtractor:
                 print(f"🔢 Reached processing limit of {limit}, stopping...")
                 break
 
-            base_path = Path(output_dir)
-            data_dir = base_path / model_id
-            offering_file = data_dir / "offering.json"
-
-            if not force and data_dir.exists() and offering_file.exists():
-                print(f"  ⏭️  Skipping — files already exist (use --force to overwrite)")
-                skipped_count += 1
-                self.summary["skipped_models"] += 1
-                continue
+            # Folder path = listing.name = "<provider>/<model_id>" (flat layout).
+            data_dir = Path(output_dir) / PROVIDER_NAME / model_id
 
             processed_count += 1
 
@@ -420,13 +427,11 @@ class CrofAIModelExtractor:
                     self.summary["successful_extractions"] += 1
                     continue
 
+                # Regenerate every file; time_created is preserved per-file so
+                # unchanged services produce no churn.
                 self.write_offering(model_id, model_data, price, data_dir)
-
-                listing_file = data_dir / "listing.json"
-                if listing_file.exists() and not force:
-                    print("  ⏭️  Skipping existing listing.json (use --force to overwrite)")
-                else:
-                    self.write_listing(model_id, price, data_dir)
+                self.write_listing(model_id, price, data_dir)
+                self.write_provider(data_dir)
 
                 self.summary["successful_extractions"] += 1
                 print(f"  ✅ Successfully processed {model_id}")
@@ -437,15 +442,12 @@ class CrofAIModelExtractor:
 
         self.write_summary()
         print(f"\n🎉 Extraction complete! Check {output_dir}/ for results.")
-        if skipped_count > 0:
-            print(f"   ⏭️  Skipped {skipped_count} existing models (use --force to overwrite)")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract CrofAI model data")
-    parser.add_argument("output_dir", nargs="?", default=str(Path(__file__).parent.parent / "services"))
+    parser.add_argument("output_dir", nargs="?", default=str(Path(__file__).parent.parent / "specs"))
     parser.add_argument("--models", nargs="+", help="Specific model IDs to process")
-    parser.add_argument("--force", action="store_true", help="Overwrite existing files")
     parser.add_argument("--limit", type=int, help="Limit number of models processed")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be done without writing")
     args = parser.parse_args()
@@ -471,7 +473,6 @@ if __name__ == "__main__":
     extractor.process_all_models(
         args.output_dir,
         specific_models=args.models,
-        force=args.force,
         limit=args.limit,
         dry_run=args.dry_run,
     )
