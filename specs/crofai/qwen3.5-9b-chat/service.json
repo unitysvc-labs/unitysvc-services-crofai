@@ -1,3 +1,7 @@
 {
-  "service_id": "f68dbb10-ed46-4bf2-9b9e-1034ebaf4255"
+  "display_name": "qwen3.5-9b-chat",
+  "name": "crofai/qwen3.5-9b-chat",
+  "service_id": "f68dbb10-ed46-4bf2-9b9e-1034ebaf4255",
+  "status": "updated",
+  "time_created": "2026-06-14T02:21:39.487180Z"
 }
