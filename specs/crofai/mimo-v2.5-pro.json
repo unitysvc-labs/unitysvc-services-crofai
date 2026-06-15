@@ -1,0 +1,32 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "description": "",
+    "details": {
+      "context_length": 1000000,
+      "max_completion_tokens": 131072,
+      "model_name": "mimo-v2.5-pro",
+      "parameter_count": null,
+      "quantization": "Q8_0"
+    },
+    "display_name": "mimo-v2.5-pro",
+    "env_api_key_name": "CROFAI_API_KEY",
+    "list_price": {
+      "description": "Pricing Per 1M Tokens Input/Output",
+      "input": "400000.00",
+      "output": "800000.00",
+      "type": "one_million_tokens"
+    },
+    "offering_name": "mimo-v2.5-pro",
+    "payout_price": {
+      "description": "Pricing Per 1M Tokens Input/Output",
+      "input": "400000.00",
+      "output": "800000.00",
+      "type": "one_million_tokens"
+    },
+    "provider_display_name": "CrofAI",
+    "service_type": "llm",
+    "status": "ready",
+    "time_created": "2026-05-25T06:18:14.312Z"
+  }
+}

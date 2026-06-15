@@ -1,0 +1,32 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "description": "",
+    "details": {
+      "context_length": 229376,
+      "max_completion_tokens": 229376,
+      "model_name": "greg-1-super",
+      "parameter_count": null,
+      "quantization": "Q4_0"
+    },
+    "display_name": "greg-1-super",
+    "env_api_key_name": "CROFAI_API_KEY",
+    "list_price": {
+      "description": "Pricing Per 1M Tokens Input/Output",
+      "input": "1000000.00",
+      "output": "5000000.00",
+      "type": "one_million_tokens"
+    },
+    "offering_name": "greg-1-super",
+    "payout_price": {
+      "description": "Pricing Per 1M Tokens Input/Output",
+      "input": "1000000.00",
+      "output": "5000000.00",
+      "type": "one_million_tokens"
+    },
+    "provider_display_name": "CrofAI",
+    "service_type": "llm",
+    "status": "ready",
+    "time_created": "2026-06-15T19:30:57.813Z"
+  }
+}
