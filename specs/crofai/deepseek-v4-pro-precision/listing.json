@@ -27,7 +27,7 @@
     "type": "one_million_tokens"
   },
   "name": "crofai/deepseek-v4-pro-precision",
-  "status": "ready",
+  "status": "deprecated",
   "time_created": "2026-05-25T06:18:13.638Z",
   "user_access_interfaces": {
     "provider_api": {

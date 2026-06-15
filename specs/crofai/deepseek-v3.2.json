@@ -1,0 +1,35 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "description": "",
+    "details": {
+      "context_length": 163840,
+      "max_completion_tokens": 163840,
+      "metadata_sources": {
+        "parameter_count": "huggingface_safetensors"
+      },
+      "model_name": "deepseek-v3.2",
+      "parameter_count": 681408069632,
+      "quantization": "Q6_K"
+    },
+    "display_name": "deepseek-v3.2",
+    "env_api_key_name": "CROFAI_API_KEY",
+    "list_price": {
+      "description": "Pricing Per 1M Tokens Input/Output",
+      "input": "180000.00",
+      "output": "350000.00",
+      "type": "one_million_tokens"
+    },
+    "offering_name": "deepseek-v3.2",
+    "payout_price": {
+      "description": "Pricing Per 1M Tokens Input/Output",
+      "input": "180000.00",
+      "output": "350000.00",
+      "type": "one_million_tokens"
+    },
+    "provider_display_name": "CrofAI",
+    "service_type": "llm",
+    "status": "ready",
+    "time_created": "2026-05-25T06:18:13.193Z"
+  }
+}
