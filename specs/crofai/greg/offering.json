@@ -27,7 +27,7 @@
     "CrofAI API": {
       "access_method": "http",
       "api_key": "${ secrets.CROFAI_API_KEY }",
-      "base_url": "https://ai.nahcrof.com/v2",
+      "base_url": "https://ai.nahcrof.com",
       "rate_limits": [],
       "routing_key": {
         "model": "greg"
