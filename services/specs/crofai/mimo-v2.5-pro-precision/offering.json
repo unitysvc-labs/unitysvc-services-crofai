@@ -1,10 +1,18 @@
 {
   "currency": "USD",
-  "description": "",
+  "description": "mimo-v2.5-pro-precision \u2014 a large language model served by CrofAI.\n\nmimo-v2.5-pro-precision is served by CrofAI over an OpenAI-compatible API with a 1000000-token context window. Requests are proxied through the UnitySVC gateway and billed per token.\n\nReach it through the UnitySVC gateway on either channel: managed (the default) resells CrofAI tokens at the listed rate, or byok, where you supply your own CrofAI API key and pay CrofAI directly. The endpoint accepts both OpenAI Chat Completions and Anthropic Messages requests \u2014 the gateway auto-detects the dialect, translates to the upstream, and returns the response in the format you sent.",
   "details": {
     "context_length": 1000000,
+    "input_formats": [
+      "openai",
+      "anthropic"
+    ],
     "max_completion_tokens": 131072,
     "model_name": "mimo-v2.5-pro-precision",
+    "output_formats": [
+      "openai_response",
+      "anthropic_response"
+    ],
     "parameter_count": null,
     "quantization": "Q8_0"
   },
@@ -24,14 +32,31 @@
   ],
   "time_created": "2026-05-25T06:18:14.433Z",
   "upstream_access_config": {
-    "CrofAI API": {
+    "byok": {
+      "access_method": "http",
+      "api_key": "${ customer_secrets.CROFAI_API_KEY }",
+      "base_url": "https://ai.nahcrof.com",
+      "rate_limits": [],
+      "request_transformer": {
+        "llm_translator": "anthropic_to_openai"
+      },
+      "routing_key": {
+        "model": "mimo-v2.5-pro-precision"
+      },
+      "sort_order": 2
+    },
+    "managed": {
       "access_method": "http",
       "api_key": "${ secrets.CROFAI_API_KEY }",
       "base_url": "https://ai.nahcrof.com",
       "rate_limits": [],
+      "request_transformer": {
+        "llm_translator": "anthropic_to_openai"
+      },
       "routing_key": {
         "model": "mimo-v2.5-pro-precision"
-      }
+      },
+      "sort_order": 1
     }
   }
 }
