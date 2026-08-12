@@ -1,0 +1,32 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "description": "",
+    "details": {
+      "context_length": 202752,
+      "max_completion_tokens": 202752,
+      "model_name": "glm-5-lightning",
+      "parameter_count": null,
+      "quantization": "Q4_0"
+    },
+    "display_name": "glm-5-lightning",
+    "env_api_key_name": "CROFAI_API_KEY",
+    "list_price": {
+      "description": "Pricing Per 1M Tokens Input/Output",
+      "input": "0.80000000",
+      "output": "2.40000000",
+      "type": "one_million_tokens"
+    },
+    "offering_name": "glm-5-lightning",
+    "payout_price": {
+      "description": "Pricing Per 1M Tokens Input/Output",
+      "input": "0.80000000",
+      "output": "2.40000000",
+      "type": "one_million_tokens"
+    },
+    "provider_display_name": "CrofAI",
+    "service_type": "llm",
+    "status": "deprecated",
+    "time_created": "2026-04-07T02:37:45.682Z"
+  }
+}

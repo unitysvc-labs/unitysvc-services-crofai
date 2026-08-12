@@ -3,33 +3,30 @@
     "api_base_url": "https://ai.nahcrof.com/v2",
     "description": "",
     "details": {
-      "context_length": 262144,
-      "max_completion_tokens": 262144,
-      "metadata_sources": {
-        "parameter_count": "huggingface_safetensors"
-      },
-      "model_name": "kimi-k2.5",
-      "parameter_count": 1014686023680,
-      "quantization": "Q4_K_M"
+      "context_length": 229376,
+      "max_completion_tokens": 229376,
+      "model_name": "greg-2-super",
+      "parameter_count": null,
+      "quantization": "int4"
     },
-    "display_name": "kimi-k2.5",
+    "display_name": "greg-2-super",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
       "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "350000.00",
-      "output": "1700000.00",
+      "input": "1500000.00",
+      "output": "5000000.00",
       "type": "one_million_tokens"
     },
-    "offering_name": "kimi-k2.5",
+    "offering_name": "greg-2-super",
     "payout_price": {
       "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "350000.00",
-      "output": "1700000.00",
+      "input": "1500000.00",
+      "output": "5000000.00",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
     "service_type": "llm",
     "status": "ready",
-    "time_created": "2026-05-25T06:18:14.064Z"
+    "time_created": "2026-08-12T04:33:45.654Z"
   }
 }
