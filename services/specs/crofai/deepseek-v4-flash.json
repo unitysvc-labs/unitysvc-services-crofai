@@ -9,7 +9,7 @@
         "parameter_count": "huggingface_safetensors"
       },
       "model_name": "deepseek-v4-flash",
-      "parameter_count": 141733920768,
+      "parameter_count": 283467841536,
       "quantization": "Q4_0"
     },
     "display_name": "deepseek-v4-flash",

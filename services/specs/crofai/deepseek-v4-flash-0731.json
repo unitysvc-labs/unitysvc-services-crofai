@@ -3,33 +3,33 @@
     "api_base_url": "https://ai.nahcrof.com/v2",
     "description": "",
     "details": {
-      "context_length": 262144,
-      "max_completion_tokens": 262144,
+      "context_length": 1000000,
+      "max_completion_tokens": 131072,
       "metadata_sources": {
         "parameter_count": "huggingface_safetensors"
       },
-      "model_name": "kimi-k2.5",
-      "parameter_count": 1014686023680,
-      "quantization": "Q4_K_M"
+      "model_name": "deepseek-v4-flash-0731",
+      "parameter_count": 296352743424,
+      "quantization": "Q8_0"
     },
-    "display_name": "kimi-k2.5",
+    "display_name": "deepseek-v4-flash-0731",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
       "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "350000.00",
-      "output": "1700000.00",
+      "input": "120000.00",
+      "output": "210000.00",
       "type": "one_million_tokens"
     },
-    "offering_name": "kimi-k2.5",
+    "offering_name": "deepseek-v4-flash-0731",
     "payout_price": {
       "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "350000.00",
-      "output": "1700000.00",
+      "input": "120000.00",
+      "output": "210000.00",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
     "service_type": "llm",
     "status": "ready",
-    "time_created": "2026-05-25T06:18:14.064Z"
+    "time_created": "2026-08-12T16:50:02.291Z"
   }
 }
