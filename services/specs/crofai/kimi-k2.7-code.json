@@ -9,7 +9,7 @@
         "parameter_count": "huggingface_safetensors"
       },
       "model_name": "kimi-k2.7-code",
-      "parameter_count": 1014687129600,
+      "parameter_count": 1014686023680,
       "quantization": "int4"
     },
     "display_name": "kimi-k2.7-code",
