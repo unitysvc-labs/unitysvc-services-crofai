@@ -15,9 +15,9 @@
     "display_name": "glm-4.7-flash",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "40000.00",
-      "output": "300000.00",
+      "description": "$0.04 / $0.3 per 1M input/output tokens",
+      "input": "0.04",
+      "output": "0.3",
       "type": "one_million_tokens"
     },
     "offering_name": "glm-4.7-flash",
