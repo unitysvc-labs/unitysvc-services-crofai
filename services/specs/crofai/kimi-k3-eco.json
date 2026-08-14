@@ -12,9 +12,9 @@
     "display_name": "kimi-k3-eco",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "1000000.00",
-      "output": "4000000.00",
+      "description": "$1 / $4 per 1M input/output tokens",
+      "input": "1",
+      "output": "4",
       "type": "one_million_tokens"
     },
     "offering_name": "kimi-k3-eco",

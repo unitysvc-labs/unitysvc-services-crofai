@@ -12,9 +12,9 @@
     "display_name": "deepseek-v4-pro-lightning",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "800000.00",
-      "output": "1600000.00",
+      "description": "$0.8 / $1.6 per 1M input/output tokens",
+      "input": "0.8",
+      "output": "1.6",
       "type": "one_million_tokens"
     },
     "offering_name": "deepseek-v4-pro-lightning",

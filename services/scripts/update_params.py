@@ -38,6 +38,12 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
 
+def _fmt_price(value) -> str:
+    """Per-1M price as a compact string, dropping trailing zeros ("0.150" -> "0.15",
+    "10.000000" -> "10"). format(..., 'f') expands any exponent normalize() produces."""
+    return format(Decimal(str(value)).normalize(), "f")
+
+
 def _as_positive_int(value) -> Optional[int]:
     """Coerce ``value`` to a positive ``int`` or ``None``.
 
@@ -188,10 +194,20 @@ class CrofAIModelExtractor:
         if not pricing:
             return None
         try:
-            input_price = str(Decimal(str(pricing["prompt"])) * 1_000_000)
-            output_price = str(Decimal(str(pricing["completion"])) * 1_000_000)
+            # CrofAI's API already returns prices PER 1M TOKENS (e.g. prompt
+            # "0.35"), so use them as-is. The previous ``* 1_000_000`` inflated
+            # every managed price a million-fold — a real billing bug on the paid
+            # managed channel, not just a display glitch.
+            input_price = _fmt_price(pricing["prompt"])
+            output_price = _fmt_price(pricing["completion"])
+            # MANAGED channel price (the customer pays UnitySVC this per-token
+            # rate). Describe the actual rate, not a generic label; byok is priced
+            # separately (Free) in the listing template, so the marketplace shows
+            # the channel range "Free - $<managed>".
             return {
-                "description": "Pricing Per 1M Tokens Input/Output",
+                "description": (
+                    f"${input_price} / ${output_price} per 1M input/output tokens"
+                ),
                 "input": input_price,
                 "output": output_price,
                 "type": "one_million_tokens",

@@ -15,9 +15,9 @@
     "display_name": "kimi-k2.6",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "500000.00",
-      "output": "1990000.00",
+      "description": "$0.5 / $1.99 per 1M input/output tokens",
+      "input": "0.5",
+      "output": "1.99",
       "type": "one_million_tokens"
     },
     "offering_name": "kimi-k2.6",

@@ -12,9 +12,9 @@
     "display_name": "greg-2-ultra",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "3000000.00",
-      "output": "10000000.00",
+      "description": "$3 / $10 per 1M input/output tokens",
+      "input": "3",
+      "output": "10",
       "type": "one_million_tokens"
     },
     "offering_name": "greg-2-ultra",
