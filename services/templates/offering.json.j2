@@ -20,6 +20,14 @@
 {%- set _description = _detail ~ '\n\n' ~ _howto ~ '\n\n' ~ _interop %}
   "summary": {{ _summary | tojson }},
   "description": {{ _description | tojson }},
+{#- Model-family logo (unitysvc/unitysvc-data#60). The catalog row for
+    ``crofai/qwen3.5-397b-a17b`` should carry the Qwen mark, not CrofAI's:
+    the model is what a customer recognises, and the provider is already
+    named beside it. Resolution is by model id, so this needs no per-model
+    parameter — and a model the registry does not know returns null, which
+    creates no document and leaves the CrofAI provider logo in place, so the
+    key needs no conditional around it. -#}
+  "logo": {{ {"$logo_preset": offering_name} | tojson }},
   "service_type": "{{ service_type }}",
   "status": "{{ status | default('ready') }}",
   "currency": "USD",
