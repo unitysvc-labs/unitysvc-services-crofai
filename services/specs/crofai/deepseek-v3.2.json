@@ -22,9 +22,9 @@
     },
     "offering_name": "deepseek-v3.2",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "180000.00",
-      "output": "350000.00",
+      "description": "$0.18 / $0.35 per 1M input/output tokens",
+      "input": "0.18",
+      "output": "0.35",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",

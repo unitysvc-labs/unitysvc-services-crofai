@@ -22,9 +22,9 @@
     },
     "offering_name": "kimi-k2.6",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "500000.00",
-      "output": "1990000.00",
+      "description": "$0.5 / $1.99 per 1M input/output tokens",
+      "input": "0.5",
+      "output": "1.99",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",

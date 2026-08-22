@@ -19,9 +19,9 @@
     },
     "offering_name": "greg-2-super",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "1500000.00",
-      "output": "5000000.00",
+      "description": "$1.5 / $5 per 1M input/output tokens",
+      "input": "1.5",
+      "output": "5",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
