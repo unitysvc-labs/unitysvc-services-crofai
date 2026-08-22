@@ -3,33 +3,33 @@
     "api_base_url": "https://ai.nahcrof.com/v2",
     "description": "",
     "details": {
-      "context_length": 262144,
-      "max_completion_tokens": 262144,
+      "context_length": 1000000,
+      "max_completion_tokens": 131072,
       "metadata_sources": {
         "parameter_count": "huggingface_safetensors"
       },
-      "model_name": "qwen3.5-397b-a17b",
-      "parameter_count": 403397920304,
-      "quantization": "Q4_0"
+      "model_name": "deepseek-v4-pro-0813",
+      "parameter_count": 1623497637888,
+      "quantization": "Q8_0"
     },
-    "display_name": "qwen3.5-397b-a17b",
+    "display_name": "deepseek-v4-pro-0813",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.35 / $1.75 per 1M input/output tokens",
+      "description": "$0.35 / $0.8 per 1M input/output tokens",
       "input": "0.35",
-      "output": "1.75",
+      "output": "0.8",
       "type": "one_million_tokens"
     },
-    "offering_name": "qwen3.5-397b-a17b",
+    "offering_name": "deepseek-v4-pro-0813",
     "payout_price": {
-      "description": "$0.35 / $1.75 per 1M input/output tokens",
+      "description": "$0.35 / $0.8 per 1M input/output tokens",
       "input": "0.35",
-      "output": "1.75",
+      "output": "0.8",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
     "service_type": "llm",
     "status": "ready",
-    "time_created": "2026-05-25T06:18:14.592Z"
+    "time_created": "2026-08-22T02:46:30.764Z"
   }
 }

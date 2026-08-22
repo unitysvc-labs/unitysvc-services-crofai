@@ -19,9 +19,9 @@
     },
     "offering_name": "gemma-4-31b-it",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "100000.00",
-      "output": "300000.00",
+      "description": "$0.1 / $0.3 per 1M input/output tokens",
+      "input": "0.1",
+      "output": "0.3",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",

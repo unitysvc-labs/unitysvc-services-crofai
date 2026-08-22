@@ -22,9 +22,9 @@
     },
     "offering_name": "qwen3.6-27b",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "200000.00",
-      "output": "1500000.00",
+      "description": "$0.2 / $1.5 per 1M input/output tokens",
+      "input": "0.2",
+      "output": "1.5",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",

@@ -19,9 +19,9 @@
     },
     "offering_name": "mimo-v2.5-pro",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "400000.00",
-      "output": "800000.00",
+      "description": "$0.4 / $0.8 per 1M input/output tokens",
+      "input": "0.4",
+      "output": "0.8",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",

@@ -8,28 +8,28 @@
       "metadata_sources": {
         "parameter_count": "huggingface_safetensors"
       },
-      "model_name": "qwen3.5-397b-a17b",
-      "parameter_count": 403397920304,
+      "model_name": "qwen3.8-27b",
+      "parameter_count": 27781427952,
       "quantization": "Q4_0"
     },
-    "display_name": "qwen3.5-397b-a17b",
+    "display_name": "qwen3.8-27b",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.35 / $1.75 per 1M input/output tokens",
-      "input": "0.35",
-      "output": "1.75",
+      "description": "$0.25 / $2.1 per 1M input/output tokens",
+      "input": "0.25",
+      "output": "2.1",
       "type": "one_million_tokens"
     },
-    "offering_name": "qwen3.5-397b-a17b",
+    "offering_name": "qwen3.8-27b",
     "payout_price": {
-      "description": "$0.35 / $1.75 per 1M input/output tokens",
-      "input": "0.35",
-      "output": "1.75",
+      "description": "$0.25 / $2.1 per 1M input/output tokens",
+      "input": "0.25",
+      "output": "2.1",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
     "service_type": "llm",
     "status": "ready",
-    "time_created": "2026-05-25T06:18:14.592Z"
+    "time_created": "2026-08-22T02:46:33.339Z"
   }
 }

@@ -19,9 +19,9 @@
     },
     "offering_name": "kimi-k3-eco",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "1000000.00",
-      "output": "4000000.00",
+      "description": "$1 / $4 per 1M input/output tokens",
+      "input": "1",
+      "output": "4",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",

@@ -22,9 +22,9 @@
     },
     "offering_name": "glm-5.1",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "450000.00",
-      "output": "2150000.00",
+      "description": "$0.45 / $2.15 per 1M input/output tokens",
+      "input": "0.45",
+      "output": "2.15",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
