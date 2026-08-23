@@ -29,6 +29,13 @@
     key needs no conditional around it. -#}
   "logo": {{ {"$logo_preset": offering_name} | tojson }},
   "service_type": "{{ service_type }}",
+{#- Platform capability vocabulary (unitysvc docs/capabilities.yml). Mapped from
+    service_type rather than hardcoded: `derive_service_type` in the populator
+    classifies by model id and can emit embedding / image_generation as well as
+    llm, so a new model of either kind comes out with the right capability
+    without another edit here. Every model in the catalog today is chat. -#}
+{%- set _cap = {"llm": "chat", "embedding": "embed", "image_generation": "image-generate"}.get(service_type, "chat") %}
+  "capabilities": {{ capabilities | default([_cap]) | tojson }},
   "status": "{{ status | default('ready') }}",
   "currency": "USD",
   "tags": ["ai", "gateway"],
