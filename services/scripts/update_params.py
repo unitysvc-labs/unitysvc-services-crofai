@@ -32,6 +32,20 @@ PROVIDER_NAME = "crofai"
 PROVIDER_DISPLAY_NAME = "CrofAI"
 ENV_API_KEY_NAME = "CROFAI_API_KEY"
 
+# What the platform adds on top of the upstream rate for the MANAGED channel,
+# where UnitySVC's own key pays the provider and the customer pays UnitySVC.
+# The byok channel is unaffected: the customer's key pays the provider directly,
+# so there is nothing to mark up and nothing to pay out.
+#
+# This is the seller's own list price, computed here at populate time — not a
+# platform-side calculation. `list_price` is stored already marked up, so what
+# is displayed is exactly what is billed.
+PLATFORM_MARKUP = Decimal("1.15")
+
+# Rates are quoted per 1M tokens; 4dp is finer than any published rate and
+# matches the sibling catalogs' rounding.
+PRICE_PLACES = Decimal("0.0001")
+
 
 def _now_iso() -> str:
     """UTC timestamp matching the platform's millisecond-Z format."""
@@ -189,7 +203,23 @@ class CrofAIModelExtractor:
     # ------------------------------------------------------------------
 
     def build_price_from_model(self, model_data: Dict) -> Optional[Dict]:
-        """Build list_price and payout_price from model's pricing field."""
+        """Upstream and marked-up rates for one model.
+
+        Returns ``{"upstream": {...}, "managed": {...}}`` — two ``one_million_tokens``
+        prices, NOT one shared object. They mean different things and must never
+        be the same dict:
+
+        * ``upstream`` is what CrofAI charges. It becomes ``payout_price`` on the
+          managed channel: what the platform owes the seller, which does not move
+          when we change what we charge.
+        * ``managed`` is upstream × ``PLATFORM_MARKUP``. It becomes ``list_price``
+          on the managed channel: what the customer pays UnitySVC.
+
+        Deriving one from the other here, rather than storing a percentage, is
+        what keeps them consistent: a ``revenue_share`` payout would track the
+        list price and so would silently follow any change to the markup, an
+        override, or a promotion — see unitysvc/unitysvc#1892.
+        """
         pricing = model_data.get("pricing", {})
         if not pricing:
             return None
@@ -198,19 +228,27 @@ class CrofAIModelExtractor:
             # "0.35"), so use them as-is. The previous ``* 1_000_000`` inflated
             # every managed price a million-fold — a real billing bug on the paid
             # managed channel, not just a display glitch.
-            input_price = _fmt_price(pricing["prompt"])
-            output_price = _fmt_price(pricing["completion"])
-            # MANAGED channel price (the customer pays UnitySVC this per-token
-            # rate). Describe the actual rate, not a generic label; byok is priced
-            # separately (Free) in the listing template, so the marketplace shows
-            # the channel range "Free - $<managed>".
+            up_in = Decimal(str(pricing["prompt"]))
+            up_out = Decimal(str(pricing["completion"]))
+            # Quantize after marking up, so the stored rate is exactly what is
+            # billed rather than a repeating decimal truncated at render time.
+            mk_in = (up_in * PLATFORM_MARKUP).quantize(PRICE_PLACES)
+            mk_out = (up_out * PLATFORM_MARKUP).quantize(PRICE_PLACES)
             return {
-                "description": (
-                    f"${input_price} / ${output_price} per 1M input/output tokens"
-                ),
-                "input": input_price,
-                "output": output_price,
-                "type": "one_million_tokens",
+                "upstream": {
+                    "input": _fmt_price(up_in),
+                    "output": _fmt_price(up_out),
+                    "type": "one_million_tokens",
+                },
+                "managed": {
+                    "description": (
+                        f"${_fmt_price(mk_in)}/${_fmt_price(mk_out)}"
+                        f" / 1M input/output tokens"
+                    ),
+                    "input": _fmt_price(mk_in),
+                    "output": _fmt_price(mk_out),
+                    "type": "one_million_tokens",
+                },
             }
         except (KeyError, Exception) as e:
             print(f"  ⚠️  Could not parse pricing: {e}")
@@ -231,7 +269,9 @@ class CrofAIModelExtractor:
             "env_api_key_name": ENV_API_KEY_NAME,
             "time_created": time_created or _now_iso(),
             "status": "ready",
-            "list_price": price,
+            # The MARKED-UP managed rate. The listing template wraps this into
+            # the channel price (byok free, managed metered).
+            "list_price": (price or {}).get("managed"),
         }
 
     def build_offering_context(
@@ -290,7 +330,11 @@ class CrofAIModelExtractor:
             "status": "ready",
             "api_base_url": self.api_base_url,
             "details": details,
-            "payout_price": price,
+            # The UPSTREAM rate, deliberately not the list price: this is what
+            # the platform owes the seller, and it must not move when the markup
+            # or a promotion moves. The offering template wraps it into the
+            # channel payout (byok free, managed upstream).
+            "payout_price": (price or {}).get("upstream"),
         }
 
     # ------------------------------------------------------------------
@@ -448,7 +492,11 @@ class CrofAIModelExtractor:
             try:
                 price = self.build_price_from_model(model_data)
                 if price:
-                    print(f"  💰 Pricing: input=${price['input']}, output=${price['output']}")
+                    up, mg = price["upstream"], price["managed"]
+                    print(
+                        f"  💰 upstream in/out ${up['input']}/${up['output']}"
+                        f"  →  managed (×{PLATFORM_MARKUP}) ${mg['input']}/${mg['output']}"
+                    )
 
                 if dry_run:
                     print(f"  📝 [DRY-RUN] Would write param file for {PROVIDER_NAME}/{model_id}")

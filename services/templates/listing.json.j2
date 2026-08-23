@@ -46,13 +46,23 @@
       run (.github/workflows/populate-services.yml, 02:00 UTC) and would drop a
       hand-edited description within a day. `payout_price` is seller-facing and
       is rendered by offering.json.j2 — deliberately untouched here. #}
-{%- set _byok_note = ' Free on the byok channel - bring your own ' ~ provider_display_name ~ ' key and pay ' ~ provider_display_name ~ ' directly.' %}
+{#- The cell spans BOTH channels, so it leads with the range "Free - $x/$y" —
+    the cheapest channel and the dearest — rather than picking one. Rates are
+    joined with "/" and NO surrounding spaces, which is what keeps the pair in
+    the amount slot: the parser's separator requires whitespace on both sides,
+    so " / " before the unit is the only split point. Writing "$0.21 / $0.40"
+    instead would split at the first slash and reject the tail for carrying a
+    currency symbol, collapsing the whole string onto one unstyled line.
+
+    The note carries what the two channels actually mean, which no amount can
+    say on its own. #}
+{%- set _note = ' | Free on the byok channel — your own key pays ' ~ provider_display_name ~ ' directly. The managed channel bills UnitySVC at the listed rate.' %}
 {%- if list_price.input and list_price.output %}
-{%- set _cell = '$' ~ list_price.input ~ ' / 1M input tokens | $' ~ list_price.output ~ ' / 1M output tokens.' ~ _byok_note %}
-{%- set _managed = '$' ~ list_price.input ~ ' per 1M input tokens, $' ~ list_price.output ~ ' per 1M output tokens' %}
+{%- set _cell = 'Free - $' ~ list_price.input ~ '/$' ~ list_price.output ~ ' / 1M input/output tokens' ~ _note %}
+{%- set _managed = '$' ~ list_price.input ~ '/$' ~ list_price.output ~ ' / 1M input/output tokens' %}
 {%- elif list_price.price %}
-{%- set _cell = '$' ~ list_price.price ~ ' / 1M tokens |' ~ _byok_note %}
-{%- set _managed = '$' ~ list_price.price ~ ' per 1M tokens' %}
+{%- set _cell = 'Free - $' ~ list_price.price ~ ' / 1M tokens' ~ _note %}
+{%- set _managed = '$' ~ list_price.price ~ ' / 1M tokens' %}
 {%- endif %}
   "list_price": {
     "type": "channel",

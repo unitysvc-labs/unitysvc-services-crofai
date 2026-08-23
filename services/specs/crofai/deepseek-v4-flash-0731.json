@@ -15,16 +15,15 @@
     "display_name": "deepseek-v4-flash-0731",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.12 / $0.21 per 1M input/output tokens",
-      "input": "0.12",
-      "output": "0.21",
+      "description": "$0.138/$0.2415 / 1M input/output tokens",
+      "input": "0.138",
+      "output": "0.2415",
       "type": "one_million_tokens"
     },
     "offering_name": "deepseek-v4-flash-0731",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "120000.00",
-      "output": "210000.00",
+      "input": "0.12",
+      "output": "0.21",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",

@@ -12,16 +12,15 @@
     "display_name": "greg-1-mini",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.07 / $0.15 per 1M input/output tokens",
-      "input": "0.07",
-      "output": "0.15",
+      "description": "$0.0805/$0.1725 / 1M input/output tokens",
+      "input": "0.0805",
+      "output": "0.1725",
       "type": "one_million_tokens"
     },
     "offering_name": "greg-1-mini",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "70000.00",
-      "output": "150000.00",
+      "input": "0.07",
+      "output": "0.15",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
