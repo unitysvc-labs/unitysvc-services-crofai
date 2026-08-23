@@ -15,16 +15,15 @@
     "display_name": "qwen3.5-397b-a17b",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.35 / $1.75 per 1M input/output tokens",
-      "input": "0.35",
-      "output": "1.75",
+      "description": "$0.403/$2.013 / 1M input/output tokens",
+      "input": "0.403",
+      "output": "2.013",
       "type": "one_million_tokens"
     },
     "offering_name": "qwen3.5-397b-a17b",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "350000.00",
-      "output": "1750000.00",
+      "input": "0.35",
+      "output": "1.75",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",

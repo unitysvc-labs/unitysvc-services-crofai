@@ -8,17 +8,75 @@
 {%- if list_price %}
   {#- Channel-keyed price: byok is free (the customer's own key pays CrofAI
       directly); managed resells CrofAI tokens at the per-model rate carried in
-      the param `list_price`. Channel keys MUST match the offering channels. #}
+      the param `list_price`. Channel keys MUST match the offering channels.
+
+      Price-cell copy follows the marketplace description grammar
+      (unitysvc/unitysvc#1886, PR #1887):
+
+          <amount> [ ("/"|"per") <unit> ] [ "~"[intent] <badge> ]* [ "|" <note> ]
+
+      The description that matters is the one on the CHANNEL price, not the
+      sub-channel ones. CatalogServiceRow hands the whole `list_price` to
+      PriceTag, and PriceTag is the only component that parses a description;
+      the sub-channel prices reach ChannelDisplay's PriceBadge, which prints
+      whatever it is given verbatim. A channel-keyed price carrying neither a
+      top-level `description` nor a top-level `price` falls through PriceTag's
+      structured branch to `isFree`, so every metered model in this catalog
+      renders a green "Free" today.
+
+      This is a two-price catalog (input + output), and the grammar refuses to
+      split two prices on purpose — "$0.18 / $0.35 per 1M input/output tokens"
+      fails the unit test (currency in the tail, second separator in the tail)
+      and falls through as ONE long unstyled amount. So the cell leads with the
+      input rate, names "1M input tokens" as its unit so the figure can't be
+      misread as covering both directions, and puts the output rate in the `|`
+      note. That slot is terminal and taken verbatim, so it is free to contain
+      "/" and "per" without being re-parsed. The alternative — separate
+      `input`/`output` fields — is what the price object ALREADY does; those
+      fields are intact and untouched, and this only fixes how the cell reads.
+
+      No badge, deliberately. The row already carries a byok access-method chip
+      (AccessMethodBadges renders one per channel type), so a "BYOK" pill here
+      would duplicate an affordance the row already has — and the amount beside
+      it is the *managed* rate, so a bare `~` badge, which is the green "this
+      is a saving" register, would misdescribe the number it sits next to.
+
+      Composed here rather than written into the param file because
+      scripts/update_params.py rebuilds `list_price` on the nightly populate
+      run (.github/workflows/populate-services.yml, 02:00 UTC) and would drop a
+      hand-edited description within a day. `payout_price` is seller-facing and
+      is rendered by offering.json.j2 — deliberately untouched here. #}
+{#- The cell spans BOTH channels, so it leads with the range "Free - $x/$y" —
+    the cheapest channel and the dearest — rather than picking one. Rates are
+    joined with "/" and NO surrounding spaces, which is what keeps the pair in
+    the amount slot: the parser's separator requires whitespace on both sides,
+    so " / " before the unit is the only split point. Writing "$0.21 / $0.40"
+    instead would split at the first slash and reject the tail for carrying a
+    currency symbol, collapsing the whole string onto one unstyled line.
+
+    The note carries what the two channels actually mean, which no amount can
+    say on its own. #}
+{%- set _note = ' | Free on the byok channel — your own key pays ' ~ provider_display_name ~ ' directly. The managed channel bills UnitySVC at the listed rate.' %}
+{%- if list_price.input and list_price.output %}
+{%- set _cell = 'Free - $' ~ list_price.input ~ '/$' ~ list_price.output ~ ' / 1M input/output tokens' ~ _note %}
+{%- set _managed = '$' ~ list_price.input ~ '/$' ~ list_price.output ~ ' / 1M input/output tokens' %}
+{%- elif list_price.price %}
+{%- set _cell = 'Free - $' ~ list_price.price ~ ' / 1M tokens' ~ _note %}
+{%- set _managed = '$' ~ list_price.price ~ ' / 1M tokens' %}
+{%- endif %}
   "list_price": {
     "type": "channel",
     "default": "managed",
+{%- if _cell %}
+    "description": {{ _cell | tojson }},
+{%- endif %}
     "channels": {
       "byok": {
         "description": "Free — bring your own {{ provider_display_name }} API key; you pay {{ provider_display_name }} directly for tokens",
         "price": "0",
         "type": "constant"
       },
-      "managed": {{ list_price | tojson }}
+      "managed": {{ dict(list_price, description=_managed) | tojson if _managed else list_price | tojson }}
     }
   },
 {%- endif %}

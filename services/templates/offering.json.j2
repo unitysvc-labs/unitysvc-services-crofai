@@ -40,7 +40,33 @@
 {%- set _ = _details.update({"input_formats": ["openai", "anthropic"], "output_formats": ["openai_response", "anthropic_response"]}) %}
   "details": {{ _details | tojson }},
 {%- if payout_price %}
-  "payout_price": {{ payout_price | tojson }},
+{#- Channel-keyed, because the two channels owe the seller different amounts and
+    a single flat payout cannot say so:
+
+      managed — UnitySVC's key paid CrofAI, so the platform owes the seller the
+                UPSTREAM rate. Not a share of what the customer paid: the list
+                price carries a markup and may also be overridden or discounted
+                by promotions, none of which change the upstream bill
+                (unitysvc/unitysvc#1892).
+      byok    — the customer's own key paid CrofAI. The platform collected
+                nothing and owes nothing.
+
+    NOTE on today's behaviour: `calculate_seller_payout` does not thread the
+    resolved channel into `calculate_cost`, so a channel-keyed payout resolves
+    to `default` for every request (#1892 Phase 1). That is harmless in THIS
+    shape only because `default` is the paid channel and byok traffic is dropped
+    earlier by the `seller_charge == 0` guard — a byok request bills the customer
+    nothing, so no payout row is emitted at all. Were `default` ever byok, or
+    the byok channel to carry a platform fee, managed traffic would silently pay
+    the wrong rate. #}
+  "payout_price": {
+    "type": "channel",
+    "default": "managed",
+    "channels": {
+      "byok": {"description": "No payout — the customer's own key pays {{ provider_display_name }}", "price": "0", "type": "constant"},
+      "managed": {{ dict(payout_price, description='Upstream ' ~ provider_display_name ~ ' rate') | tojson }}
+    }
+  },
 {%- endif %}
 {#- CrofAI resells its own tokens, so both channels front the same upstream and
     differ only in whose key pays: managed = seller key (${ secrets.* }),

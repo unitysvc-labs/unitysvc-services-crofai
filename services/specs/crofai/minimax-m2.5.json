@@ -15,16 +15,15 @@
     "display_name": "minimax-m2.5",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.11 / $0.95 per 1M input/output tokens",
-      "input": "0.11",
-      "output": "0.95",
+      "description": "$0.127/$1.093 / 1M input/output tokens",
+      "input": "0.127",
+      "output": "1.093",
       "type": "one_million_tokens"
     },
     "offering_name": "minimax-m2.5",
     "payout_price": {
-      "description": "Pricing Per 1M Tokens Input/Output",
-      "input": "110000.00",
-      "output": "950000.00",
+      "input": "0.11",
+      "output": "0.95",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
