@@ -15,9 +15,9 @@
     "display_name": "glm-5.1",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.5175/$2.4725 / 1M input/output tokens",
-      "input": "0.5175",
-      "output": "2.4725",
+      "description": "$0.518/$2.473 / 1M input/output tokens",
+      "input": "0.518",
+      "output": "2.473",
       "type": "one_million_tokens"
     },
     "offering_name": "glm-5.1",

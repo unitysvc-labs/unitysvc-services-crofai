@@ -13,7 +13,7 @@ import sys
 import json
 import requests
 import argparse
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
@@ -42,9 +42,18 @@ ENV_API_KEY_NAME = "CROFAI_API_KEY"
 # is displayed is exactly what is billed.
 PLATFORM_MARKUP = Decimal("1.15")
 
-# Rates are quoted per 1M tokens; 4dp is finer than any published rate and
-# matches the sibling catalogs' rounding.
-PRICE_PLACES = Decimal("0.0001")
+# Rounding for the marked-up rate. 3dp, chosen by measuring the effective markup
+# across every upstream rate this catalog carries ($0.04 - $10):
+#
+#     3dp  ->  15.0% - 15.7%   (drift under a percentage point)
+#     2dp  ->  13.3% - 25.0%   ($0.04 becomes $0.05, a quarter markup)
+#     2sf  ->  10.0% - 20.0%   ($1 becomes $1.10, $10 becomes $12)
+#
+# The exact percentage is not the point — landing near it everywhere is. 2dp
+# looks tidier but distorts cheap models badly, and cheap models are most of
+# this catalog. `_fmt_price` drops trailing zeros afterwards, so a rate that
+# needs no third decimal does not show one.
+PRICE_PLACES = Decimal("0.001")
 
 
 def _now_iso() -> str:
@@ -232,8 +241,8 @@ class CrofAIModelExtractor:
             up_out = Decimal(str(pricing["completion"]))
             # Quantize after marking up, so the stored rate is exactly what is
             # billed rather than a repeating decimal truncated at render time.
-            mk_in = (up_in * PLATFORM_MARKUP).quantize(PRICE_PLACES)
-            mk_out = (up_out * PLATFORM_MARKUP).quantize(PRICE_PLACES)
+            mk_in = (up_in * PLATFORM_MARKUP).quantize(PRICE_PLACES, rounding=ROUND_HALF_UP)
+            mk_out = (up_out * PLATFORM_MARKUP).quantize(PRICE_PLACES, rounding=ROUND_HALF_UP)
             return {
                 "upstream": {
                     "input": _fmt_price(up_in),

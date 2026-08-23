@@ -15,8 +15,8 @@
     "display_name": "deepseek-v4-pro",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.4025/$0.92 / 1M input/output tokens",
-      "input": "0.4025",
+      "description": "$0.403/$0.92 / 1M input/output tokens",
+      "input": "0.403",
       "output": "0.92",
       "type": "one_million_tokens"
     },
