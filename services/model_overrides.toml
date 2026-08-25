@@ -1,0 +1,11 @@
+# Committed corrections to fetched model metadata, re-applied on every
+# populate run — this file wins over CrofAI's model list and registries.
+# Convention: unitysvc-sellers docs/service-templates.md.
+
+[models."greg-1-mini"]
+skip = true
+comment = "Listed in /v2/models but inference 404s 'Model Not Known' (2026-08-25)"
+
+[models."greg-rp"]
+skip = true
+comment = "Listed in /v2/models but inference 404s 'Model Not Known' (2026-08-25)"

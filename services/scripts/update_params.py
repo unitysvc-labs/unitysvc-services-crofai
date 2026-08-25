@@ -25,20 +25,17 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 # fallback chain when CrofAI's API doesn't supply them (it never returns
 # parameter_count; context_length is sometimes missing).
 from unitysvc_sellers.model_data import ModelDataFetcher, ModelDataLookup
+from unitysvc_sellers.model_overrides import load_model_overrides
 from unitysvc_sellers.params_render import write_params_from_iterator
+
+#: The repo's committed corrections to fetched metadata — skip/deprecate flags
+#: and template-var overrides in services/model_overrides.toml, re-applied on
+#: every populate run (see unitysvc-sellers docs/service-templates.md).
+SERVICES_DIR = Path(__file__).resolve().parent.parent
 
 
 PROVIDER_NAME = "crofai"
 
-#: Models CrofAI's /v2/models still advertises but whose inference endpoint
-#: returns 404 "Model Not Known" (staging, 2026-08-25). Filtered out of the
-#: fetched list, so they are neither (re)created nor counted as active — a
-#: lingering catalog entry flows through the deprecation pass instead. Drop
-#: entries when CrofAI actually serves them again.
-_DEAD_MODELS = frozenset({
-    "greg-1-mini",
-    "greg-rp",
-})
 PROVIDER_DISPLAY_NAME = "CrofAI"
 ENV_API_KEY_NAME = "CROFAI_API_KEY"
 
@@ -184,6 +181,10 @@ class CrofAIModelExtractor:
         )
         self.jinja_env.filters["tojson"] = lambda v: json.dumps(v)
 
+        # Committed corrections (services/model_overrides.toml) — fail-loud on
+        # a malformed file so a typo'd entry can't silently re-break its fix.
+        self.overrides = load_model_overrides(SERVICES_DIR)
+
         # Lazy-init: only fetch canonical model data on first lookup so dry
         # runs / --models filter passes don't pay the network cost upfront.
         self._fetcher: Optional[ModelDataFetcher] = None
@@ -210,10 +211,9 @@ class CrofAIModelExtractor:
                 print(f"⚠️  No models found. Keys: {list(data.keys())}")
                 return []
             listed = len(models)
-            models = [m for m in models if m.get("id") not in _DEAD_MODELS]
+            models = [m for m in models if not self.overrides.skip(m.get("id", ""))]
             if len(models) != listed:
-                print(f"⚠️  Skipped {listed - len(models)} listed-but-dead model(s): "
-                      f"{', '.join(sorted(_DEAD_MODELS))}")
+                print(f"⚠️  Skipped {listed - len(models)} model(s) via model_overrides.toml")
             self.summary["total_models"] = len(models)
             models.sort(key=lambda x: x.get("id", ""))
             print(f"✅ Retrieved {len(models)} models")
@@ -501,6 +501,15 @@ class CrofAIModelExtractor:
             if limit is None:
                 active_ids = [m.get("id", "").replace(":", "-") for m in models if m.get("id")]
                 self.mark_deprecated_services(output_dir, active_ids, dry_run)
+                # Flag override entries that no longer match anything — a
+                # stale entry usually means the model was renamed or finally
+                # dropped upstream and the override can be retired.
+                cataloged = {
+                    p.relative_to(Path(output_dir) / PROVIDER_NAME).as_posix()[: -len(".json")]
+                    for p in (Path(output_dir) / PROVIDER_NAME).rglob("*.json")
+                    if not p.name.endswith(".service.json")
+                }
+                self.overrides.warn_unmatched(set(active_ids) | cataloged)
 
         processed_count = 0
 
@@ -545,7 +554,10 @@ class CrofAIModelExtractor:
                 # context; name = listing.name = the param file's path.
                 offering = self.build_offering_context(model_id, model_data, price, time_created=created)
                 listing = self.build_listing_context(model_id, price, time_created=created)
-                param_contexts.append({**offering, **listing, "name": f"{PROVIDER_NAME}/{model_id}"})
+                ctx = self.overrides.apply(
+                    model_id, {**offering, **listing, "name": f"{PROVIDER_NAME}/{model_id}"}
+                )
+                param_contexts.append(ctx)
 
                 self.summary["successful_extractions"] += 1
                 print(f"  ✅ Successfully processed {model_id}")
