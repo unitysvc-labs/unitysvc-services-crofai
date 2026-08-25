@@ -29,6 +29,16 @@ from unitysvc_sellers.params_render import write_params_from_iterator
 
 
 PROVIDER_NAME = "crofai"
+
+#: Models CrofAI's /v2/models still advertises but whose inference endpoint
+#: returns 404 "Model Not Known" (staging, 2026-08-25). Filtered out of the
+#: fetched list, so they are neither (re)created nor counted as active — a
+#: lingering catalog entry flows through the deprecation pass instead. Drop
+#: entries when CrofAI actually serves them again.
+_DEAD_MODELS = frozenset({
+    "greg-1-mini",
+    "greg-rp",
+})
 PROVIDER_DISPLAY_NAME = "CrofAI"
 ENV_API_KEY_NAME = "CROFAI_API_KEY"
 
@@ -199,6 +209,11 @@ class CrofAIModelExtractor:
             if not models:
                 print(f"⚠️  No models found. Keys: {list(data.keys())}")
                 return []
+            listed = len(models)
+            models = [m for m in models if m.get("id") not in _DEAD_MODELS]
+            if len(models) != listed:
+                print(f"⚠️  Skipped {listed - len(models)} listed-but-dead model(s): "
+                      f"{', '.join(sorted(_DEAD_MODELS))}")
             self.summary["total_models"] = len(models)
             models.sort(key=lambda x: x.get("id", ""))
             print(f"✅ Retrieved {len(models)} models")
@@ -411,39 +426,45 @@ class CrofAIModelExtractor:
     # ------------------------------------------------------------------
 
     def mark_deprecated_services(self, output_dir: str, active_models: List[str], dry_run: bool = False):
+        """Set ``parameters.status = "deprecated"`` on the param file of every
+        local service whose model is no longer offered upstream.
+
+        Param-file layout (#1263): services are ``<output_dir>/crofai/<model>.json``
+        compact param files, NOT expanded ``<model>/offering.json`` folders — the
+        previous folder-globbing version of this function silently matched
+        nothing after the layout migration, which is how delisted models
+        lingered in the catalog until they were rejected on staging.
+        """
         print("🔍 Checking for deprecated services...")
-        # Flat layout: services live under <output_dir>/<provider>/<model_id>.
         base_path = Path(output_dir) / PROVIDER_NAME
         if not base_path.exists():
             return
         active = {m.replace(":", "-") for m in active_models}
         deprecated_count = 0
-        for listing_file in base_path.rglob("listing.json"):
-            svc_dir = listing_file.parent
-            model_id = svc_dir.relative_to(base_path).as_posix()
+        for param_file in sorted(base_path.rglob("*.json")):
+            if param_file.name.endswith(".service.json"):
+                continue
+            model_id = param_file.relative_to(base_path).as_posix()[: -len(".json")]
             if model_id in active:
                 continue
+            try:
+                data = json.loads(param_file.read_text())
+            except Exception as e:
+                print(f"    ❌ Error reading {param_file.name}: {e}")
+                continue
+            params = data.get("parameters", {})
+            if params.get("status") == "deprecated":
+                continue
             deprecated_count += 1
-            print(f"  🗑️  Processing deprecated: {model_id}")
-            # Route by filename (the schema field was dropped, #1263), set
-            # status=deprecated on both offering.json and listing.json.
-            for json_file in (svc_dir / "offering.json", svc_dir / "listing.json"):
-                if not json_file.exists():
-                    continue
-                try:
-                    data = json.loads(json_file.read_text())
-                    if data.get("status") == "deprecated":
-                        continue
-                    data["status"] = "deprecated"
-                    if dry_run:
-                        print(f"    📝 [DRY-RUN] Would update {json_file.name}")
-                    else:
-                        with open(json_file, "w") as f:
-                            json.dump(data, f, sort_keys=True, indent=2, separators=(",", ": "))
-                            f.write("\n")
-                        print(f"    ✅ Updated {json_file.name}")
-                except Exception as e:
-                    print(f"    ❌ Error: {e}")
+            if dry_run:
+                print(f"  📝 [DRY-RUN] Would deprecate: {model_id}")
+                continue
+            params["status"] = "deprecated"
+            data["parameters"] = params
+            with open(param_file, "w") as f:
+                json.dump(data, f, sort_keys=True, indent=2, separators=(",", ": "))
+                f.write("\n")
+            print(f"  🗑️  Deprecated: {model_id}")
         if deprecated_count == 0:
             print("  ✅ No deprecated services found")
         else:
