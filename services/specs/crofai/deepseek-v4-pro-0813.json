@@ -8,27 +8,27 @@
       "metadata_sources": {
         "parameter_count": "huggingface_safetensors"
       },
-      "model_name": "glm-5.2",
-      "parameter_count": 753329921024,
+      "model_name": "deepseek-v4-pro-0813",
+      "parameter_count": 1623497637888,
       "quantization": "Q8_0"
     },
-    "display_name": "glm-5.2",
+    "display_name": "deepseek-v4-pro-0813",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.345/$1.208 / 1M input/output tokens",
-      "input": "0.345",
-      "output": "1.208",
+      "description": "$0.403/$0.92 / 1M input/output tokens",
+      "input": "0.403",
+      "output": "0.92",
       "type": "one_million_tokens"
     },
-    "offering_name": "glm-5.2",
+    "offering_name": "deepseek-v4-pro-0813",
     "payout_price": {
-      "input": "0.3",
-      "output": "1.05",
+      "input": "0.35",
+      "output": "0.8",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
     "service_type": "llm",
     "status": "ready",
-    "time_created": "2026-08-12T16:50:03.485Z"
+    "time_created": "2026-08-26T00:12:43.469Z"
   }
 }
