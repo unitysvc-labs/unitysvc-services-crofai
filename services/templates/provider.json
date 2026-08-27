@@ -4,6 +4,21 @@
   "homepage": "https://nahcrof.com/",
   "logo": "https://files.nahcrof.com/file/crofai-black.png",
   "name": "crofai",
+  "rate_limits": [
+    {
+      "description": "Self-imposed ceiling so platform test sweeps cannot saturate the account; not a published provider limit.",
+      "limit": 10,
+      "name": "crofai_concurrency",
+      "unit": "concurrent"
+    },
+    {
+      "description": "Self-imposed ceiling so platform test sweeps cannot saturate the account; not a published provider limit.",
+      "limit": 100,
+      "name": "crofai_rpm",
+      "unit": "requests",
+      "window": "minute"
+    }
+  ],
   "status": "ready",
   "terms_of_service": "https://nahcrof.com/terms",
   "time_created": "2025-08-17T10:55:04.976433Z"
