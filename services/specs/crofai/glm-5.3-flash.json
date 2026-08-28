@@ -1,0 +1,34 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "description": "",
+    "details": {
+      "context_length": 1000000,
+      "max_completion_tokens": 131072,
+      "metadata_sources": {
+        "parameter_count": "huggingface_safetensors"
+      },
+      "model_name": "glm-5.3-flash",
+      "parameter_count": 314396639232,
+      "quantization": "Q8_0"
+    },
+    "display_name": "glm-5.3-flash",
+    "env_api_key_name": "CROFAI_API_KEY",
+    "list_price": {
+      "description": "$0.081/$0.253 / 1M input/output tokens",
+      "input": "0.081",
+      "output": "0.253",
+      "type": "one_million_tokens"
+    },
+    "offering_name": "glm-5.3-flash",
+    "payout_price": {
+      "input": "0.07",
+      "output": "0.22",
+      "type": "one_million_tokens"
+    },
+    "provider_display_name": "CrofAI",
+    "service_type": "llm",
+    "status": "ready",
+    "time_created": "2026-08-28T13:35:07.481Z"
+  }
+}
