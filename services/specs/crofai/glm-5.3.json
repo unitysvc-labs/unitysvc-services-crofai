@@ -3,32 +3,32 @@
     "api_base_url": "https://ai.nahcrof.com/v2",
     "description": "",
     "details": {
-      "context_length": 262144,
-      "max_completion_tokens": 262144,
+      "context_length": 1000000,
+      "max_completion_tokens": 131072,
       "metadata_sources": {
         "parameter_count": "huggingface_safetensors"
       },
-      "model_name": "qwen3.8-27b",
-      "parameter_count": 27781427952,
-      "quantization": "Q4_0"
+      "model_name": "glm-5.3",
+      "parameter_count": 751226191872,
+      "quantization": "Q8_0"
     },
-    "display_name": "qwen3.8-27b",
+    "display_name": "glm-5.3",
     "env_api_key_name": "CROFAI_API_KEY",
     "list_price": {
-      "description": "$0.104/$0.345 / 1M input/output tokens",
-      "input": "0.104",
-      "output": "0.345",
+      "description": "$0.46/$1.61 / 1M input/output tokens",
+      "input": "0.46",
+      "output": "1.61",
       "type": "one_million_tokens"
     },
-    "offering_name": "qwen3.8-27b",
+    "offering_name": "glm-5.3",
     "payout_price": {
-      "input": "0.09",
-      "output": "0.3",
+      "input": "0.4",
+      "output": "1.4",
       "type": "one_million_tokens"
     },
     "provider_display_name": "CrofAI",
     "service_type": "llm",
     "status": "ready",
-    "time_created": "2026-08-26T00:12:44.408Z"
+    "time_created": "2026-08-29T15:34:26.536Z"
   }
 }
