@@ -386,6 +386,23 @@ class CrofAIModelExtractor:
         return None
 
     @staticmethod
+    def _committed_list_price(path: Path) -> Optional[Dict]:
+        """The managed rate the last successful run recorded for this service.
+
+        Read straight from the committed param file — deliberately NOT via
+        ``load_param_data``, which merges the ``.override.json`` companion:
+        absorbing an override's rate here would make the override look
+        redundant and invite its deletion.
+        """
+        if not path.is_file():
+            return None
+        try:
+            data = json.loads(path.read_text())
+        except (json.JSONDecodeError, OSError):
+            return None
+        return (data.get("parameters") or {}).get("list_price")
+
+    @staticmethod
     def _param_time_created(path: Path) -> Optional[str]:
         """time_created recorded inside a committed param file's ``parameters``
         (the post-migration home of the field), so re-runs stay idempotent."""
@@ -416,59 +433,27 @@ class CrofAIModelExtractor:
         content = json.dumps(prov, sort_keys=True, indent=2) + "\n"
         self._write_file(content, output_dir / "provider.json")
 
-    def write_summary(self):
+    def write_summary(self, stats: Optional[Dict[str, int]] = None):
+        """Print the run summary.
+
+        ``stats`` is what ``write_params_from_iterator`` returned, and the
+        deprecation counts come from there rather than from a tally this
+        script keeps: the writer is what decides which services are missing,
+        so a second local counter can only ever disagree with it — a sibling
+        repo printed "Deprecated models: 0" directly above ten real
+        deprecations that way.  ``None`` means nothing was written (dry run).
+        """
         print(f"   Total models: {self.summary['total_models']}")
         print(f"   Successful extractions: {self.summary['successful_extractions']}")
         print(f"   Failed: {self.summary['failed_extractions']}")
-
-    # ------------------------------------------------------------------
-    # Deprecation
-    # ------------------------------------------------------------------
-
-    def mark_deprecated_services(self, output_dir: str, active_models: List[str], dry_run: bool = False):
-        """Set ``parameters.status = "deprecated"`` on the param file of every
-        local service whose model is no longer offered upstream.
-
-        Param-file layout (#1263): services are ``<output_dir>/crofai/<model>.json``
-        compact param files, NOT expanded ``<model>/offering.json`` folders — the
-        previous folder-globbing version of this function silently matched
-        nothing after the layout migration, which is how delisted models
-        lingered in the catalog until they were rejected on staging.
-        """
-        print("🔍 Checking for deprecated services...")
-        base_path = Path(output_dir) / PROVIDER_NAME
-        if not base_path.exists():
+        if stats is None:
             return
-        active = {m.replace(":", "-") for m in active_models}
-        deprecated_count = 0
-        for param_file in sorted(base_path.rglob("*.json")):
-            if param_file.name.endswith(".service.json"):
-                continue
-            model_id = param_file.relative_to(base_path).as_posix()[: -len(".json")]
-            if model_id in active:
-                continue
-            try:
-                data = json.loads(param_file.read_text())
-            except Exception as e:
-                print(f"    ❌ Error reading {param_file.name}: {e}")
-                continue
-            params = data.get("parameters", {})
-            if params.get("status") == "deprecated":
-                continue
-            deprecated_count += 1
-            if dry_run:
-                print(f"  📝 [DRY-RUN] Would deprecate: {model_id}")
-                continue
-            params["status"] = "deprecated"
-            data["parameters"] = params
-            with open(param_file, "w") as f:
-                json.dump(data, f, sort_keys=True, indent=2, separators=(",", ": "))
-                f.write("\n")
-            print(f"  🗑️  Deprecated: {model_id}")
-        if deprecated_count == 0:
-            print("  ✅ No deprecated services found")
-        else:
-            print(f"  🗑️  Processed {deprecated_count} deprecated services")
+        print(f"   New services: {stats['new']}")
+        print(f"   Deprecated models: {stats['deprecated']}")
+        if stats.get("already_deprecated"):
+            print(f"   Already deprecated: {stats['already_deprecated']}")
+        if stats.get("preserved"):
+            print(f"   Values preserved from the committed file: {stats['preserved']}")
 
     # ------------------------------------------------------------------
     # Main
@@ -494,13 +479,14 @@ class CrofAIModelExtractor:
         else:
             models = self.get_all_models()
             if not models:
-                print("❌ No models retrieved. Exiting.")
-                return
-            # Full sync: deprecate local services no longer offered upstream.
-            # (Skipped when --limit truncates the model list.)
-            if limit is None:
-                active_ids = [m.get("id", "").replace(":", "-") for m in models if m.get("id")]
-                self.mark_deprecated_services(output_dir, active_ids, dry_run)
+                # Exit non-zero.  An empty enumeration means the upstream call
+                # failed (``get_all_models`` also returns [] on a network
+                # error), and exiting 0 writes nothing, opens no PR and is
+                # indistinguishable from "no changes today".  It is worse than
+                # that now: absence is what drives deprecation, so a silent
+                # empty run is one step away from retiring the whole catalog.
+                print("❌ No models retrieved — upstream enumeration failed. Exiting.")
+                sys.exit(1)
 
         processed_count = 0
 
@@ -520,7 +506,28 @@ class CrofAIModelExtractor:
             processed_count += 1
 
             try:
+                base = Path(output_dir) / PROVIDER_NAME
                 price = self.build_price_from_model(model_data)
+                # A rate that resolved on the last run and does not resolve now
+                # is a FAILED PARSE, not a model that became free:
+                # `build_price_from_model` returns None for a missing or
+                # unparseable `pricing` block just as it does for a genuinely
+                # unpriced model.  `list_price` is nullable and nothing
+                # downstream rejects a null, and since unitysvc-sellers 0.3.1 a
+                # null yielded by the iterator no longer overwrites the
+                # committed value — so the run would keep yesterday's rate while
+                # every other field moved on.  On the managed channel that rate
+                # is what the customer is billed, so it is a billing bug, not a
+                # display one.  A model that never had a committed rate has
+                # nothing to re-ship and is deliberately not caught.
+                if price is None:
+                    previous = self._committed_list_price(base / f"{model_id}.json")
+                    if previous:
+                        print(f"  ❌ {model_id} has a committed rate "
+                              f"({previous.get('description') or previous}) but no "
+                              "parseable price this run — refusing to re-ship the "
+                              "previous price as if it were fresh")
+                        sys.exit(1)
                 if price:
                     up, mg = price["upstream"], price["managed"]
                     print(
@@ -536,16 +543,18 @@ class CrofAIModelExtractor:
                 # Preserve time_created so unchanged services produce no churn:
                 # prefer the committed param file, fall back to the legacy
                 # expanded offering.json (first run after the param migration).
-                base = Path(output_dir) / PROVIDER_NAME
                 created = self._param_time_created(base / f"{model_id}.json") or self._existing_time_created(
                     base / model_id / "offering.json"
                 )
 
                 # Merge the offering + listing render contexts into one param
-                # context; name = listing.name = the param file's path.
+                # context; service_name = listing.name = the param file's path.
+                # Required by write_params_from_iterator since unitysvc-sellers
+                # 0.3.1 — there is no `name_field` fallback any more, and a
+                # context without it raises rather than being skipped.
                 offering = self.build_offering_context(model_id, model_data, price, time_created=created)
                 listing = self.build_listing_context(model_id, price, time_created=created)
-                param_contexts.append({**offering, **listing, "name": f"{PROVIDER_NAME}/{model_id}"})
+                param_contexts.append({**offering, **listing, "service_name": f"{PROVIDER_NAME}/{model_id}"})
 
                 self.summary["successful_extractions"] += 1
                 print(f"  ✅ Successfully processed {model_id}")
@@ -554,10 +563,30 @@ class CrofAIModelExtractor:
                 print(f"  ❌ Error processing {model_id}: {e}")
                 self.summary["failed_extractions"] += 1
 
+        stats = None
         if not dry_run:
-            write_params_from_iterator(iter(param_contexts), output_dir)
+            # Deprecation is now the writer's job (unitysvc-sellers 0.3.1): it
+            # marks every committed service this run did not yield.  That is
+            # only sound after a COMPLETE run — a model missing because a fetch
+            # failed or because the caller asked for a subset looks exactly
+            # like a model the upstream retired, and only one of those should
+            # cost a service its listing.
+            incomplete = []
+            if specific_models:
+                incomplete.append("--models selects a subset of the catalog")
+            if limit is not None:
+                incomplete.append(f"--limit {limit} truncates the catalog")
+            if self.summary["failed_extractions"]:
+                incomplete.append(
+                    f"{self.summary['failed_extractions']} model(s) failed to process"
+                )
+            if incomplete:
+                print(f"\n⏭️  Incomplete run ({'; '.join(incomplete)}) — skipping deprecation")
+            stats = write_params_from_iterator(
+                iter(param_contexts), output_dir, deprecate_missing=not incomplete
+            )
 
-        self.write_summary()
+        self.write_summary(stats)
         print(f"\n🎉 Extraction complete! Check {output_dir}/ for results.")
 
 
