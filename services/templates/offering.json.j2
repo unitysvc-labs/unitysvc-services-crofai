@@ -38,7 +38,26 @@
   "capabilities": {{ capabilities | default([_cap]) | tojson }},
   "status": "{{ status | default('ready') }}",
   "currency": "USD",
-  "tags": ["ai", "gateway"],
+{#- NO TAGS. Tags are a CLOSED vocabulary (unitysvc docs/tags.yml) and ingest
+    rejects anything outside it. The old `["ai", "gateway"]` were both
+    restatements of fields the platform already owns: `ai` said what
+    `service_type` says, and `gateway` duplicated `gateway_type`, which is
+    DERIVED precisely so it cannot drift.
+
+    The one tag a seller may declare is `feature:func-call`, and CrofAI gives us
+    nothing to declare it from. Its `/v2/models` enumeration returns only
+    context_length, created, custom_reasoning, id, max_completion_tokens, name,
+    pricing, quantization, reasoning_effort, speed, ttft and sub_req_cost —
+    no tool/function-calling field of any kind (checked 2026-08-28, 22 models).
+    So update_params.py has nothing to capture and this template has nothing to
+    emit. Inferring it from the model family, or from a third party like
+    OpenRouter's `supported_parameters`, would be a guess about how CrofAI
+    serves the model, and a wrong func-call badge ships the customer a
+    tool-calling example that 400s — the exact failure this vocabulary exists to
+    stop. Untagged is the honest answer until CrofAI publishes the fact.
+
+    If CrofAI ever adds such a field, wire it through `build_offering_context`
+    in services/scripts/update_params.py and emit the tag here. -#}
 {#- Formats are a service-level fact, identical for every CrofAI model: an
     OpenAI-compatible upstream, exposed in both dialects via the llm_translator
     below (callers may send OpenAI or Anthropic; responses come back in kind).
