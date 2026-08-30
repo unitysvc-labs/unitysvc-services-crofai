@@ -3,7 +3,7 @@
     "api_base_url": "https://ai.nahcrof.com/v2",
     "api_key_secret": "CROFAI_API_KEY",
     "model": "deepseek-v3.2",
-    "service_name": "crofai/llm-fast/deepseek-v3.2"
+    "service_name": "unitysvc-labs/llm-fast/crofai/deepseek-v3.2"
   },
   "template": "llm-fast"
 }
