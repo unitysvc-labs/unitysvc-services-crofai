@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "api_key_secret": "CROFAI_API_KEY",
+    "model": "qwen3.8-27b",
+    "payout_input": "0.2",
+    "payout_output": "1.5",
+    "service_name": "crofai/llm-balanced-qwen3.8-27b"
+  },
+  "template": "llm-balanced"
+}
