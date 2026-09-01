@@ -5,7 +5,8 @@
     "model": "gemma-4-31b-it",
     "payout_input": "0.1",
     "payout_output": "0.3",
-    "service_name": "crofai/gemma-4-31b-it-member"
+    "service_name": "crofai/gemma-4-31b-it-member",
+    "status": "deprecated"
   },
   "template": "gemma-4-31b-it"
 }

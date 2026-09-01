@@ -5,7 +5,8 @@
     "model": "glm-5.2",
     "payout_input": "0.3",
     "payout_output": "1.05",
-    "service_name": "crofai/glm-5-2-member"
+    "service_name": "crofai/glm-5-2-member",
+    "status": "deprecated"
   },
   "template": "glm-5-2"
 }

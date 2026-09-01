@@ -5,7 +5,8 @@
     "model": "deepseek-v3.2",
     "payout_input": "0.18",
     "payout_output": "0.35",
-    "service_name": "crofai/llm-fast-deepseek-v3.2"
+    "service_name": "crofai/llm-fast-deepseek-v3.2",
+    "status": "deprecated"
   },
   "template": "llm-fast"
 }
