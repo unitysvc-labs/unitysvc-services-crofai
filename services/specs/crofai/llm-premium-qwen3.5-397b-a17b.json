@@ -5,7 +5,8 @@
     "model": "qwen3.5-397b-a17b",
     "payout_input": "0.35",
     "payout_output": "1.75",
-    "service_name": "crofai/llm-premium-qwen3.5-397b-a17b"
+    "service_name": "crofai/llm-premium-qwen3.5-397b-a17b",
+    "status": "deprecated"
   },
   "template": "llm-premium"
 }

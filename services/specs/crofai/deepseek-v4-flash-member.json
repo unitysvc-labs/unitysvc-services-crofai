@@ -5,7 +5,8 @@
     "model": "deepseek-v4-flash",
     "payout_input": "0.12",
     "payout_output": "0.21",
-    "service_name": "crofai/deepseek-v4-flash-member"
+    "service_name": "crofai/deepseek-v4-flash-member",
+    "status": "deprecated"
   },
   "template": "deepseek-v4-flash"
 }

@@ -5,7 +5,8 @@
     "model": "qwen3.5-9b",
     "payout_input": "0.04",
     "payout_output": "0.15",
-    "service_name": "crofai/qwen3-5-9b-member"
+    "service_name": "crofai/qwen3-5-9b-member",
+    "status": "deprecated"
   },
   "template": "qwen3-5-9b"
 }

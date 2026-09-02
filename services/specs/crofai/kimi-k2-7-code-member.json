@@ -5,7 +5,8 @@
     "model": "kimi-k2.7-code",
     "payout_input": "0.55",
     "payout_output": "2.25",
-    "service_name": "crofai/kimi-k2-7-code-member"
+    "service_name": "crofai/kimi-k2-7-code-member",
+    "status": "deprecated"
   },
   "template": "kimi-k2-7-code"
 }
