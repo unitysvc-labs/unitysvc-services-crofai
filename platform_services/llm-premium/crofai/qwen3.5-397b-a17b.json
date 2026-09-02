@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "api_key_secret": "CROFAI_API_KEY",
+    "model": "qwen3.5-397b-a17b",
+    "payout_input": "0.35",
+    "payout_output": "1.75",
+    "service_name": "llm-premium/crofai/qwen3.5-397b-a17b"
+  },
+  "template": "llm-premium"
+}

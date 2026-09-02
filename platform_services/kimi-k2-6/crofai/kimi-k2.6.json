@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "api_key_secret": "CROFAI_API_KEY",
+    "model": "kimi-k2.6",
+    "payout_input": "0.5",
+    "payout_output": "1.99",
+    "service_name": "kimi-k2-6/crofai/kimi-k2.6"
+  },
+  "template": "kimi-k2-6"
+}

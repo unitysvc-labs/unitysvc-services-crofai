@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "api_key_secret": "CROFAI_API_KEY",
+    "model": "deepseek-v4-pro",
+    "payout_input": "0.35",
+    "payout_output": "0.8",
+    "service_name": "deepseek-v4-pro/crofai/deepseek-v4-pro"
+  },
+  "template": "deepseek-v4-pro"
+}
