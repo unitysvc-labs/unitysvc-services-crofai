@@ -1,12 +1,14 @@
 {
+  "constants": {
+    "status": "deprecated"
+  },
   "parameters": {
     "api_base_url": "https://ai.nahcrof.com/v2",
     "api_key_secret": "CROFAI_API_KEY",
     "model": "glm-5.2",
     "payout_input": "0.3",
     "payout_output": "1.05",
-    "service_name": "crofai/llm-balanced-glm-5.2",
-    "status": "deprecated"
+    "service_name": "crofai/llm-balanced-glm-5.2"
   },
   "template": "llm-balanced"
 }

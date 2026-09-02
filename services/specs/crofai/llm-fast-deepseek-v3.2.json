@@ -1,12 +1,14 @@
 {
+  "constants": {
+    "status": "deprecated"
+  },
   "parameters": {
     "api_base_url": "https://ai.nahcrof.com/v2",
     "api_key_secret": "CROFAI_API_KEY",
     "model": "deepseek-v3.2",
     "payout_input": "0.18",
     "payout_output": "0.35",
-    "service_name": "crofai/llm-fast-deepseek-v3.2",
-    "status": "deprecated"
+    "service_name": "crofai/llm-fast-deepseek-v3.2"
   },
   "template": "llm-fast"
 }

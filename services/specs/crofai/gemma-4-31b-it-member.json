@@ -1,12 +1,14 @@
 {
+  "constants": {
+    "status": "deprecated"
+  },
   "parameters": {
     "api_base_url": "https://ai.nahcrof.com/v2",
     "api_key_secret": "CROFAI_API_KEY",
     "model": "gemma-4-31b-it",
     "payout_input": "0.1",
     "payout_output": "0.3",
-    "service_name": "crofai/gemma-4-31b-it-member",
-    "status": "deprecated"
+    "service_name": "crofai/gemma-4-31b-it-member"
   },
   "template": "gemma-4-31b-it"
 }

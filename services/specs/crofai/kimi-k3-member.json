@@ -1,12 +1,14 @@
 {
+  "constants": {
+    "status": "deprecated"
+  },
   "parameters": {
     "api_base_url": "https://ai.nahcrof.com/v2",
     "api_key_secret": "CROFAI_API_KEY",
     "model": "kimi-k3",
     "payout_input": "2",
     "payout_output": "8",
-    "service_name": "crofai/kimi-k3-member",
-    "status": "deprecated"
+    "service_name": "crofai/kimi-k3-member"
   },
   "template": "kimi-k3"
 }
