@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "api_base_url": "https://ai.nahcrof.com/v2",
+    "api_key_secret": "CROFAI_API_KEY",
+    "model": "glm-5.2",
+    "payout_input": "0.3",
+    "payout_output": "1.05",
+    "service_name": "glm-5-2/crofai/glm-5.2"
+  },
+  "template": "glm-5-2"
+}
