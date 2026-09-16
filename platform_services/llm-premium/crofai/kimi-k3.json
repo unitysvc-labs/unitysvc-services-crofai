@@ -1,8 +1,6 @@
 {
-  "constants": {
-    "status": "deprecated"
-  },
   "parameters": {
+    "status": "deprecated",
     "api_base_url": "https://ai.nahcrof.com/v2",
     "api_key_secret": "CROFAI_API_KEY",
     "model": "kimi-k3",
